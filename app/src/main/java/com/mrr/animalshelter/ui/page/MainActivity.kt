@@ -1,7 +1,8 @@
-package com.mrr.animalshelter
+package com.mrr.animalshelter.ui.page
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.mrr.animalshelter.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
