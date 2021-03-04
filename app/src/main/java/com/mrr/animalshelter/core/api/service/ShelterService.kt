@@ -7,9 +7,9 @@ import retrofit2.http.Query
 
 interface ShelterService {
     @GET("Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL")
-    suspend fun getAnimalList(
-        @Query("\$top") top: Int = 1000,
-        @Query("\$skip") skip: Int = 0,
+    suspend fun getAnimals(
+        @Query("\$top") top: Int,
+        @Query("\$skip") skip: Int,
         @Query("animal_area_pkid") animalAreaPkId: String = "",
         @Query("animal_shelter_pkid") animalShelterPkId: String = "",
         @Query("animal_kind") animalKind: String = "",

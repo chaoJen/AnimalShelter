@@ -1,3 +1,122 @@
 <resources>
-    <string name="app_name">AnimalShelter</string>
+    <string name="app_name">R\'sAnimalShelter</string>
+
+    <!-- 動物特徵：年齡 -->
+    <string name="age_all">任何</string>
+    <string name="age_adult">成年</string>
+    <string name="age_child">幼年</string>
+    <string name="age_unknown">未知</string>
+
+    <!-- 動物特徵：所在地 -->
+    <string name="area_all">任何</string>
+    <string name="area_pk_id_02">臺北市</string>
+    <string name="area_pk_id_03">新北市</string>
+    <string name="area_pk_id_04">基隆市</string>
+    <string name="area_pk_id_05">宜蘭縣</string>
+    <string name="area_pk_id_06">桃園縣</string>
+    <string name="area_pk_id_07">新竹縣</string>
+    <string name="area_pk_id_08">新竹市</string>
+    <string name="area_pk_id_09">苗栗縣</string>
+    <string name="area_pk_id_10">臺中市</string>
+    <string name="area_pk_id_11">彰化縣</string>
+    <string name="area_pk_id_12">南投縣</string>
+    <string name="area_pk_id_13">雲林縣</string>
+    <string name="area_pk_id_14">嘉義縣</string>
+    <string name="area_pk_id_15">嘉義市</string>
+    <string name="area_pk_id_16">臺南市</string>
+    <string name="area_pk_id_17">高雄市</string>
+    <string name="area_pk_id_18">屏東縣</string>
+    <string name="area_pk_id_19">花蓮縣</string>
+    <string name="area_pk_id_20">臺東縣</string>
+    <string name="area_pk_id_21">澎湖縣</string>
+    <string name="area_pk_id_22">金門縣</string>
+    <string name="area_pk_id_23">連江縣</string>
+
+    <!-- 動物特徵：疫苗施打 -->
+    <string name="bacterin_all">任何</string>
+    <string name="bacterin_t">已施打</string>
+    <string name="bacterin_f">未施打</string>
+    <string name="bacterin_unknown">未知</string>
+
+    <!-- 動物特徵：體型 -->
+    <string name="body_type_all">任何</string>
+    <string name="body_type_small">小型</string>
+    <string name="body_type_medium">中型</string>
+    <string name="body_type_big">大型</string>
+    <string name="body_type_unknown">未知</string>
+
+    <!-- 動物特徵：毛色 -->
+    <string name="colour_white">白色</string>
+    <string name="colour_black">黑色</string>
+    <string name="colour_gray">灰色</string>
+    <string name="colour_yellow">黃色</string>
+    <string name="colour_cream">米色</string>
+    <string name="colour_brown">棕色</string>
+    <string name="colour_multi">花色</string>
+    <string name="colour_coffee">咖啡色</string>
+    <string name="colour_three">三花色</string>
+    <string name="colour_tabby">虎斑色</string>
+    <string name="colour_all">任何</string>
+
+    <!-- 動物特徵：物種 -->
+    <string name="kind_all">任何</string>
+    <string name="kind_cat">喵喵</string>
+    <string name="kind_dog">汪汪</string>
+    <string name="kind_other">其他</string>
+
+    <!-- 動物特徵：性別 -->
+    <string name="sex_all">任何</string>
+    <string name="sex_male">公</string>
+    <string name="sex_female">母</string>
+    <string name="sex_unknown">未知</string>
+
+    <!-- 動物特徵：所在收容所 -->
+    <string name="shelter_all">任何</string>
+    <string name="shelter_pk_id_48">基隆市寵物銀行</string>
+    <string name="shelter_pk_id_49">臺北市動物之家</string>
+    <string name="shelter_pk_id_50">新北市板橋區公立動物之家</string>
+    <string name="shelter_pk_id_51">新北市新店區公立動物之家</string>
+    <string name="shelter_pk_id_53">新北市中和區公立動物之家</string>
+    <string name="shelter_pk_id_55">新北市淡水區公立動物之家</string>
+    <string name="shelter_pk_id_56">新北市瑞芳區公立動物之家</string>
+    <string name="shelter_pk_id_58">新北市五股區公立動物之家</string>
+    <string name="shelter_pk_id_59">新北市八里區公立動物之家</string>
+    <string name="shelter_pk_id_60">新北市三芝區公立動物之家</string>
+    <string name="shelter_pk_id_61">桃園市動物保護教育園區</string>
+    <string name="shelter_pk_id_62">新竹市動物收容所</string>
+    <string name="shelter_pk_id_63">新竹縣動物收容所</string>
+    <string name="shelter_pk_id_67">臺中市動物之家南屯園區</string>
+    <string name="shelter_pk_id_68">臺中市動物之家后里園區</string>
+    <string name="shelter_pk_id_69">彰化縣流浪狗中途之家</string>
+    <string name="shelter_pk_id_70">南投縣公立動物收容所</string>
+    <string name="shelter_pk_id_71">嘉義市流浪犬收容中心</string>
+    <string name="shelter_pk_id_72">嘉義縣流浪犬中途之家</string>
+    <string name="shelter_pk_id_73">臺南市動物之家灣裡站</string>
+    <string name="shelter_pk_id_74">臺南市動物之家善化站</string>
+    <string name="shelter_pk_id_75">高雄市壽山動物保護教育園區</string>
+    <string name="shelter_pk_id_76">高雄市燕巢動物保護關愛園區</string>
+    <string name="shelter_pk_id_77">屏東縣流浪動物收容所</string>
+    <string name="shelter_pk_id_78">宜蘭縣流浪動物中途之家</string>
+    <string name="shelter_pk_id_79">花蓮縣流浪犬中途之家</string>
+    <string name="shelter_pk_id_80">臺東縣動物收容中心</string>
+    <string name="shelter_pk_id_81">連江縣流浪犬收容中心</string>
+    <string name="shelter_pk_id_82">金門縣動物收容中心</string>
+    <string name="shelter_pk_id_83">澎湖縣流浪動物收容中心</string>
+    <string name="shelter_pk_id_89">雲林縣流浪動物收容所</string>
+    <string name="shelter_pk_id_92">新北市政府動物保護防疫處</string>
+    <string name="shelter_pk_id_96">苗栗縣生態保育教育中心</string>
+
+    <!-- 動物特徵：領養狀態 -->
+    <string name="status_all">任何</string>
+    <string name="status_open">開放認養</string>
+    <string name="status_adopted">已認養</string>
+    <string name="status_none">未公告</string>
+    <string name="status_other">其他</string>
+    <string name="status_dead">死亡</string>
+
+    <!-- 動物特徵：絕育狀態 -->
+    <string name="sterilization_all">任何</string>
+    <string name="sterilization_t">已絕育</string>
+    <string name="sterilization_f">未絕育</string>
+    <string name="sterilization_unknown">未知</string>
 </resources>
