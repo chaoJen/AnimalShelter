@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">R\'sAnimalShelter</string>
 
+    <!-- bottom navigation item -->
+    <string name="bottom_navigation_animals_gallery">尋找</string>
+    <string name="bottom_navigation_animals_tracked">收藏</string>
+
     <!-- 動物特徵：年齡 -->
     <string name="age_all">任何</string>
     <string name="age_adult">成年</string>
     <string name="age_child">幼年</string>
     <string name="age_unknown">未知</string>
+    <!---->
 
     <!-- 動物特徵：所在地 -->
     <string name="area_all">任何</string>
@@ -31,12 +36,14 @@
     <string name="area_pk_id_21">澎湖縣</string>
     <string name="area_pk_id_22">金門縣</string>
     <string name="area_pk_id_23">連江縣</string>
+    <!---->
 
     <!-- 動物特徵：疫苗施打 -->
     <string name="bacterin_all">任何</string>
     <string name="bacterin_t">已施打</string>
     <string name="bacterin_f">未施打</string>
     <string name="bacterin_unknown">未知</string>
+    <!---->
 
     <!-- 動物特徵：體型 -->
     <string name="body_type_all">任何</string>
@@ -44,6 +51,7 @@
     <string name="body_type_medium">中型</string>
     <string name="body_type_big">大型</string>
     <string name="body_type_unknown">未知</string>
+    <!---->
 
     <!-- 動物特徵：毛色 -->
     <string name="colour_white">白色</string>
@@ -57,18 +65,21 @@
     <string name="colour_three">三花色</string>
     <string name="colour_tabby">虎斑色</string>
     <string name="colour_all">任何</string>
+    <!---->
 
     <!-- 動物特徵：物種 -->
     <string name="kind_all">任何</string>
     <string name="kind_cat">喵喵</string>
     <string name="kind_dog">汪汪</string>
     <string name="kind_other">其他</string>
+    <!---->
 
     <!-- 動物特徵：性別 -->
     <string name="sex_all">任何</string>
     <string name="sex_male">公</string>
     <string name="sex_female">母</string>
     <string name="sex_unknown">未知</string>
+    <!---->
 
     <!-- 動物特徵：所在收容所 -->
     <string name="shelter_all">任何</string>
@@ -105,6 +116,7 @@
     <string name="shelter_pk_id_89">雲林縣流浪動物收容所</string>
     <string name="shelter_pk_id_92">新北市政府動物保護防疫處</string>
     <string name="shelter_pk_id_96">苗栗縣生態保育教育中心</string>
+    <!---->
 
     <!-- 動物特徵：領養狀態 -->
     <string name="status_all">任何</string>
@@ -113,10 +125,16 @@
     <string name="status_none">未公告</string>
     <string name="status_other">其他</string>
     <string name="status_dead">死亡</string>
+    <!---->
 
     <!-- 動物特徵：絕育狀態 -->
     <string name="sterilization_all">任何</string>
     <string name="sterilization_t">已絕育</string>
     <string name="sterilization_f">未絕育</string>
     <string name="sterilization_unknown">未知</string>
+    <!---->
+
+    <!-- 選單 -->
+    <string name="menu_title_filter">進階搜尋</string>
+    <!---->
 </resources>

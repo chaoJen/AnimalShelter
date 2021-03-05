@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemAnimalsGallery"
+        android:enabled="true"
+        android:icon="@drawable/ic_gallery"
+        android:title="@string/bottom_navigation_animals_gallery"/>
+
+    <item
+        android:id="@+id/itemAnimalsTracked"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_collection_fill"
+        android:title="@string/bottom_navigation_animals_tracked"/>
+</menu>
