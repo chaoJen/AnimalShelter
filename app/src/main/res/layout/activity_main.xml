@@ -32,5 +32,5 @@
         app:itemIconTint="@drawable/bottom_navigation_view_selector"
         app:itemTextColor="@drawable/bottom_navigation_view_selector"
         app:menu="@menu/menu_bottom_navigation"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+        app:layout_behavior=".ui.base.BottomNavigationBehavior" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,23 +3,28 @@ package com.mrr.animalshelter.ui.page.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.core.AnimalRepository
 import com.mrr.animalshelter.core.api.ApiManager
+import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.AnyViewModelFactory
 import com.mrr.animalshelter.ui.base.BaseActivity
+import com.mrr.animalshelter.ui.page.main.fragment.GalleryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var mViewModel: MainViewModel
+    private var mViewModel: MainViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViewModel()
         initView()
+        observe()
     }
 
     private fun initViewModel() {
@@ -28,9 +33,7 @@ class MainActivity : BaseActivity() {
             val repository = AnimalRepository(service)
             MainViewModel(repository)
         }
-        mViewModel = ViewModelProviders
-            .of(this, factory)
-            .get(MainViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
     }
 
     private fun initView() {
@@ -39,11 +42,11 @@ class MainActivity : BaseActivity() {
         layBottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.itemAnimalsGallery -> {
-                    // TODO 首頁
+                    switchFragment(R.id.layContainer, "Gallery", GalleryFragment.newInstance())
                     true
                 }
-                R.id.itemAnimalsTracked -> {
-                    // TODO 收藏頁
+                R.id.itemAnimalsCollection -> {
+                    // TODO launch collection page
                     true
                 }
                 else -> false
@@ -61,9 +64,20 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_filter -> {
-                // TODO 開啟篩選
+                // TODO launch filter setting
             }
         }
         return true
+    }
+
+    private fun observe() {
+        mViewModel?.error?.observe(this, Observer { error ->
+            // TODO show error message snackbar
+        })
+        mViewModel?.isNoMoreData?.observe(this, Observer { isNoMore ->
+            if (isNoMore) {
+                Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_nomoredata, Snackbar.LENGTH_INDEFINITE)
+            }
+        })
     }
 }

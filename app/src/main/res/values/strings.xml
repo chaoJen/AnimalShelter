@@ -3,7 +3,7 @@
 
     <!-- bottom navigation item -->
     <string name="bottom_navigation_animals_gallery">尋找</string>
-    <string name="bottom_navigation_animals_tracked">收藏</string>
+    <string name="bottom_navigation_animals_collection">收藏</string>
 
     <!-- 動物特徵：年齡 -->
     <string name="age_all">任何</string>
@@ -136,5 +136,43 @@
 
     <!-- 選單 -->
     <string name="menu_title_filter">進階搜尋</string>
+    <!---->
+
+    <!-- 首頁 -->
+    <string name="main_snackbar_message_loading">loading</string>
+    <string name="main_snackbar_message_nomoredata">no more data</string>
+    <!---->
+
+    <!-- 動物詳細頁 -->
+    <string name="animal_detail_title_animal_feature">動物特徵</string>
+    <string name="animal_detail_title_animal_health">健康狀態</string>
+    <string name="animal_detail_label_animal_id">動物編號</string>
+    <string name="animal_detail_label_animal_sub_id">區域編號</string>
+    <string name="animal_detail_label_animal_status">動物領認養狀態</string>
+    <string name="animal_detail_label_animal_open_date">開放期間</string>
+    <string name="animal_detail_label_animal_area">所在收容所</string>
+    <string name="animal_detail_label_animal_shelter_tel">聯絡電話</string>
+    <string name="animal_detail_label_animal_sex">性別</string>
+    <string name="animal_detail_label_animal_age">年紀</string>
+    <string name="animal_detail_label_animal_body_type">體型</string>
+    <string name="animal_detail_label_animal_colour">毛色</string>
+    <string name="animal_detail_label_animal_sterilization">絕育</string>
+    <string name="animal_detail_label_animal_bacterin">狂犬病疫苗</string>
+    <string name="animal_detail_label_animal_found_place">尋獲地點</string>
+    <string name="animal_detail_label_animal_remark">其他</string>
+    <string name="animal_detail_label_animal_create_time">建立日期</string>
+    <string name="animal_detail_label_animal_update">更新日期</string>
+    <string name="animal_detail_description_album_file">動物照片</string>
+    <string name="animal_detail_description_animal_shelter_web">前往登記認養</string>
+    <string name="animal_detail_description_animal_shelter_location">前往地圖</string>
+    <string name="animal_detail_description_tel">前往電話</string>
+    <string name="animal_detail_description_animal_collection">收藏動物</string>
+    <string name="animal_detail_goto_web_page">前往全國動物收容管理系統申請</string>
+    <string name="animal_detail_more">&#8230; 更多</string>
+    <string name="animal_detail_today">今天</string>
+    <string name="animal_detail_diff_date_format_day">%s 天前</string>
+    <string name="animal_detail_diff_date_format_week">1 週前</string>
+    <string name="animal_detail_diff_date_format_month">M 月 d 日</string>
+    <string name="animal_detail_diff_date_format_default">yyyy 年 M 月 d 日</string>
     <!---->
 </resources>

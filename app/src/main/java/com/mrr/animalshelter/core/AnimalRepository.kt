@@ -1,7 +1,6 @@
 package com.mrr.animalshelter.core
 
 import com.mrr.animalshelter.core.api.service.ShelterService
-import com.mrr.animalshelter.core.const.ShelterServiceConst
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.*
@@ -9,9 +8,9 @@ import retrofit2.Response
 
 class AnimalRepository(private val service: ShelterService) {
 
-    suspend fun pullAnimals(skip: Int, filter: AnimalFilter): Response<List<Animal>> {
+    suspend fun pullAnimals(top: Int, skip: Int, filter: AnimalFilter): Response<List<Animal>> {
         return service.getAnimals(
-            top = ShelterServiceConst.TOP,
+            top = top,
             skip = skip,
             animalAreaPkId = "${if (filter.area != AnimalArea.All) filter.area?.id ?: AnimalArea.All.id else ""}",
             animalShelterPkId = "${if (filter.shelter != AnimalShelter.All) filter.shelter?.id ?: AnimalShelter.All.id else ""}",

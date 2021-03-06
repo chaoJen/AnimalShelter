@@ -7,8 +7,8 @@
         android:title="@string/bottom_navigation_animals_gallery"/>
 
     <item
-        android:id="@+id/itemAnimalsTracked"
+        android:id="@+id/itemAnimalsCollection"
         android:enabled="true"
         android:icon="@drawable/ic_action_collection_fill"
-        android:title="@string/bottom_navigation_animals_tracked"/>
+        android:title="@string/bottom_navigation_animals_collection"/>
 </menu>
