@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,10 +13,11 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.ui.adapter.AnimalGalleryAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
+import com.mrr.animalshelter.ui.base.Scrollable
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_animal_gallery.*
 
-class GalleryFragment : BaseFragment() {
+class GalleryFragment : BaseFragment(), Scrollable {
 
     companion object {
         fun newInstance(): GalleryFragment {
@@ -63,13 +65,19 @@ class GalleryFragment : BaseFragment() {
     }
 
     private fun observe() {
-        mViewModel.animals.observe(requireActivity(), Observer {
+        mViewModel.animals.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
-        mViewModel.isLoading.observe(requireActivity(), Observer { isLoading ->
+        mViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             if (!isLoading) {
                 layRefresh.isRefreshing = false
             }
         })
+    }
+
+    override fun onScrollToPosition(index: Int) {
+        if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            rvAnimals.scrollToPosition(index)
+        }
     }
 }

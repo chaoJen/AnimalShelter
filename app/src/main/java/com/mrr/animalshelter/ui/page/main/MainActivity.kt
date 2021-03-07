@@ -12,10 +12,17 @@ import com.mrr.animalshelter.core.api.ApiManager
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.AnyViewModelFactory
 import com.mrr.animalshelter.ui.base.BaseActivity
+import com.mrr.animalshelter.ui.base.Scrollable
+import com.mrr.animalshelter.ui.page.main.fragment.CollectionFragment
 import com.mrr.animalshelter.ui.page.main.fragment.GalleryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+
+    companion object {
+        private const val TAG_FRAGMENT_GALLERY = "TAG_FRAGMENT_GALLERY"
+        private const val TAG_FRAGMENT_COLLECTION = "TAG_FRAGMENT_COLLECTION"
+    }
 
     private var mViewModel: MainViewModel? = null
 
@@ -42,11 +49,21 @@ class MainActivity : BaseActivity() {
         layBottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.itemAnimalsGallery -> {
-                    switchFragment(R.id.layContainer, "Gallery", GalleryFragment.newInstance())
+                    switchFragment(
+                        R.id.layContainer,
+                        TAG_FRAGMENT_GALLERY,
+                        { GalleryFragment.newInstance() },
+                        { if (it.isVisible && it is Scrollable) it.onScrollToPosition(0) }
+                    )
                     true
                 }
                 R.id.itemAnimalsCollection -> {
-                    // TODO launch collection page
+                    switchFragment(
+                        R.id.layContainer,
+                        TAG_FRAGMENT_COLLECTION,
+                        { CollectionFragment.newInstance() },
+                        { if (it.isVisible && it is Scrollable) it.onScrollToPosition(0) }
+                    )
                     true
                 }
                 else -> false
