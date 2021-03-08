@@ -12,7 +12,6 @@ import com.mrr.animalshelter.core.api.ApiManager
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.AnyViewModelFactory
 import com.mrr.animalshelter.ui.base.BaseActivity
-import com.mrr.animalshelter.ui.base.Scrollable
 import com.mrr.animalshelter.ui.page.main.fragment.CollectionFragment
 import com.mrr.animalshelter.ui.page.main.fragment.GalleryFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -53,7 +52,7 @@ class MainActivity : BaseActivity() {
                         R.id.layContainer,
                         TAG_FRAGMENT_GALLERY,
                         { GalleryFragment.newInstance() },
-                        { if (it.isVisible && it is Scrollable) it.onScrollToPosition(0) }
+                        { mViewModel?.scrollGallery(0) }
                     )
                     true
                 }
@@ -61,8 +60,10 @@ class MainActivity : BaseActivity() {
                     switchFragment(
                         R.id.layContainer,
                         TAG_FRAGMENT_COLLECTION,
-                        { CollectionFragment.newInstance() },
-                        { if (it.isVisible && it is Scrollable) it.onScrollToPosition(0) }
+                        onNewInstance = { CollectionFragment.newInstance() },
+                        onFragmentAlreadyVisible = {
+                            // TODO scroll collection to position 0
+                        }
                     )
                     true
                 }

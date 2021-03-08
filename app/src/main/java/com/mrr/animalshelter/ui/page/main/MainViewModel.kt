@@ -9,6 +9,7 @@ import com.mrr.animalshelter.core.const.ShelterServiceConst
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.ErrorType
+import com.mrr.animalshelter.ui.base.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
@@ -22,6 +23,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     val isLoading = MutableLiveData<Boolean>()
     val error = MutableLiveData<ErrorType>()
     val isNoMoreData = MutableLiveData<Boolean>()
+    val scrollGalleryToPositionEvent = SingleLiveEvent<Int>()
 
     private var mSkip = 0
     private val mTop = ShelterServiceConst.TOP
@@ -54,6 +56,10 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         mSkip = 0
         isNoMoreData.postValue(false)
         pullAnimals(filter)
+    }
+
+    fun scrollGallery(position: Int) {
+        scrollGalleryToPositionEvent.postValue(position)
     }
 
     private fun getCoroutineExceptionHandler(): CoroutineExceptionHandler {

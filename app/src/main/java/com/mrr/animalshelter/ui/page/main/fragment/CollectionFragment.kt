@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.ui.base.BaseFragment
-import com.mrr.animalshelter.ui.base.Scrollable
 
-class CollectionFragment : BaseFragment(), Scrollable {
+class CollectionFragment : BaseFragment() {
 
     companion object {
         val TAG = CollectionFragment::class.java.simpleName
@@ -23,9 +22,5 @@ class CollectionFragment : BaseFragment(), Scrollable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onScrollToPosition(index: Int) {
-        // TODO scroll to position
     }
 }
