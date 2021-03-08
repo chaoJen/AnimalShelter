@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- 照片 -->
+    <ImageView
+        android:id="@+id/imgAnimal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/animal_detail_description_album_file"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"/>
+
+    <ImageView
+        android:id="@+id/imgActionAnimalShelterWeb"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_action_animal_shelter"
+        android:scaleType="centerCrop"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/animal_detail_description_animal_shelter_web"
+        app:layout_constraintTop_toBottomOf="@+id/imgAnimal"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgActionLocation"
+        android:layout_width="@dimen/all_icon_size"
+        android:layout_height="@dimen/all_icon_size"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_action_location"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/animal_detail_description_animal_shelter_location"
+        app:layout_constraintTop_toBottomOf="@+id/imgAnimal"
+        app:layout_constraintLeft_toRightOf="@+id/imgActionAnimalShelterWeb" />
+
+    <ImageView
+        android:id="@+id/imgActionCall"
+        android:layout_width="@dimen/all_icon_size"
+        android:layout_height="@dimen/all_icon_size"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_action_call"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/animal_detail_description_tel"
+        app:layout_constraintTop_toBottomOf="@+id/imgAnimal"
+        app:layout_constraintLeft_toRightOf="@+id/imgActionLocation" />
+
+    <ImageView
+        android:id="@+id/imgActionCollection"
+        android:layout_width="@dimen/all_icon_size"
+        android:layout_height="@dimen/all_icon_size"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_action_collection_outline"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/animal_detail_description_animal_collection"
+        app:layout_constraintTop_toBottomOf="@+id/imgAnimal"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!-- 動物性別 -->
+    <LinearLayout
+        android:id="@+id/layAnimalSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/imgActionAnimalShelterWeb"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitleAnimalSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/animal_detail_label_animal_sex"
+            android:theme="@style/LabelTheme" />
+
+        <TextView
+            android:id="@+id/tvContentAnimalSex"
+            android:text="@{animalDescription.animalSexResourceId}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 動物年紀 -->
+    <LinearLayout
+        android:id="@+id/layAnimalAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@+id/layAnimalSex"
+        app:layout_constraintLeft_toRightOf="@+id/layAnimalSex"
+        app:layout_constraintRight_toLeftOf="@+id/layAnimalBodyType">
+
+        <TextView
+            android:id="@+id/tvTitleAnimalAge"
+            android:text="@string/animal_detail_label_animal_age"
+            android:theme="@style/LabelTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvContentAnimalAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 動物體型 -->
+    <LinearLayout
+        android:id="@+id/layAnimalBodyType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@+id/layAnimalSex"
+        app:layout_constraintLeft_toRightOf="@+id/layAnimalAge"
+        app:layout_constraintRight_toLeftOf="@+id/layAnimalColour">
+
+        <TextView
+            android:id="@+id/tvTitleAnimalBodyType"
+            android:text="@string/animal_detail_label_animal_body_type"
+            android:theme="@style/LabelTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvContentAnimalBodyType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 動物毛色 -->
+    <LinearLayout
+        android:id="@+id/layAnimalColour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@+id/layAnimalSex"
+        app:layout_constraintLeft_toRightOf="@+id/layAnimalBodyType"
+        app:layout_constraintRight_toLeftOf="@+id/tvMoreDetail">
+
+        <TextView
+            android:id="@+id/tvTitleAnimalColour"
+            android:text="@string/animal_detail_label_animal_colour"
+            android:theme="@style/LabelTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvContentAnimalColour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- 更多 -->
+    <TextView
+        android:id="@+id/tvMoreDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/animal_detail_more"
+        android:paddingTop="40dp"
+        android:paddingHorizontal="20dp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/imgActionCollection"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <!-- 展開的內容 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layMoreDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/layAnimalSex">
+
+        <!-- 資料備註 -->
+        <TextView
+            android:id="@+id/tvTitleAnimalRemark"
+            android:text="@string/animal_detail_label_animal_remark"
+            android:theme="@style/LabelTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvContentAnimalRemark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleAnimalRemark"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <!-- 收容所位置 -->
+        <TextView
+            android:id="@+id/tvTitleAnimalAreaPkId"
+            android:text="@string/animal_detail_label_animal_area"
+            android:theme="@style/LabelTheme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tvContentAnimalRemark"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContentShelterName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleAnimalAreaPkId"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContentShelterAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvContentShelterName"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <!-- 聯絡電話 -->
+        <TextView
+            android:id="@+id/tvTitleShelterTel"
+            android:text="@string/animal_detail_label_animal_shelter_tel"
+            android:theme="@style/LabelTheme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvContentShelterAddress"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContentShelterTel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleShelterTel"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <!-- 動物尋獲地 -->
+        <TextView
+            android:id="@+id/tvTitleAnimalFoundPlace"
+            android:text="@string/animal_detail_label_animal_found_place"
+            android:theme="@style/LabelTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvContentShelterTel"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvContentAnimalFoundPlace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleAnimalFoundPlace"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <!-- 是否施打犬病疫苗 -->
+        <LinearLayout
+            android:id="@+id/layAnimalBacterin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvContentAnimalFoundPlace"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitleAnimalBacterin"
+                android:text="@string/animal_detail_label_animal_bacterin"
+                android:theme="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvContentAnimalBacterin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 是否絕育 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvContentAnimalFoundPlace"
+            app:layout_constraintLeft_toLeftOf="@+id/layAnimalSubId">
+
+            <TextView
+                android:id="@+id/tvTitleAnimalSterilization"
+                android:text="@string/animal_detail_label_animal_sterilization"
+                android:theme="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvContentAnimalSterilization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 動物的流水編號 -->
+        <LinearLayout
+            android:id="@+id/layAnimalId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/layAnimalBacterin"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitleAnimalId"
+                android:text="@string/animal_detail_label_animal_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/LabelTheme" />
+
+            <TextView
+                android:id="@+id/tvContentAnimalId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 動物的區域標號 -->
+        <LinearLayout
+            android:id="@+id/layAnimalSubId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/layAnimalBacterin"
+            app:layout_constraintLeft_toRightOf="@+id/layAnimalId"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitleAnimalSubId"
+                android:text="@string/animal_detail_label_animal_sub_id"
+                android:theme="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvContentAnimalSubId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/layMoreDetail"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

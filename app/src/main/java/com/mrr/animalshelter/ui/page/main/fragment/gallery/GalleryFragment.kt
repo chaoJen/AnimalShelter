@@ -1,11 +1,10 @@
-package com.mrr.animalshelter.ui.page.main.fragment
+package com.mrr.animalshelter.ui.page.main.fragment.gallery
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -58,7 +57,7 @@ class GalleryFragment : BaseFragment() {
 
     private fun initAnimalAdapter() {
         mAdapter.onItemClickListener = { index ->
-            // TODO launch animal detail
+
         }
         rvAnimals.adapter = mAdapter
     }
@@ -72,7 +71,7 @@ class GalleryFragment : BaseFragment() {
                 layRefresh.isRefreshing = false
             }
         })
-        mViewModel.scrollGalleryToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
+        mViewModel.onScrollGalleryToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             position?.let { rvAnimals.scrollToPosition(it) }
         })
     }

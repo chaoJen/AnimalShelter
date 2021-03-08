@@ -12,8 +12,8 @@ import com.mrr.animalshelter.core.api.ApiManager
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.AnyViewModelFactory
 import com.mrr.animalshelter.ui.base.BaseActivity
-import com.mrr.animalshelter.ui.page.main.fragment.CollectionFragment
-import com.mrr.animalshelter.ui.page.main.fragment.GalleryFragment
+import com.mrr.animalshelter.ui.page.main.fragment.CollectionHostFragment
+import com.mrr.animalshelter.ui.page.main.fragment.GalleryHostFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -24,6 +24,8 @@ class MainActivity : BaseActivity() {
     }
 
     private var mViewModel: MainViewModel? = null
+    private var mGalleryHostFragment: GalleryHostFragment? = null
+    private var mCollectionHostFragment: CollectionHostFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +53,11 @@ class MainActivity : BaseActivity() {
                     switchFragment(
                         R.id.layContainer,
                         TAG_FRAGMENT_GALLERY,
-                        { GalleryFragment.newInstance() },
-                        { mViewModel?.scrollGallery(0) }
+                        onNewInstance = {
+                            val galleryHostFragment = GalleryHostFragment.newInstance()
+                            mGalleryHostFragment = galleryHostFragment
+                            galleryHostFragment
+                        }
                     )
                     true
                 }
@@ -60,9 +65,10 @@ class MainActivity : BaseActivity() {
                     switchFragment(
                         R.id.layContainer,
                         TAG_FRAGMENT_COLLECTION,
-                        onNewInstance = { CollectionFragment.newInstance() },
-                        onFragmentAlreadyVisible = {
-                            // TODO scroll collection to position 0
+                        onNewInstance = {
+                            val collectionHostFragment = CollectionHostFragment.newInstance()
+                            mCollectionHostFragment = collectionHostFragment
+                            collectionHostFragment
                         }
                     )
                     true

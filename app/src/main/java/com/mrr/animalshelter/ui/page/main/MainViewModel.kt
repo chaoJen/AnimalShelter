@@ -23,7 +23,8 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     val isLoading = MutableLiveData<Boolean>()
     val error = MutableLiveData<ErrorType>()
     val isNoMoreData = MutableLiveData<Boolean>()
-    val scrollGalleryToPositionEvent = SingleLiveEvent<Int>()
+
+    val onScrollGalleryToPositionEvent = SingleLiveEvent<Int>()
 
     private var mSkip = 0
     private val mTop = ShelterServiceConst.TOP
@@ -59,7 +60,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     }
 
     fun scrollGallery(position: Int) {
-        scrollGalleryToPositionEvent.postValue(position)
+        onScrollGalleryToPositionEvent.postValue(position)
     }
 
     private fun getCoroutineExceptionHandler(): CoroutineExceptionHandler {
