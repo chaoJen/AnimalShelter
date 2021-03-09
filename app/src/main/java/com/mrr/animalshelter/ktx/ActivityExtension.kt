@@ -9,11 +9,11 @@ fun AppCompatActivity.switchFragment(
     tag: String,
     onNewInstance: () -> Fragment,
     onFragmentAlreadyVisible: ((fragment: Fragment) -> Unit)? = null
-) {
+): Fragment {
     val existedFragment = supportFragmentManager.findFragmentByTag(tag)
     if (existedFragment?.isVisible == true) {
         onFragmentAlreadyVisible?.invoke(existedFragment)
-        return
+        return existedFragment
     }
 
     supportFragmentManager.fragments.forEach {
@@ -22,10 +22,10 @@ fun AppCompatActivity.switchFragment(
     val fragment = existedFragment ?: run {
         val fragment = onNewInstance()
         supportFragmentManager.commit {
-            addToBackStack(null)
             add(containerViewId, fragment, tag)
         }
         fragment
     }
     supportFragmentManager.beginTransaction().show(fragment).commit()
+    return fragment
 }

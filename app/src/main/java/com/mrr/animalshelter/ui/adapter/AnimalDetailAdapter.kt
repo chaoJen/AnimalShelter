@@ -38,7 +38,7 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
     }
 
     inner class AnimalDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_animal, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_animal_description, parent, false)
     ) {
 
         private var animalDetailDescriptor: AnimalDetailDescriptor? = null

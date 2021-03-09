@@ -5,7 +5,8 @@
     android:id="@+id/layRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="0.1dp">
+    android:padding="0.1dp"
+    android:background="@android:color/white">
 
     <ImageView
         android:id="@+id/ivAnimal"

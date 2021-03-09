@@ -15,9 +15,6 @@ fun Fragment.switchFragment(
         return
     }
 
-    childFragmentManager.fragments.forEach {
-        childFragmentManager.commit { hide(it) }
-    }
     val fragment = existedFragment ?: run {
         val fragment = onNewInstance()
         childFragmentManager.commit {

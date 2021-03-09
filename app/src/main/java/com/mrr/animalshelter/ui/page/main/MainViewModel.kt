@@ -20,20 +20,25 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     }
 
     val animals = MutableLiveData<List<Animal>>()
-    val isLoading = MutableLiveData<Boolean>()
+    val isAnimalLoading = MutableLiveData<Boolean>()
     val error = MutableLiveData<ErrorType>()
     val isNoMoreData = MutableLiveData<Boolean>()
 
     val onScrollGalleryToPositionEvent = SingleLiveEvent<Int>()
+    val onLaunchAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
 
     private var mSkip = 0
     private val mTop = ShelterServiceConst.TOP
 
-    fun pullAnimals(filter: AnimalFilter) = viewModelScope.launch(getCoroutineExceptionHandler()) {
-        if (isLoading.value == true || isNoMoreData.value == true) {
+    fun pullAnimals(filter: AnimalFilter) = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+        Log.d(TAG, throwable.toString())
+        isAnimalLoading.postValue(false)
+        error.postValue(ErrorType.ApiException(throwable))
+    }) {
+        if (isAnimalLoading.value == true || isNoMoreData.value == true) {
             return@launch
         }
-        isLoading.postValue(true)
+        isAnimalLoading.postValue(true)
         val response = repository.pullAnimals(mTop, mSkip, filter)
         if (response.isSuccessful) {
             val newAnimals = response.body()
@@ -50,7 +55,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         } else {
             error.postValue(ErrorType.ApiFail)
         }
-        isLoading.postValue(false)
+        isAnimalLoading.postValue(false)
     }
 
     fun resetAnimals(filter: AnimalFilter) {
@@ -63,10 +68,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         onScrollGalleryToPositionEvent.postValue(position)
     }
 
-    private fun getCoroutineExceptionHandler(): CoroutineExceptionHandler {
-        return CoroutineExceptionHandler { _, throwable ->
-            Log.d(TAG, throwable.toString())
-            error.postValue(ErrorType.ApiException(throwable))
-        }
+    fun launchAnimalDetail(position: Int) {
+        onLaunchAnimalDetailToPositionEvent.postValue(position)
     }
 }

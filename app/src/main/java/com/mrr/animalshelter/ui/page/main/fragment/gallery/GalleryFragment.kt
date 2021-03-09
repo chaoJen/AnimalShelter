@@ -57,7 +57,7 @@ class GalleryFragment : BaseFragment() {
 
     private fun initAnimalAdapter() {
         mAdapter.onItemClickListener = { index ->
-
+            mViewModel.launchAnimalDetail(index)
         }
         rvAnimals.adapter = mAdapter
     }
@@ -66,7 +66,7 @@ class GalleryFragment : BaseFragment() {
         mViewModel.animals.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
-        mViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+        mViewModel.isAnimalLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             if (!isLoading) {
                 layRefresh.isRefreshing = false
             }

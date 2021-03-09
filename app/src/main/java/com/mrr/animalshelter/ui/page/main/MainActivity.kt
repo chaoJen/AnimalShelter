@@ -3,6 +3,7 @@ package com.mrr.animalshelter.ui.page.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
@@ -24,8 +25,7 @@ class MainActivity : BaseActivity() {
     }
 
     private var mViewModel: MainViewModel? = null
-    private var mGalleryHostFragment: GalleryHostFragment? = null
-    private var mCollectionHostFragment: CollectionHostFragment? = null
+    private var mCurrentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,27 +50,11 @@ class MainActivity : BaseActivity() {
         layBottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.itemAnimalsGallery -> {
-                    switchFragment(
-                        R.id.layContainer,
-                        TAG_FRAGMENT_GALLERY,
-                        onNewInstance = {
-                            val galleryHostFragment = GalleryHostFragment.newInstance()
-                            mGalleryHostFragment = galleryHostFragment
-                            galleryHostFragment
-                        }
-                    )
+                    onSwitchGalleryFragment()
                     true
                 }
                 R.id.itemAnimalsCollection -> {
-                    switchFragment(
-                        R.id.layContainer,
-                        TAG_FRAGMENT_COLLECTION,
-                        onNewInstance = {
-                            val collectionHostFragment = CollectionHostFragment.newInstance()
-                            mCollectionHostFragment = collectionHostFragment
-                            collectionHostFragment
-                        }
-                    )
+                    onSwitchCollectionFragment()
                     true
                 }
                 else -> false
@@ -94,6 +78,35 @@ class MainActivity : BaseActivity() {
         return true
     }
 
+    private fun onSwitchGalleryFragment() {
+        mCurrentFragment = switchFragment(
+            R.id.layContainer,
+            TAG_FRAGMENT_GALLERY,
+            onNewInstance = {
+                val galleryHostFragment = GalleryHostFragment.newInstance()
+                galleryHostFragment
+            },
+            onFragmentAlreadyVisible = { fragment ->
+                if (fragment.childFragmentManager.backStackEntryCount == 1) {
+                    mViewModel?.scrollGallery(0)
+                } else {
+                    fragment.childFragmentManager.popBackStack(null, 0)
+                }
+            }
+        )
+    }
+
+    private fun onSwitchCollectionFragment() {
+        mCurrentFragment = switchFragment(
+            R.id.layContainer,
+            TAG_FRAGMENT_COLLECTION,
+            onNewInstance = {
+                val collectionHostFragment = CollectionHostFragment.newInstance()
+                collectionHostFragment
+            }
+        )
+    }
+
     private fun observe() {
         mViewModel?.error?.observe(this, Observer { error ->
             // TODO show error message snackbar
@@ -103,5 +116,13 @@ class MainActivity : BaseActivity() {
                 Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_nomoredata, Snackbar.LENGTH_INDEFINITE)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        if (mCurrentFragment?.childFragmentManager?.backStackEntryCount ?: 1 > 1) {
+            mCurrentFragment?.childFragmentManager?.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
