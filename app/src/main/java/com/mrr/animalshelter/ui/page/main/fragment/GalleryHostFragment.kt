@@ -48,7 +48,7 @@ class GalleryHostFragment : BaseFragment() {
             switchFragment(
                 R.id.layContainer,
                 TAG_FRAGMENT_DETAIL,
-                onNewInstance = { AnimalDetailFragment.newInstance() }
+                onNewInstance = { AnimalDetailFragment.newInstance(position ?: 0) }
             )
         })
     }

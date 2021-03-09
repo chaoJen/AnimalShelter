@@ -18,10 +18,12 @@ import kotlinx.android.synthetic.main.fragment_animal_detail.*
 class AnimalDetailFragment : BaseFragment() {
 
     companion object {
-        val TAG = AnimalDetailFragment::class.java.simpleName
+        private const val EXTRA_KEY_START_POSITION = "EXTRA_KEY_START_POSITION"
 
-        fun newInstance(): AnimalDetailFragment {
-            return AnimalDetailFragment()
+        fun newInstance(startPosition: Int): AnimalDetailFragment {
+            return AnimalDetailFragment().apply {
+                arguments = Bundle().apply { putInt(EXTRA_KEY_START_POSITION, startPosition) }
+            }
         }
     }
 
@@ -50,6 +52,8 @@ class AnimalDetailFragment : BaseFragment() {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext()).apply {
                 orientation = RecyclerView.VERTICAL
+                val startPosition = arguments?.getInt(EXTRA_KEY_START_POSITION, 0) ?: 0
+                scrollToPosition(startPosition)
             }
             adapter = mAnimalDetailAdapter
         }
