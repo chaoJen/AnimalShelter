@@ -6,6 +6,42 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
+    <!-- 動物收容所 -->
+    <TextView
+        android:id="@+id/tvTopperShelterBadge"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_shelter_badge"
+        android:textSize="28dp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imgAnimal"/>
+
+    <TextView
+        android:id="@+id/tvTopperShelterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:theme="@style/TopperTheme"
+        app:layout_constraintLeft_toRightOf="@+id/tvTopperShelterBadge"
+        app:layout_constraintTop_toTopOf="@id/tvTopperShelterBadge"
+        app:layout_constraintBottom_toTopOf="@+id/tvTopperShelterAddress"/>
+
+    <TextView
+        android:id="@+id/tvTopperShelterAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/tvTopperShelterBadge"
+        app:layout_constraintTop_toBottomOf="@+id/tvTopperShelterName"
+        app:layout_constraintBottom_toBottomOf="@id/tvTopperShelterBadge"/>
+
     <!-- 照片 -->
     <ImageView
         android:id="@+id/imgAnimal"
@@ -13,9 +49,10 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:contentDescription="@string/animal_detail_description_album_file"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTopperShelterBadge"
         app:layout_constraintDimensionRatio="H,1:1"/>
 
     <ImageView
@@ -161,16 +198,29 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <!-- 資料備註 -->
+    <TextView
+        android:id="@+id/tvContentAnimalRemark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/layAnimalColour"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <!-- 更多 -->
     <TextView
         android:id="@+id/tvMoreDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/animal_detail_more"
-        android:paddingTop="40dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
         android:paddingHorizontal="20dp"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/imgActionCollection"
+        app:layout_constraintTop_toBottomOf="@id/tvContentAnimalRemark"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <!-- 展開的內容 -->
@@ -179,53 +229,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/layAnimalSex">
-
-        <!-- 資料備註 -->
-        <TextView
-            android:id="@+id/tvTitleAnimalRemark"
-            android:text="@string/animal_detail_label_animal_remark"
-            android:theme="@style/LabelTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <TextView
-            android:id="@+id/tvContentAnimalRemark"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleAnimalRemark"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <!-- 收容所位置 -->
-        <TextView
-            android:id="@+id/tvTitleAnimalAreaPkId"
-            android:text="@string/animal_detail_label_animal_area"
-            android:theme="@style/LabelTheme"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tvContentAnimalRemark"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <TextView
-            android:id="@+id/tvContentShelterName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleAnimalAreaPkId"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <TextView
-            android:id="@+id/tvContentShelterAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvContentShelterName"
-            app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvContentAnimalRemark">
 
         <!-- 聯絡電話 -->
         <TextView
@@ -235,7 +239,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvContentShelterAddress"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
@@ -359,6 +363,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"

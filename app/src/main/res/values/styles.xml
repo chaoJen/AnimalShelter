@@ -14,6 +14,10 @@
         <item name="colorPrimary">@android:color/darker_gray</item>
     </style>
 
+    <style name="TopperTheme" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="LabelTheme" parent="AppTheme">
         <item name="android:textStyle">bold</item>
     </style>

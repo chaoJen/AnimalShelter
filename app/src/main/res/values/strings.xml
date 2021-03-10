@@ -36,6 +36,30 @@
     <string name="area_pk_id_21">澎湖縣</string>
     <string name="area_pk_id_22">金門縣</string>
     <string name="area_pk_id_23">連江縣</string>
+
+    <string name="area_all_badge"></string>
+    <string name="area_pk_id_02_badge">北</string>
+    <string name="area_pk_id_03_badge">北</string>
+    <string name="area_pk_id_04_badge">基</string>
+    <string name="area_pk_id_05_badge">宜</string>
+    <string name="area_pk_id_06_badge">桃</string>
+    <string name="area_pk_id_07_badge">竹</string>
+    <string name="area_pk_id_08_badge">竹</string>
+    <string name="area_pk_id_09_badge">苗</string>
+    <string name="area_pk_id_10_badge">中</string>
+    <string name="area_pk_id_11_badge">彰</string>
+    <string name="area_pk_id_12_badge">投</string>
+    <string name="area_pk_id_13_badge">雲</string>
+    <string name="area_pk_id_14_badge">嘉</string>
+    <string name="area_pk_id_15_badge">嘉</string>
+    <string name="area_pk_id_16_badge">南</string>
+    <string name="area_pk_id_17_badge">雄</string>
+    <string name="area_pk_id_18_badge">屏</string>
+    <string name="area_pk_id_19_badge">花</string>
+    <string name="area_pk_id_20_badge">東</string>
+    <string name="area_pk_id_21_badge">澎</string>
+    <string name="area_pk_id_22_badge">金</string>
+    <string name="area_pk_id_23_badge">連</string>
     <!---->
 
     <!-- 動物特徵：疫苗施打 -->

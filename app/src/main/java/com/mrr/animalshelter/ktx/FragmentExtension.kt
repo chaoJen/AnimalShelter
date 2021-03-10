@@ -14,14 +14,8 @@ fun Fragment.switchFragment(
         onFragmentAlreadyVisible?.invoke(existedFragment)
         return
     }
-
-    val fragment = existedFragment ?: run {
-        val fragment = onNewInstance()
-        childFragmentManager.commit {
-            addToBackStack(null)
-            add(containerViewId, fragment, tag)
-        }
-        fragment
+    childFragmentManager.commit {
+        addToBackStack(null)
+        replace(containerViewId, existedFragment ?: onNewInstance(), tag)
     }
-    childFragmentManager.beginTransaction().show(fragment).commit()
 }

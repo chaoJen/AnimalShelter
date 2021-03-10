@@ -74,29 +74,30 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
                 .fitCenter()
                 .into(itemView.imgAnimal)
 
+            animalDetailDescriptor.getAnimalArea()?.badgeNameResourceId?.let { itemView.tvTopperShelterBadge.setText(it) }
+            itemView.tvTopperShelterName.text = animalDetailDescriptor.getShelterName()
+            itemView.tvTopperShelterAddress.text = animalDetailDescriptor.getShelterAddress()
             itemView.tvContentAnimalSex.setText(animalDetailDescriptor.getAnimalSexResourceId())
             itemView.tvContentAnimalAge.setText(animalDetailDescriptor.getAnimalAgeResourceId())
             itemView.tvContentAnimalBodyType.setText(animalDetailDescriptor.getAnimalBodyTypeResourceId())
             itemView.tvContentAnimalColour.text = animalDetailDescriptor.getAnimalColour()
             itemView.tvContentAnimalRemark.visibility = if (animalDetailDescriptor.getAnimalRemark().isNotBlank()) View.VISIBLE else View.GONE
-            itemView.tvTitleAnimalRemark.visibility = if (animalDetailDescriptor.getAnimalRemark().isNotBlank()) View.VISIBLE else View.GONE
             itemView.tvContentAnimalRemark.text = animalDetailDescriptor.getAnimalRemark()
-            itemView.tvContentShelterName.text = animalDetailDescriptor.getShelterName()
-            itemView.tvContentShelterAddress.text = animalDetailDescriptor.getShelterAddress()
             itemView.tvContentShelterTel.text = animalDetailDescriptor.getShelterTel()
             itemView.tvContentAnimalFoundPlace.text = animalDetailDescriptor.getAnimalFoundPlace()
             itemView.tvContentAnimalBacterin.setText(animalDetailDescriptor.getAnimalBacterinResourceId())
             itemView.tvContentAnimalSterilization.setText(animalDetailDescriptor.getAnimalSterilizationResourceId())
             itemView.tvContentAnimalId.text = "${animalDetailDescriptor.getAnimalId()}"
             itemView.tvContentAnimalSubId.text = animalDetailDescriptor.getAnimalSubId()
+            itemView.tvDate.text = animalDetailDescriptor.getDayDiff(itemView.context, "yyyy/MM/dd")
 
             itemView.imgActionAnimalShelterWeb.setOnClickListener(onAnimalShelterClickListener)
+            itemView.tvTopperShelterBadge.setOnClickListener(onAnimalLocationClickListener)
+            itemView.tvTopperShelterName.setOnClickListener(onAnimalLocationClickListener)
+            itemView.tvTopperShelterAddress.setOnClickListener(onAnimalLocationClickListener)
             itemView.imgActionLocation.setOnClickListener(onAnimalLocationClickListener)
             itemView.imgActionCall.setOnClickListener(onShelterTelClickListener)
             itemView.tvMoreDetail.setOnClickListener(onShowMoreClickListener)
-            itemView.tvTitleAnimalAreaPkId.setOnClickListener(onAnimalLocationClickListener)
-            itemView.tvContentShelterName.setOnClickListener(onAnimalLocationClickListener)
-            itemView.tvContentShelterAddress.setOnClickListener(onAnimalLocationClickListener)
             itemView.tvTitleShelterTel.setOnClickListener(onShelterTelClickListener)
             itemView.tvContentShelterTel.setOnClickListener(onShelterTelClickListener)
 
