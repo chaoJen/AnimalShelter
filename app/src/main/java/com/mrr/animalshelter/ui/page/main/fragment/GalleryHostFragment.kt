@@ -16,8 +16,7 @@ import com.mrr.animalshelter.ui.page.main.fragment.gallery.GalleryFragment
 class GalleryHostFragment : BaseFragment() {
 
     companion object {
-        private const val TAG_FRAGMENT_GALLERY = "TAG_FRAGMENT_GALLERY"
-        private const val TAG_FRAGMENT_DETAIL = "TAG_FRAGMENT_DETAIL"
+        const val TAG = "TAG_FRAGMENT_GALLERY_HOST"
         fun newInstance(): GalleryHostFragment {
             return GalleryHostFragment()
         }
@@ -38,7 +37,7 @@ class GalleryHostFragment : BaseFragment() {
     private fun initView() {
         switchFragment(
             R.id.layContainer,
-            TAG_FRAGMENT_GALLERY,
+            GalleryFragment.TAG,
             onNewInstance = { GalleryFragment.newInstance() }
         )
     }
@@ -47,7 +46,7 @@ class GalleryHostFragment : BaseFragment() {
         mViewModel.onLaunchAnimalDetailToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             switchFragment(
                 R.id.layContainer,
-                TAG_FRAGMENT_DETAIL,
+                AnimalDetailFragment.TAG,
                 onNewInstance = { AnimalDetailFragment.newInstance(position ?: 0) }
             )
         })

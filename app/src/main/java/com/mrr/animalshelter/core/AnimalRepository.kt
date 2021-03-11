@@ -33,6 +33,8 @@ class AnimalRepository(
         collectionAnimalsDao.insert(animal)
     }
 
+    fun getAllCollectedAnimals() = collectionAnimalsDao.getAll()
+
     fun getAllCollectedAnimalIds() = collectionAnimalsDao.getAllAnimalIds()
 
     suspend fun unCollectAnimal(animalId: Int) = collectionAnimalsDao.delete(animalId)

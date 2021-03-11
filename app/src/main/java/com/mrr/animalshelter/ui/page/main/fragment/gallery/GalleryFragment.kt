@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_animal_gallery.*
 class GalleryFragment : BaseFragment() {
 
     companion object {
+        const val TAG = "TAG_FRAGMENT_GALLERY"
         fun newInstance(): GalleryFragment {
             return GalleryFragment()
         }
@@ -57,7 +58,7 @@ class GalleryFragment : BaseFragment() {
 
     private fun initAnimalAdapter() {
         mAdapter.onItemClickListener = { index ->
-            mViewModel.launchAnimalDetail(index)
+            mViewModel.launchGalleryAnimalDetail(index)
         }
         rvAnimals.adapter = mAdapter
     }

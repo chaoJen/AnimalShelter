@@ -15,9 +15,14 @@ fun AppCompatActivity.switchFragment(
         onFragmentAlreadyVisible?.invoke(existedFragment)
         return existedFragment
     }
-    val fragment = existedFragment ?: onNewInstance()
-    supportFragmentManager.commit {
-        replace(containerViewId, fragment, tag)
+    val fragment = existedFragment ?: run {
+        val fragment = onNewInstance()
+        supportFragmentManager.commit { add(containerViewId, fragment, tag) }
+        fragment
     }
+    supportFragmentManager.fragments.forEach { fragment ->
+        supportFragmentManager.commit { hide(fragment) }
+    }
+    supportFragmentManager.commit { show(fragment) }
     return fragment
 }

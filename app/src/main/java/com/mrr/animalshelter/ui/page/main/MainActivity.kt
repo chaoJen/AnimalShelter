@@ -20,11 +20,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    companion object {
-        private const val TAG_FRAGMENT_GALLERY = "TAG_FRAGMENT_GALLERY"
-        private const val TAG_FRAGMENT_COLLECTION = "TAG_FRAGMENT_COLLECTION"
-    }
-
     private var mViewModel: MainViewModel? = null
     private var mCurrentFragment: Fragment? = null
 
@@ -83,7 +78,7 @@ class MainActivity : BaseActivity() {
     private fun onSwitchGalleryFragment() {
         mCurrentFragment = switchFragment(
             R.id.layContainer,
-            TAG_FRAGMENT_GALLERY,
+            GalleryHostFragment.TAG,
             onNewInstance = {
                 val galleryHostFragment = GalleryHostFragment.newInstance()
                 galleryHostFragment
@@ -101,7 +96,7 @@ class MainActivity : BaseActivity() {
     private fun onSwitchCollectionFragment() {
         mCurrentFragment = switchFragment(
             R.id.layContainer,
-            TAG_FRAGMENT_COLLECTION,
+            CollectionHostFragment.TAG,
             onNewInstance = {
                 val collectionHostFragment = CollectionHostFragment.newInstance()
                 collectionHostFragment

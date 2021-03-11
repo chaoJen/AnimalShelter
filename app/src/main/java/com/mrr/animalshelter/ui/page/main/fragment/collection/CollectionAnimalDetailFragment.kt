@@ -1,4 +1,4 @@
-package com.mrr.animalshelter.ui.page.main.fragment.gallery
+package com.mrr.animalshelter.ui.page.main.fragment.collection
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,20 +9,19 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.ui.adapter.AnimalDetailAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_animal_detail.*
 
-class AnimalDetailFragment : BaseFragment() {
+class CollectionAnimalDetailFragment : BaseFragment() {
 
     companion object {
-        const val TAG = "TAG_FRAGMENT_GALLERY_ANIMAL_DETAIL"
+        const val TAG = "TAG_FRAGMENT_COLLECTION_ANIMAL_DETAIL"
         private const val EXTRA_KEY_START_POSITION = "EXTRA_KEY_START_POSITION"
 
-        fun newInstance(startPosition: Int): AnimalDetailFragment {
-            return AnimalDetailFragment().apply {
+        fun newInstance(startPosition: Int): CollectionAnimalDetailFragment {
+            return CollectionAnimalDetailFragment().apply {
                 arguments = Bundle().apply { putInt(EXTRA_KEY_START_POSITION, startPosition) }
             }
         }
@@ -45,12 +44,7 @@ class AnimalDetailFragment : BaseFragment() {
         mAnimalDetailAdapter = AnimalDetailAdapter().apply {
             onCollectListener = { animal -> mViewModel.collectAnimal(animal) }
             onUnCollectListener = { animalId -> mViewModel.unCollectAnimal(animalId) }
-            onBindViewHolderListener =  { position ->
-                if (position >= itemCount - 5) {
-                    mViewModel.pullAnimals(AnimalFilter())
-                }
-                mViewModel.scrollGallery(position)
-            }
+            onBindViewHolderListener =  { position -> mViewModel.scrollCollectionGallery(position) }
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext()).apply {
@@ -63,8 +57,8 @@ class AnimalDetailFragment : BaseFragment() {
     }
 
     private fun observe() {
-        mViewModel.animals.observe(viewLifecycleOwner, Observer { animals ->
-            mAnimalDetailAdapter?.submitList(animals)
+        mViewModel.collectedAnimals.observe(viewLifecycleOwner, Observer { collectedAnimals ->
+            mAnimalDetailAdapter?.submitList(collectedAnimals)
         })
         mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
             mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectedAnimalIds)
