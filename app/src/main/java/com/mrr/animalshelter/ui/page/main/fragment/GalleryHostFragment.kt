@@ -43,7 +43,7 @@ class GalleryHostFragment : BaseFragment() {
     }
 
     private fun observe() {
-        mViewModel.onLaunchAnimalDetailToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
+        mViewModel.onLaunchGalleryAnimalDetailToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             switchFragment(
                 R.id.layContainer,
                 AnimalDetailFragment.TAG,

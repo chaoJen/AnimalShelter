@@ -28,8 +28,9 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
 
     val onScrollGalleryToPositionEvent = SingleLiveEvent<Int>()
     val onScrollCollectionGalleryToPositionEvent = SingleLiveEvent<Int>()
-    val onLaunchAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
+    val onLaunchGalleryAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
     val onLaunchCollectionAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
+    val onBackCollectionAnimalDetailEvent = SingleLiveEvent<Unit>()
 
     private var mSkip = 0
     private val mTop = ShelterServiceConst.TOP
@@ -80,15 +81,19 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         onScrollGalleryToPositionEvent.postValue(position)
     }
 
-    fun scrollCollectionGallery(position: Int) {
+    fun scrollCollection(position: Int) {
         onScrollCollectionGalleryToPositionEvent.postValue(position)
     }
 
     fun launchGalleryAnimalDetail(position: Int) {
-        onLaunchAnimalDetailToPositionEvent.postValue(position)
+        onLaunchGalleryAnimalDetailToPositionEvent.postValue(position)
     }
 
     fun launchCollectionAnimalDetail(position: Int) {
         onLaunchCollectionAnimalDetailToPositionEvent.postValue(position)
+    }
+
+    fun backCollectionAnimalDetail() {
+        onBackCollectionAnimalDetailEvent.postValue(Unit)
     }
 }

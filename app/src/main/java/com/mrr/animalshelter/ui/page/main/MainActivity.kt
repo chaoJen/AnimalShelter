@@ -79,10 +79,7 @@ class MainActivity : BaseActivity() {
         mCurrentFragment = switchFragment(
             R.id.layContainer,
             GalleryHostFragment.TAG,
-            onNewInstance = {
-                val galleryHostFragment = GalleryHostFragment.newInstance()
-                galleryHostFragment
-            },
+            onNewInstance = { GalleryHostFragment.newInstance() },
             onFragmentAlreadyVisible = { fragment ->
                 if (fragment.childFragmentManager.backStackEntryCount == 1) {
                     mViewModel?.scrollGallery(0)
@@ -97,9 +94,13 @@ class MainActivity : BaseActivity() {
         mCurrentFragment = switchFragment(
             R.id.layContainer,
             CollectionHostFragment.TAG,
-            onNewInstance = {
-                val collectionHostFragment = CollectionHostFragment.newInstance()
-                collectionHostFragment
+            onNewInstance = { CollectionHostFragment.newInstance() },
+            onFragmentAlreadyVisible = { fragment ->
+                if (fragment.childFragmentManager.backStackEntryCount == 1) {
+                    mViewModel?.scrollCollection(0)
+                } else {
+                    fragment.childFragmentManager.popBackStack(null, 0)
+                }
             }
         )
     }

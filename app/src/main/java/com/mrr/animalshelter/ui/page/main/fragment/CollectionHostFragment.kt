@@ -50,5 +50,11 @@ class CollectionHostFragment : BaseFragment() {
                 onNewInstance = { CollectionAnimalDetailFragment.newInstance(position ?: 0) }
             )
         })
+        mViewModel.onBackCollectionAnimalDetailEvent.observe(viewLifecycleOwner, Observer {
+            val existedFragment = childFragmentManager.findFragmentByTag(CollectionAnimalDetailFragment.TAG)
+            if (existedFragment?.isVisible == true) {
+                childFragmentManager.popBackStack()
+            }
+        })
     }
 }

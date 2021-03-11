@@ -44,7 +44,7 @@ class CollectionAnimalDetailFragment : BaseFragment() {
         mAnimalDetailAdapter = AnimalDetailAdapter().apply {
             onCollectListener = { animal -> mViewModel.collectAnimal(animal) }
             onUnCollectListener = { animalId -> mViewModel.unCollectAnimal(animalId) }
-            onBindViewHolderListener =  { position -> mViewModel.scrollCollectionGallery(position) }
+            onBindViewHolderListener =  { position -> mViewModel.scrollCollection(position) }
         }
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext()).apply {
@@ -58,7 +58,11 @@ class CollectionAnimalDetailFragment : BaseFragment() {
 
     private fun observe() {
         mViewModel.collectedAnimals.observe(viewLifecycleOwner, Observer { collectedAnimals ->
-            mAnimalDetailAdapter?.submitList(collectedAnimals)
+            if (collectedAnimals.isEmpty()) {
+                mViewModel.backCollectionAnimalDetail()
+            } else {
+                mAnimalDetailAdapter?.submitList(collectedAnimals)
+            }
         })
         mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
             mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectedAnimalIds)
