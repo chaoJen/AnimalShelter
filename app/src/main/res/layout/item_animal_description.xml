@@ -57,8 +57,8 @@
 
     <ImageView
         android:id="@+id/imgActionAnimalShelterWeb"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/description_action_icon_size"
+        android:layout_height="@dimen/description_action_icon_size"
         android:src="@drawable/ic_action_animal_shelter"
         android:scaleType="centerCrop"
         android:layout_marginStart="20dp"
@@ -69,8 +69,8 @@
 
     <ImageView
         android:id="@+id/imgActionLocation"
-        android:layout_width="@dimen/all_icon_size"
-        android:layout_height="@dimen/all_icon_size"
+        android:layout_width="@dimen/description_action_icon_size"
+        android:layout_height="@dimen/description_action_icon_size"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_action_location"
@@ -81,8 +81,8 @@
 
     <ImageView
         android:id="@+id/imgActionCall"
-        android:layout_width="@dimen/all_icon_size"
-        android:layout_height="@dimen/all_icon_size"
+        android:layout_width="@dimen/description_action_icon_size"
+        android:layout_height="@dimen/description_action_icon_size"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_action_call"
@@ -93,8 +93,8 @@
 
     <ImageView
         android:id="@+id/imgActionCollection"
-        android:layout_width="@dimen/all_icon_size"
-        android:layout_height="@dimen/all_icon_size"
+        android:layout_width="@dimen/description_action_icon_size"
+        android:layout_height="@dimen/description_action_icon_size"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_action_collection_outline"

@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.core.AnimalRepository
 import com.mrr.animalshelter.core.api.ApiManager
+import com.mrr.animalshelter.core.db.AppDatabase
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.AnyViewModelFactory
 import com.mrr.animalshelter.ui.base.BaseActivity
@@ -38,7 +39,8 @@ class MainActivity : BaseActivity() {
     private fun initViewModel() {
         val factory = AnyViewModelFactory {
             val service = ApiManager.getShelterService()
-            val repository = AnimalRepository(service)
+            val dao = AppDatabase.getInstance(this).getAnimalDao()
+            val repository = AnimalRepository(service, dao)
             MainViewModel(repository)
         }
         mViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)

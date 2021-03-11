@@ -42,6 +42,8 @@ class AnimalDetailFragment : BaseFragment() {
 
     private fun initView() {
         mAnimalDetailAdapter = AnimalDetailAdapter().apply {
+            onCollectListener = { animal -> mViewModel.collectAnimal(animal) }
+            onUnCollectListener = { animalId -> mViewModel.unCollectAnimal(animalId) }
             onBindViewHolderListener =  { position ->
                 if (position >= itemCount - 5) {
                     mViewModel.pullAnimals(AnimalFilter())
@@ -60,8 +62,11 @@ class AnimalDetailFragment : BaseFragment() {
     }
 
     private fun observe() {
-        mViewModel.animals.observe(viewLifecycleOwner, Observer {
-            mAnimalDetailAdapter?.submitList(it)
+        mViewModel.animals.observe(viewLifecycleOwner, Observer { animals ->
+            mAnimalDetailAdapter?.submitList(animals)
+        })
+        mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
+            mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectedAnimalIds)
         })
     }
 }

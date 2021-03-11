@@ -28,7 +28,10 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
 ) {
 
     var onBindViewHolderListener: ((position: Int) -> Unit)? = null
+    var onCollectListener: ((animal: Animal) -> Unit)? = null
+    var onUnCollectListener: ((animalId: Int) -> Unit)? = null
     private var mAllShowMoreAnimalIds = mutableListOf<Int>()
+    private var mAllCollectedAnimalIds = listOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalDetailViewHolder {
         return AnimalDetailViewHolder(parent)
@@ -39,10 +42,16 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
         holder.bind(getItem(position))
     }
 
+    fun onCollectedAnimalsChanged(collectedAnimalIds: List<Int>) {
+        mAllCollectedAnimalIds = collectedAnimalIds
+        notifyDataSetChanged()
+    }
+
     inner class AnimalDetailViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_animal_description, parent, false)
     ) {
 
+        private lateinit var animal: Animal
         private lateinit var animalDetailDescriptor: AnimalDetailDescriptor
         private val onAnimalShelterClickListener = View.OnClickListener {
             itemView.context?.run {
@@ -59,6 +68,13 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
                 startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${animalDetailDescriptor.getShelterTel()}")))
             }
         }
+        private val onCollectionClickListener = View.OnClickListener {
+            if (mAllCollectedAnimalIds.contains(animal.animalId)) {
+                onUnCollectListener?.invoke(animal.animalId)
+            } else {
+                onCollectListener?.invoke(animal)
+            }
+        }
         private val onShowMoreClickListener = View.OnClickListener {
             animalDetailDescriptor.getAnimalId().let {
                 mAllShowMoreAnimalIds.add(it)
@@ -67,6 +83,7 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
         }
 
         fun bind(animal: Animal) {
+            this.animal = animal
             animalDetailDescriptor = AnimalDetailDescriptor(animal)
 
             Glide.with(itemView.context)
@@ -90,6 +107,7 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
             itemView.tvContentAnimalId.text = "${animalDetailDescriptor.getAnimalId()}"
             itemView.tvContentAnimalSubId.text = animalDetailDescriptor.getAnimalSubId()
             itemView.tvDate.text = animalDetailDescriptor.getDayDiff(itemView.context, "yyyy/MM/dd")
+            itemView.imgActionCollection.setImageResource(if (mAllCollectedAnimalIds.contains(animal.animalId)) R.drawable.ic_action_collection_fill else R.drawable.ic_action_collection_outline)
 
             itemView.imgActionAnimalShelterWeb.setOnClickListener(onAnimalShelterClickListener)
             itemView.tvTopperShelterBadge.setOnClickListener(onAnimalLocationClickListener)
@@ -100,6 +118,7 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
             itemView.tvMoreDetail.setOnClickListener(onShowMoreClickListener)
             itemView.tvTitleShelterTel.setOnClickListener(onShelterTelClickListener)
             itemView.tvContentShelterTel.setOnClickListener(onShelterTelClickListener)
+            itemView.imgActionCollection.setOnClickListener(onCollectionClickListener)
 
             val isShowMore = mAllShowMoreAnimalIds.contains(animal.animalId)
             itemView.tvMoreDetail.visibility = if (isShowMore) View.INVISIBLE else View.VISIBLE

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="all_icon_size">25dp</dimen>
+
+    <!-- description -->
+    <dimen name="description_action_icon_size">30dp</dimen>
 </resources>

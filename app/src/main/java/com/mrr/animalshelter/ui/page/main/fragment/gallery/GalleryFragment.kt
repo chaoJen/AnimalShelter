@@ -66,6 +66,9 @@ class GalleryFragment : BaseFragment() {
         mViewModel.animals.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
+        mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
+            mAdapter.onCollectedAnimalsChanged(collectedAnimalIds)
+        })
         mViewModel.isAnimalLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             if (!isLoading) {
                 layRefresh.isRefreshing = false

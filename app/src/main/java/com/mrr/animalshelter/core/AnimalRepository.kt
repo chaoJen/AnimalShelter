@@ -1,12 +1,16 @@
 package com.mrr.animalshelter.core
 
 import com.mrr.animalshelter.core.api.service.ShelterService
+import com.mrr.animalshelter.core.db.AnimalDao
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.*
 import retrofit2.Response
 
-class AnimalRepository(private val service: ShelterService) {
+class AnimalRepository(
+    private val service: ShelterService,
+    private val collectionAnimalsDao: AnimalDao
+) {
 
     suspend fun pullAnimals(top: Int, skip: Int, filter: AnimalFilter): Response<List<Animal>> {
         return service.getAnimals(
@@ -24,4 +28,12 @@ class AnimalRepository(private val service: ShelterService) {
             animalStatus = filter.status?.id ?: AnimalStatus.Open.id
         )
     }
+
+    suspend fun collectAnimal(animal: Animal) {
+        collectionAnimalsDao.insert(animal)
+    }
+
+    fun getAllCollectedAnimalIds() = collectionAnimalsDao.getAllAnimalIds()
+
+    suspend fun unCollectAnimal(animalId: Int) = collectionAnimalsDao.delete(animalId)
 }

@@ -20,6 +20,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     }
 
     val animals = MutableLiveData<List<Animal>>()
+    val collectedAnimalIds = repository.getAllCollectedAnimalIds()
     val isAnimalLoading = MutableLiveData<Boolean>()
     val error = MutableLiveData<ErrorType>()
     val isNoMoreData = MutableLiveData<Boolean>()
@@ -62,6 +63,14 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         mSkip = 0
         isNoMoreData.postValue(false)
         pullAnimals(filter)
+    }
+
+    fun collectAnimal(animal: Animal) = viewModelScope.launch {
+        repository.collectAnimal(animal)
+    }
+
+    fun unCollectAnimal(animalId: Int) = viewModelScope.launch {
+        repository.unCollectAnimal(animalId)
     }
 
     fun scrollGallery(position: Int) {
