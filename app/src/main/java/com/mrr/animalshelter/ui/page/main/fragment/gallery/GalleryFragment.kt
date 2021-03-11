@@ -75,7 +75,7 @@ class GalleryFragment : BaseFragment() {
             }
         })
         mViewModel.onScrollGalleryToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
-            position?.let { rvAnimals.scrollToPosition(if (it > 3) it - 3 else 0) }
+            position?.let { rvAnimals.scrollToPosition(if (it > 3 && it % 3 == 0) it - 1 else it) }
         })
     }
 }
