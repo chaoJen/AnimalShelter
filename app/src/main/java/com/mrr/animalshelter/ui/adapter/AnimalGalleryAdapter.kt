@@ -23,7 +23,7 @@ class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalView
     }
 ) {
 
-    var onItemClickListener: ((position: Int) -> Unit)? = null
+    var onItemClickListener: ((animal: Animal) -> Unit)? = null
     private var mAllCollectedAnimalIds = listOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
@@ -42,17 +42,17 @@ class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalView
     inner class AnimalViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_animal, parent, false)
     ) {
-        private var itemPosition: Int = 0
+        private lateinit var animal: Animal
         private val onItemClickListener = View.OnClickListener {
-            this@AnimalGalleryAdapter.onItemClickListener?.invoke(itemPosition)
+            this@AnimalGalleryAdapter.onItemClickListener?.invoke(animal)
         }
 
         fun bind(position: Int) {
-            itemPosition = position
+            animal = getItem(position)
             itemView.setOnClickListener(onItemClickListener)
-            itemView.ivCollection.visibility = if (mAllCollectedAnimalIds.contains(getItem(position).animalId)) View.VISIBLE else View.GONE
+            itemView.ivCollection.visibility = if (mAllCollectedAnimalIds.contains(animal.animalId)) View.VISIBLE else View.GONE
             Glide.with(itemView.context)
-                .load(getItem(position).albumFile)
+                .load(animal.albumFile)
                 .into(itemView.ivAnimal)
         }
     }

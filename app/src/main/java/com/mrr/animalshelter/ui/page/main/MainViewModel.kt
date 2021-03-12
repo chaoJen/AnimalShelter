@@ -85,12 +85,12 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         onScrollCollectionGalleryToPositionEvent.postValue(position)
     }
 
-    fun launchGalleryAnimalDetail(position: Int) {
-        onLaunchGalleryAnimalDetailToPositionEvent.postValue(position)
+    fun launchGalleryAnimalDetail(animal: Animal) {
+        onLaunchGalleryAnimalDetailToPositionEvent.postValue(animals.value?.indexOf(animal) ?: 0)
     }
 
-    fun launchCollectionAnimalDetail(position: Int) {
-        onLaunchCollectionAnimalDetailToPositionEvent.postValue(position)
+    fun launchCollectionAnimalDetail(animal: Animal) {
+        onLaunchCollectionAnimalDetailToPositionEvent.postValue(collectedAnimals.value?.indexOf(animal) ?: 0)
     }
 
     fun backCollectionAnimalDetail() {

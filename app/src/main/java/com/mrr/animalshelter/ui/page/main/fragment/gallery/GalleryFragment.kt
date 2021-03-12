@@ -57,8 +57,8 @@ class GalleryFragment : BaseFragment() {
     }
 
     private fun initAnimalAdapter() {
-        mAdapter.onItemClickListener = { index ->
-            mViewModel.launchGalleryAnimalDetail(index)
+        mAdapter.onItemClickListener = { animal ->
+            mViewModel.launchGalleryAnimalDetail(animal)
         }
         rvAnimals.adapter = mAdapter
     }
