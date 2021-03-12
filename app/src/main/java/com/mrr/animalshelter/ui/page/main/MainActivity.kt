@@ -17,11 +17,13 @@ import com.mrr.animalshelter.ui.base.BaseActivity
 import com.mrr.animalshelter.ui.page.main.fragment.CollectionHostFragment
 import com.mrr.animalshelter.ui.page.main.fragment.GalleryHostFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : BaseActivity() {
 
     private var mViewModel: MainViewModel? = null
     private var mCurrentFragment: Fragment? = null
+    private var mBackPressedTimeMillisecond: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,7 +113,7 @@ class MainActivity : BaseActivity() {
         })
         mViewModel?.isNoMoreData?.observe(this, Observer { isNoMore ->
             if (isNoMore) {
-                Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_nomoredata, Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_nomoredata, Snackbar.LENGTH_INDEFINITE).show()
             }
         })
     }
@@ -120,7 +122,12 @@ class MainActivity : BaseActivity() {
         if (mCurrentFragment?.childFragmentManager?.backStackEntryCount ?: 1 > 1) {
             mCurrentFragment?.childFragmentManager?.popBackStack()
         } else {
-            super.onBackPressed()
+            if (Date().time - mBackPressedTimeMillisecond > 3000) {
+                Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_backpressedagain, Snackbar.LENGTH_SHORT).show()
+                mBackPressedTimeMillisecond = Date().time
+            } else {
+                super.onBackPressed()
+            }
         }
     }
 }

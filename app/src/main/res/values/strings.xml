@@ -165,6 +165,7 @@
     <!-- 首頁 -->
     <string name="main_snackbar_message_loading">loading</string>
     <string name="main_snackbar_message_nomoredata">no more data</string>
+    <string name="main_snackbar_message_backpressedagain">再按一次回到桌面</string>
     <!---->
 
     <!-- 動物詳細頁 -->
