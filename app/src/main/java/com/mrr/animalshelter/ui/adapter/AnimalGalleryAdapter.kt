@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.Animal
+import com.mrr.animalshelter.ktx.loadImage
 import kotlinx.android.synthetic.main.item_animal.view.*
 
 class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalViewHolder>(
@@ -57,9 +57,10 @@ class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalView
             itemView.setOnClickListener(onItemClickListener)
             itemView.setOnLongClickListener(onItemLongClickListener)
             itemView.ivCollection.visibility = if (mAllCollectedAnimalIds.contains(animal.animalId)) View.VISIBLE else View.GONE
-            Glide.with(itemView.context)
-                .load(animal.albumFile)
-                .into(itemView.ivAnimal)
+            itemView.context.loadImage(
+                animal.albumFile,
+                itemView.ivAnimal
+            )
         }
     }
 }

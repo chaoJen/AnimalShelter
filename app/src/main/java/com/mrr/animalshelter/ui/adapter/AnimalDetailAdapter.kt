@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalDetailDescriptor
+import com.mrr.animalshelter.ktx.loadImage
 import com.mrr.animalshelter.ui.page.web.WebViewActivity
 import kotlinx.android.synthetic.main.item_animal_description.view.*
 
@@ -86,10 +86,10 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
             this.animal = animal
             animalDetailDescriptor = AnimalDetailDescriptor(animal)
 
-            Glide.with(itemView.context)
-                .load(animalDetailDescriptor.getAlbumFile())
-                .fitCenter()
-                .into(itemView.imgAnimal)
+            itemView.context.loadImage(
+                animalDetailDescriptor.getAlbumFile(),
+                itemView.imgAnimal
+            )
 
             animalDetailDescriptor.getAnimalArea()?.badgeNameResourceId?.let { itemView.tvTopperShelterBadge.setText(it) }
             itemView.tvTopperShelterName.text = animalDetailDescriptor.getShelterName()
