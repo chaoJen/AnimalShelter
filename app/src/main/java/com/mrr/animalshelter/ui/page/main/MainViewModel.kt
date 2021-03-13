@@ -20,9 +20,10 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     }
 
     val animals = MutableLiveData<List<Animal>>()
-    val collectedAnimals = repository.getAllCollectedAnimals()
-    val collectedAnimalIds = repository.getAllCollectedAnimalIds()
-    val isAnimalLoading = MutableLiveData<Boolean>()
+    val collectionAnimals = repository.getAllCollectionAnimalsAsLiveData()
+    val collectionAnimalIds = repository.getAllCollectionAnimalIds()
+    val isGalleryDataPulling = MutableLiveData<Boolean>()
+    val isCollectionDataPulling = MutableLiveData<Boolean>()
     val error = MutableLiveData<ErrorType>()
     val isNoMoreData = MutableLiveData<Boolean>()
 
@@ -37,13 +38,13 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
 
     fun pullAnimals(filter: AnimalFilter) = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
         Log.d(TAG, throwable.toString())
-        isAnimalLoading.postValue(false)
+        isGalleryDataPulling.postValue(false)
         error.postValue(ErrorType.ApiException(throwable))
     }) {
-        if (isAnimalLoading.value == true || isNoMoreData.value == true) {
+        if (isGalleryDataPulling.value == true || isNoMoreData.value == true) {
             return@launch
         }
-        isAnimalLoading.postValue(true)
+        isGalleryDataPulling.postValue(true)
         val response = repository.pullAnimals(mTop, mSkip, filter)
         if (response.isSuccessful) {
             val newAnimals = response.body()
@@ -60,7 +61,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         } else {
             error.postValue(ErrorType.ApiFail)
         }
-        isAnimalLoading.postValue(false)
+        isGalleryDataPulling.postValue(false)
     }
 
     fun resetAnimals(filter: AnimalFilter) {
@@ -78,11 +79,26 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     }
 
     fun changeAnimalCollection(animal: Animal) {
-        if (collectedAnimals.value?.contains(animal) == true) {
+        if (collectionAnimals.value?.contains(animal) == true) {
             unCollectAnimal(animal.animalId)
         } else {
             collectAnimal(animal)
         }
+    }
+
+    fun updateCollectionAnimalsData() = viewModelScope.launch {
+        isCollectionDataPulling.postValue(true)
+        val collectionAnimals = repository.getAllCollectionAnimals()
+        collectionAnimals.forEach { animal ->
+            val response = repository.pullAnimal(animal.animalId)
+            if (response.isSuccessful) {
+                val animals = response.body()
+                if (animals?.size == 1) {
+                    collectAnimal(animals[0])
+                }
+            }
+        }
+        isCollectionDataPulling.postValue(false)
     }
 
     fun scrollGallery(position: Int) {
@@ -98,7 +114,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     }
 
     fun launchCollectionAnimalDetail(animal: Animal) {
-        onLaunchCollectionAnimalDetailToPositionEvent.postValue(collectedAnimals.value?.indexOf(animal) ?: 0)
+        onLaunchCollectionAnimalDetailToPositionEvent.postValue(collectionAnimals.value?.indexOf(animal) ?: 0)
     }
 
     fun backCollectionAnimalDetail() {

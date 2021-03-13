@@ -32,6 +32,7 @@ class GalleryHostFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         observe()
+        mViewModel.updateCollectionAnimalsData()
     }
 
     private fun initView() {

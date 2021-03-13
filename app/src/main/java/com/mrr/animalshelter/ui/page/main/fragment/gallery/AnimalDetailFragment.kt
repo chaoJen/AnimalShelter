@@ -66,8 +66,8 @@ class AnimalDetailFragment : BaseFragment() {
         mViewModel.animals.observe(viewLifecycleOwner, Observer { animals ->
             mAnimalDetailAdapter?.submitList(animals)
         })
-        mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
-            mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectedAnimalIds)
+        mViewModel.collectionAnimalIds.observe(viewLifecycleOwner, Observer { collectionAnimalIds ->
+            mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectionAnimalIds)
         })
     }
 }

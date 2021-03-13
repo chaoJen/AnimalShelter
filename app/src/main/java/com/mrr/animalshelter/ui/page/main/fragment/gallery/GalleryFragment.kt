@@ -67,11 +67,11 @@ class GalleryFragment : BaseFragment() {
         mViewModel.animals.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
-        mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
-            mAdapter.onCollectedAnimalsChanged(collectedAnimalIds)
+        mViewModel.collectionAnimalIds.observe(viewLifecycleOwner, Observer { collectionAnimalIds ->
+            mAdapter.onCollectedAnimalsChanged(collectionAnimalIds)
         })
-        mViewModel.isAnimalLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            if (!isLoading) {
+        mViewModel.isGalleryDataPulling.observe(viewLifecycleOwner, Observer { isPulling ->
+            if (!isPulling) {
                 layRefresh.isRefreshing = false
             }
         })

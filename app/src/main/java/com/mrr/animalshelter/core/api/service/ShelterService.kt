@@ -21,4 +21,7 @@ interface ShelterService {
         @Query("animal_bacterin") animalBacterin: String = "",
         @Query("animal_status") animalStatus: String = ""
     ): Response<List<Animal>>
+
+    @GET("Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL")
+    suspend fun getAnimal(@Query("animal_id") animalId: Int): Response<List<Animal>>
 }

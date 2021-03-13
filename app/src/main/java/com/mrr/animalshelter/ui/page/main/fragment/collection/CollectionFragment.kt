@@ -26,7 +26,7 @@ class CollectionFragment : BaseFragment() {
     private var mAdapter = AnimalGalleryAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_animal_gallery_collection, container, false)
+        return inflater.inflate(R.layout.fragment_animal_gallery, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +39,7 @@ class CollectionFragment : BaseFragment() {
     private fun initView() {
         val gridLayoutManager = GridLayoutManager(context, 3)
         rvAnimals.layoutManager = gridLayoutManager
+        layRefresh.setOnRefreshListener { mViewModel.updateCollectionAnimalsData() }
     }
 
     private fun initAnimalAdapter() {
@@ -49,14 +50,20 @@ class CollectionFragment : BaseFragment() {
     }
 
     private fun observe() {
-        mViewModel.collectedAnimals.observe(viewLifecycleOwner, Observer { collectedAnimals ->
+        mViewModel.collectionAnimals.observe(viewLifecycleOwner, Observer { collectedAnimals ->
+            layRefresh.isEnabled = collectedAnimals.isNotEmpty()
             mAdapter.submitList(collectedAnimals)
         })
-        mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
+        mViewModel.collectionAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
             mAdapter.onCollectedAnimalsChanged(collectedAnimalIds)
         })
         mViewModel.onScrollCollectionGalleryToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             position?.let { rvAnimals.scrollToPosition(if (it > 3 && it % 3 == 0) it - 1 else it) }
+        })
+        mViewModel.isCollectionDataPulling.observe(viewLifecycleOwner, Observer { isPulling ->
+            if (!isPulling) {
+                layRefresh.isRefreshing = false
+            }
         })
     }
 }

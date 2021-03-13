@@ -12,6 +12,8 @@ class AnimalRepository(
     private val collectionAnimalsDao: AnimalDao
 ) {
 
+    suspend fun pullAnimal(animalId: Int) = service.getAnimal(animalId)
+
     suspend fun pullAnimals(top: Int, skip: Int, filter: AnimalFilter): Response<List<Animal>> {
         return service.getAnimals(
             top = top,
@@ -33,9 +35,11 @@ class AnimalRepository(
         collectionAnimalsDao.insert(animal)
     }
 
-    fun getAllCollectedAnimals() = collectionAnimalsDao.getAll()
+    suspend fun getAllCollectionAnimals() = collectionAnimalsDao.getAll()
 
-    fun getAllCollectedAnimalIds() = collectionAnimalsDao.getAllAnimalIds()
+    fun getAllCollectionAnimalsAsLiveData() = collectionAnimalsDao.getAllAsLiveData()
+
+    fun getAllCollectionAnimalIds() = collectionAnimalsDao.getAllAnimalIds()
 
     suspend fun unCollectAnimal(animalId: Int) = collectionAnimalsDao.delete(animalId)
 }

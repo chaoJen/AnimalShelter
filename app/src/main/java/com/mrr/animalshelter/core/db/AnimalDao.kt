@@ -14,7 +14,10 @@ interface AnimalDao {
     fun get(animalId: Int): LiveData<Animal>
 
     @Query("SELECT * FROM CollectedAnimals ORDER BY animal_update DESC, cDate DESC")
-    fun getAll(): LiveData<List<Animal>>
+    fun getAllAsLiveData(): LiveData<List<Animal>>
+
+    @Query("SELECT * FROM CollectedAnimals")
+    suspend fun getAll(): List<Animal>
 
     @Query("SELECT animal_id FROM CollectedAnimals")
     fun getAllAnimalIds(): LiveData<List<Int>>

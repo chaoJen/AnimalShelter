@@ -57,15 +57,15 @@ class CollectionAnimalDetailFragment : BaseFragment() {
     }
 
     private fun observe() {
-        mViewModel.collectedAnimals.observe(viewLifecycleOwner, Observer { collectedAnimals ->
-            if (collectedAnimals.isEmpty()) {
+        mViewModel.collectionAnimals.observe(viewLifecycleOwner, Observer { collectionAnimals ->
+            if (collectionAnimals.isEmpty()) {
                 mViewModel.backCollectionAnimalDetail()
             } else {
-                mAnimalDetailAdapter?.submitList(collectedAnimals)
+                mAnimalDetailAdapter?.submitList(collectionAnimals)
             }
         })
-        mViewModel.collectedAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
-            mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectedAnimalIds)
+        mViewModel.collectionAnimalIds.observe(viewLifecycleOwner, Observer { collectionAnimalIds ->
+            mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectionAnimalIds)
         })
     }
 }
