@@ -44,18 +44,18 @@ class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalView
         LayoutInflater.from(parent.context).inflate(R.layout.item_animal, parent, false)
     ) {
         private lateinit var animal: Animal
-        private val onItemClickListener = View.OnClickListener {
+        private val onClickListener = View.OnClickListener {
             this@AnimalGalleryAdapter.onItemClickListener?.invoke(animal)
         }
-        private val onItemLongClickListener = View.OnLongClickListener {
+        private val onLongClickListener = View.OnLongClickListener {
             this@AnimalGalleryAdapter.onItemLongClickListener?.invoke(animal)
             true
         }
 
         fun bind(position: Int) {
             animal = getItem(position)
-            itemView.setOnClickListener(onItemClickListener)
-            itemView.setOnLongClickListener(onItemLongClickListener)
+            itemView.setOnClickListener(onClickListener)
+            itemView.setOnLongClickListener(onLongClickListener)
             itemView.ivCollection.visibility = if (mAllCollectedAnimalIds.contains(animal.animalId)) View.VISIBLE else View.GONE
             itemView.context.loadImage(
                 animal.albumFile,

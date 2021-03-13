@@ -13,7 +13,7 @@ interface AnimalDao {
     @Query("SELECT * FROM CollectedAnimals WHERE animal_id = :animalId LIMIT 1")
     fun get(animalId: Int): LiveData<Animal>
 
-    @Query("SELECT * FROM CollectedAnimals")
+    @Query("SELECT * FROM CollectedAnimals ORDER BY animal_update DESC, cDate DESC")
     fun getAll(): LiveData<List<Animal>>
 
     @Query("SELECT animal_id FROM CollectedAnimals")

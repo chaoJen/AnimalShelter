@@ -12,8 +12,10 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalDetailDescriptor
 import com.mrr.animalshelter.ktx.loadImage
+import com.mrr.animalshelter.ktx.vibrate
 import com.mrr.animalshelter.ui.page.web.WebViewActivity
 import kotlinx.android.synthetic.main.item_animal_description.view.*
+import java.util.*
 
 class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetailViewHolder>(
     object : DiffUtil.ItemCallback<Animal>() {
@@ -53,37 +55,48 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
 
         private lateinit var animal: Animal
         private lateinit var animalDetailDescriptor: AnimalDetailDescriptor
-        private val onAnimalShelterClickListener = View.OnClickListener {
-            itemView.context?.run {
-                startActivity(WebViewActivity.getStartActivityIntent(this, animalDetailDescriptor.getAdoptionWebPageUrl()))
-            }
-        }
-        private val onAnimalLocationClickListener = View.OnClickListener {
-            itemView.context.run {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=${animalDetailDescriptor.getShelterName()} ${animalDetailDescriptor.getShelterAddress()}")))
-            }
-        }
-        private val onShelterTelClickListener = View.OnClickListener {
-            itemView.context.run {
-                startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${animalDetailDescriptor.getShelterTel()}")))
-            }
-        }
-        private val onCollectionClickListener = View.OnClickListener {
-            if (mAllCollectedAnimalIds.contains(animal.animalId)) {
-                onUnCollectListener?.invoke(animal.animalId)
-            } else {
-                onCollectListener?.invoke(animal)
-            }
-        }
-        private val onShowMoreClickListener = View.OnClickListener {
-            animalDetailDescriptor.getAnimalId().let {
-                mAllShowMoreAnimalIds.add(it)
-                notifyDataSetChanged()
+        private var imgAnimalClickTimeMillisecond: Long = 0
+        private val onClickListener = View.OnClickListener {
+            when (it.id) {
+                R.id.imgAnimal -> {
+                    val currentTimeMillisecond = Date().time
+                    if (currentTimeMillisecond - imgAnimalClickTimeMillisecond > 400) {
+                        imgAnimalClickTimeMillisecond = currentTimeMillisecond
+                    } else {
+                        itemView.context?.vibrate(5)
+                        onCollectListener?.invoke(animal)
+                    }
+                }
+                R.id.imgActionAnimalShelterWeb -> itemView.context?.run {
+                    startActivity(WebViewActivity.getStartActivityIntent(this, animalDetailDescriptor.getAdoptionWebPageUrl()))
+                }
+                R.id.tvTopperShelterBadge,
+                R.id.tvTopperShelterName,
+                R.id.tvTopperShelterAddress,
+                R.id.imgActionLocation -> itemView.context.run {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=${animalDetailDescriptor.getShelterName()} ${animalDetailDescriptor.getShelterAddress()}")))
+                }
+                R.id.imgActionCall,
+                R.id.tvTitleShelterTel,
+                R.id.tvContentShelterTel -> itemView.context.run {
+                    startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${animalDetailDescriptor.getShelterTel()}")))
+                }
+                R.id.imgActionCollection -> if (mAllCollectedAnimalIds.contains(animal.animalId)) {
+                    onUnCollectListener?.invoke(animal.animalId)
+                } else {
+                    itemView.context?.vibrate(5)
+                    onCollectListener?.invoke(animal)
+                }
+                R.id.tvMoreDetail -> {
+                    mAllShowMoreAnimalIds.add(animalDetailDescriptor.getAnimalId())
+                    notifyDataSetChanged()
+                }
             }
         }
 
         fun bind(animal: Animal) {
             this.animal = animal
+            imgAnimalClickTimeMillisecond = 0
             animalDetailDescriptor = AnimalDetailDescriptor(animal)
 
             itemView.context.loadImage(
@@ -109,16 +122,17 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
             itemView.tvDate.text = animalDetailDescriptor.getDayDiff(itemView.context, "yyyy/MM/dd")
             itemView.imgActionCollection.setImageResource(if (mAllCollectedAnimalIds.contains(animal.animalId)) R.drawable.ic_action_collection_fill else R.drawable.ic_action_collection_outline)
 
-            itemView.imgActionAnimalShelterWeb.setOnClickListener(onAnimalShelterClickListener)
-            itemView.tvTopperShelterBadge.setOnClickListener(onAnimalLocationClickListener)
-            itemView.tvTopperShelterName.setOnClickListener(onAnimalLocationClickListener)
-            itemView.tvTopperShelterAddress.setOnClickListener(onAnimalLocationClickListener)
-            itemView.imgActionLocation.setOnClickListener(onAnimalLocationClickListener)
-            itemView.imgActionCall.setOnClickListener(onShelterTelClickListener)
-            itemView.tvMoreDetail.setOnClickListener(onShowMoreClickListener)
-            itemView.tvTitleShelterTel.setOnClickListener(onShelterTelClickListener)
-            itemView.tvContentShelterTel.setOnClickListener(onShelterTelClickListener)
-            itemView.imgActionCollection.setOnClickListener(onCollectionClickListener)
+            itemView.imgAnimal.setOnClickListener(onClickListener)
+            itemView.imgActionAnimalShelterWeb.setOnClickListener(onClickListener)
+            itemView.tvTopperShelterBadge.setOnClickListener(onClickListener)
+            itemView.tvTopperShelterName.setOnClickListener(onClickListener)
+            itemView.tvTopperShelterAddress.setOnClickListener(onClickListener)
+            itemView.imgActionLocation.setOnClickListener(onClickListener)
+            itemView.imgActionCall.setOnClickListener(onClickListener)
+            itemView.tvMoreDetail.setOnClickListener(onClickListener)
+            itemView.tvTitleShelterTel.setOnClickListener(onClickListener)
+            itemView.tvContentShelterTel.setOnClickListener(onClickListener)
+            itemView.imgActionCollection.setOnClickListener(onClickListener)
 
             val isShowMore = mAllShowMoreAnimalIds.contains(animal.animalId)
             itemView.tvMoreDetail.visibility = if (isShowMore) View.INVISIBLE else View.VISIBLE
