@@ -42,10 +42,10 @@ class CollectionFragment : BaseFragment() {
     }
 
     private fun initAnimalAdapter() {
-        mAdapter.onItemClickListener = { animal ->
-            mViewModel.launchCollectionAnimalDetail(animal)
+        rvAnimals.adapter = mAdapter.apply {
+            onItemClickListener = { animal -> mViewModel.launchCollectionAnimalDetail(animal) }
+            onItemLongClickListener = { animal -> mViewModel.changeAnimalCollection(animal) }
         }
-        rvAnimals.adapter = mAdapter
     }
 
     private fun observe() {

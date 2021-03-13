@@ -77,6 +77,14 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         repository.unCollectAnimal(animalId)
     }
 
+    fun changeAnimalCollection(animal: Animal) {
+        if (collectedAnimals.value?.contains(animal) == true) {
+            unCollectAnimal(animal.animalId)
+        } else {
+            collectAnimal(animal)
+        }
+    }
+
     fun scrollGallery(position: Int) {
         onScrollGalleryToPositionEvent.postValue(position)
     }

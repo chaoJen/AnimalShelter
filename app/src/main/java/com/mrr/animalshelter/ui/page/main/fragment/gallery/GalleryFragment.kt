@@ -57,10 +57,10 @@ class GalleryFragment : BaseFragment() {
     }
 
     private fun initAnimalAdapter() {
-        mAdapter.onItemClickListener = { animal ->
-            mViewModel.launchGalleryAnimalDetail(animal)
+        rvAnimals.adapter = mAdapter.apply {
+            onItemClickListener = { animal -> mViewModel.launchGalleryAnimalDetail(animal) }
+            onItemLongClickListener = { animal -> mViewModel.changeAnimalCollection(animal) }
         }
-        rvAnimals.adapter = mAdapter
     }
 
     private fun observe() {

@@ -24,6 +24,7 @@ class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalView
 ) {
 
     var onItemClickListener: ((animal: Animal) -> Unit)? = null
+    var onItemLongClickListener: ((animal: Animal) -> Unit)? = null
     private var mAllCollectedAnimalIds = listOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
@@ -46,10 +47,15 @@ class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalView
         private val onItemClickListener = View.OnClickListener {
             this@AnimalGalleryAdapter.onItemClickListener?.invoke(animal)
         }
+        private val onItemLongClickListener = View.OnLongClickListener {
+            this@AnimalGalleryAdapter.onItemLongClickListener?.invoke(animal)
+            true
+        }
 
         fun bind(position: Int) {
             animal = getItem(position)
             itemView.setOnClickListener(onItemClickListener)
+            itemView.setOnLongClickListener(onItemLongClickListener)
             itemView.ivCollection.visibility = if (mAllCollectedAnimalIds.contains(animal.animalId)) View.VISIBLE else View.GONE
             Glide.with(itemView.context)
                 .load(animal.albumFile)
