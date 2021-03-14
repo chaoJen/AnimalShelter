@@ -26,7 +26,7 @@ class CollectionFragment : BaseFragment() {
     private var mAdapter = AnimalGalleryAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_animal_gallery, container, false)
+        return inflater.inflate(R.layout.fragment_animal_collection, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

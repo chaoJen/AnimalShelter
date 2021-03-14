@@ -200,4 +200,19 @@
     <string name="animal_detail_diff_date_format_month">M 月 d 日</string>
     <string name="animal_detail_diff_date_format_default">yyyy 年 M 月 d 日</string>
     <!---->
+
+    <!-- 篩選項目標題 -->
+    <string name="gallery_filter_title_animal_kind">類型</string>
+    <string name="gallery_filter_title_animal_sex">性別</string>
+    <string name="gallery_filter_title_animal_age">年紀：</string>
+    <string name="gallery_filter_title_animal_body_type">體型：</string>
+    <string name="gallery_filter_title_animal_colour">毛色：</string>
+    <string name="gallery_filter_title_animal_area">所在縣市</string>
+    <string name="gallery_filter_title_animal_shelter">所在收容所</string>
+    <string name="gallery_filter_title_animal_bacterin">狂犬病疫苗</string>
+    <string name="gallery_filter_title_animal_sterilization">絕育：</string>
+    <string name="gallery_filter_title_description_animal_kind">動物圖示</string>
+    <string name="gallery_filter_title_description_location_mark">座標圖示</string>
+    <string name="gallery_filter_title_description_health">健康狀態圖示</string>
+    <!---->
 </resources>
