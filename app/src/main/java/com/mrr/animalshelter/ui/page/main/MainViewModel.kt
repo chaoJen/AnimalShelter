@@ -168,6 +168,15 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         resetAnimals()
     }
 
+    fun changeFilterAnimalAge() {
+        val currentOrdinal = animalFilter.value?.age?.ordinal ?: 0
+        val nextOrdinal = if (currentOrdinal + 1 >= AnimalAge.values().size) 0 else currentOrdinal + 1
+        animalFilter.postValue(animalFilter.value?.also {
+            it.age = AnimalAge.values()[nextOrdinal]
+        })
+        resetAnimals()
+    }
+
     fun showFilterBottomSheetShelter() {
         val filterArea = animalFilter.value?.area ?: AnimalArea.All
         onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))
