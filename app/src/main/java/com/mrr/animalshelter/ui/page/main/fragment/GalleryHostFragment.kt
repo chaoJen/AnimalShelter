@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.AnimalFilter
-import com.mrr.animalshelter.data.element.AnimalArea
-import com.mrr.animalshelter.data.element.AnimalKind
-import com.mrr.animalshelter.data.element.AnimalSex
-import com.mrr.animalshelter.data.element.AnimalShelter
+import com.mrr.animalshelter.data.element.*
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.adapter.AreaAdapter
+import com.mrr.animalshelter.ui.adapter.ColourAdapter
 import com.mrr.animalshelter.ui.adapter.ShelterAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
@@ -49,12 +47,13 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.layFilterArea -> showAreaBottomSheet()
+            R.id.layFilterArea -> showBottomSheetArea()
             R.id.layFilterShelter -> mViewModel.showFilterBottomSheetShelter()
             R.id.layFilterAnimalKind -> mViewModel.changeFilterAnimalKind()
             R.id.layFilterAnimalSex -> mViewModel.changeFilterAnimalSex()
             R.id.layFilterAnimalAge -> mViewModel.changeFilterAnimalAge()
             R.id.layFilterAnimalBodyType -> mViewModel.changeFilterAnimalBodyType()
+            R.id.layFilterAnimalColour -> showBottomSheetColour()
         }
     }
 
@@ -70,6 +69,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         layFilterAnimalSex.setOnClickListener(this)
         layFilterAnimalAge.setOnClickListener(this)
         layFilterAnimalBodyType.setOnClickListener(this)
+        layFilterAnimalColour.setOnClickListener(this)
         layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 
@@ -90,7 +90,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             }
         })
         mViewModel.onShowFilterBottomSheetShelterEvent.observe(viewLifecycleOwner, Observer { shelters ->
-            shelters?.let { showShelterBottomSheet(it) }
+            shelters?.let { showBottomSheetShelter(it) }
         })
     }
 
@@ -117,7 +117,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         layFilterShelter.isClickable = AnimalShelter.find(filter.area).size > 1
     }
 
-    private fun showAreaBottomSheet() = context?.run {
+    private fun showBottomSheetArea() = context?.run {
         BottomSheetDialog(this).apply{
             val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_area, null)
             dialogView.rvFilterArea.layoutManager = GridLayoutManager(this@run, 3)
@@ -133,7 +133,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         }.show()
     }
 
-    private fun showShelterBottomSheet(shelters: List<AnimalShelter>) = context?.run {
+    private fun showBottomSheetShelter(shelters: List<AnimalShelter>) = context?.run {
         BottomSheetDialog(this).apply{
             val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_shelter, null)
             dialogView.rvFilterArea.layoutManager = LinearLayoutManager(this@run)
@@ -143,6 +143,22 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
                     mViewModel.changeFilterAnimalShelter(shelter)
                 }
                 submitList(shelters)
+            }
+            setContentView(dialogView)
+            dismissWithAnimation = true
+        }.show()
+    }
+
+    private fun showBottomSheetColour() = context?.run {
+        BottomSheetDialog(this).apply{
+            val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_shelter, null)
+            dialogView.rvFilterArea.layoutManager = GridLayoutManager(this@run, 3)
+            dialogView.rvFilterArea.adapter = ColourAdapter().apply {
+                onItemClickListener = { colour ->
+                    dismiss()
+                    mViewModel.changeFilterAnimalColour(colour)
+                }
+                submitList(AnimalColour.values().toList())
             }
             setContentView(dialogView)
             dismissWithAnimation = true

@@ -186,6 +186,15 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         resetAnimals()
     }
 
+    fun changeFilterAnimalColour(colour: AnimalColour) {
+        if (animalFilter.value?.colour != colour) {
+            animalFilter.postValue(animalFilter.value?.also {
+                it.colour = colour
+            })
+            resetAnimals()
+        }
+    }
+
     fun showFilterBottomSheetShelter() {
         val filterArea = animalFilter.value?.area ?: AnimalArea.All
         onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))
