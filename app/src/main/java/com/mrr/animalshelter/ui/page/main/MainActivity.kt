@@ -124,6 +124,12 @@ class MainActivity : BaseActivity() {
         mViewModel?.animalFilter?.observe(this, Observer { filter ->
             putPreference(PreferencesConst.NAME_ANIMAL, PreferencesConst.KEY_FILTER, filter)
         })
+        mViewModel?.collectionAnimals?.observe(this, Observer { collectionAnimals ->
+            layBottomNavigation.getOrCreateBadge(R.id.itemAnimalsCollection).apply {
+                isVisible = collectionAnimals.isNotEmpty()
+                number = collectionAnimals.size
+            }
+        })
     }
 
     override fun onBackPressed() {
