@@ -54,6 +54,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             R.id.layFilterAnimalKind -> mViewModel.changeFilterAnimalKind()
             R.id.layFilterAnimalSex -> mViewModel.changeFilterAnimalSex()
             R.id.layFilterAnimalAge -> mViewModel.changeFilterAnimalAge()
+            R.id.layFilterAnimalBodyType -> mViewModel.changeFilterAnimalBodyType()
         }
     }
 
@@ -68,6 +69,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         layFilterAnimalKind.setOnClickListener(this)
         layFilterAnimalSex.setOnClickListener(this)
         layFilterAnimalAge.setOnClickListener(this)
+        layFilterAnimalBodyType.setOnClickListener(this)
         layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 
