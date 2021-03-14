@@ -9,6 +9,7 @@ import com.mrr.animalshelter.core.const.ShelterServiceConst
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.AnimalArea
+import com.mrr.animalshelter.data.element.AnimalKind
 import com.mrr.animalshelter.data.element.AnimalShelter
 import com.mrr.animalshelter.data.element.ErrorType
 import com.mrr.animalshelter.ui.base.SingleLiveEvent
@@ -54,7 +55,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
             val newAnimals = response.body()
             when {
                 newAnimals == null -> error.postValue(ErrorType.ApiFail)
-                newAnimals.isEmpty() -> isNoMoreData.postValue(true)
+                newAnimals.isEmpty() && mSkip != 0 -> isNoMoreData.postValue(true)
                 else -> {
                     val newFilteredAnimals = newAnimals.filter { animal -> animal.albumFile.isNotBlank() }
                     val currentAnimals = if (mSkip != 0) animals.value?.toMutableList() ?: mutableListOf() else mutableListOf()
@@ -155,5 +156,14 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     fun showFilterBottomSheetShelter() {
         val filterArea = animalFilter.value?.area ?: AnimalArea.All
         onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))
+    }
+
+    fun changeFilterAnimalKind() {
+        val currentOrdinal = animalFilter.value?.kind?.ordinal ?: 0
+        val nextOrdinal = if (currentOrdinal + 1 >= AnimalKind.values().size) 0 else currentOrdinal + 1
+        animalFilter.postValue(animalFilter.value?.also {
+            it.kind = AnimalKind.values()[nextOrdinal]
+        })
+        resetAnimals()
     }
 }

@@ -51,6 +51,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         when (v?.id) {
             R.id.layFilterArea -> showAreaBottomSheet()
             R.id.layFilterShelter -> mViewModel.showFilterBottomSheetShelter()
+            R.id.layFilterAnimalKind -> mViewModel.changeFilterAnimalKind()
         }
     }
 
@@ -62,6 +63,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         )
         layFilterArea.setOnClickListener(this)
         layFilterShelter.setOnClickListener(this)
+        layFilterAnimalKind.setOnClickListener(this)
         layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 
