@@ -8,10 +8,7 @@ import com.mrr.animalshelter.core.AnimalRepository
 import com.mrr.animalshelter.core.const.ShelterServiceConst
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
-import com.mrr.animalshelter.data.element.AnimalArea
-import com.mrr.animalshelter.data.element.AnimalKind
-import com.mrr.animalshelter.data.element.AnimalShelter
-import com.mrr.animalshelter.data.element.ErrorType
+import com.mrr.animalshelter.data.element.*
 import com.mrr.animalshelter.ui.base.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -126,7 +123,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         onBackCollectionAnimalDetailEvent.postValue(Unit)
     }
 
-    fun filterArea(area: AnimalArea) {
+    fun changeFilterAnimalArea(area: AnimalArea) {
         if (animalFilter.value?.area != area) {
             animalFilter.postValue(animalFilter.value?.also {
                 it.area = area
@@ -141,7 +138,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         }
     }
 
-    fun filterShelter(shelter: AnimalShelter) {
+    fun changeFilterAnimalShelter(shelter: AnimalShelter) {
         if (animalFilter.value?.shelter != shelter) {
             animalFilter.postValue(animalFilter.value?.also {
                 it.shelter = shelter
@@ -153,11 +150,6 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         }
     }
 
-    fun showFilterBottomSheetShelter() {
-        val filterArea = animalFilter.value?.area ?: AnimalArea.All
-        onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))
-    }
-
     fun changeFilterAnimalKind() {
         val currentOrdinal = animalFilter.value?.kind?.ordinal ?: 0
         val nextOrdinal = if (currentOrdinal + 1 >= AnimalKind.values().size) 0 else currentOrdinal + 1
@@ -165,5 +157,19 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
             it.kind = AnimalKind.values()[nextOrdinal]
         })
         resetAnimals()
+    }
+
+    fun changeFilterAnimalSex() {
+        val currentOrdinal = animalFilter.value?.sex?.ordinal ?: 0
+        val nextOrdinal = if (currentOrdinal + 1 >= AnimalSex.values().size) 0 else currentOrdinal + 1
+        animalFilter.postValue(animalFilter.value?.also {
+            it.sex = AnimalSex.values()[nextOrdinal]
+        })
+        resetAnimals()
+    }
+
+    fun showFilterBottomSheetShelter() {
+        val filterArea = animalFilter.value?.area ?: AnimalArea.All
+        onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))
     }
 }

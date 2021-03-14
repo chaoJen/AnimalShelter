@@ -52,6 +52,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             R.id.layFilterArea -> showAreaBottomSheet()
             R.id.layFilterShelter -> mViewModel.showFilterBottomSheetShelter()
             R.id.layFilterAnimalKind -> mViewModel.changeFilterAnimalKind()
+            R.id.layFilterAnimalSex -> mViewModel.changeFilterAnimalSex()
         }
     }
 
@@ -64,6 +65,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         layFilterArea.setOnClickListener(this)
         layFilterShelter.setOnClickListener(this)
         layFilterAnimalKind.setOnClickListener(this)
+        layFilterAnimalSex.setOnClickListener(this)
         layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 
@@ -118,7 +120,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             dialogView.rvFilterArea.adapter = AreaAdapter().apply {
                 onItemClickListener = { area ->
                     dismiss()
-                    mViewModel.filterArea(area)
+                    mViewModel.changeFilterAnimalArea(area)
                 }
                 submitList(AnimalArea.values().toList())
             }
@@ -134,7 +136,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             dialogView.rvFilterArea.adapter = ShelterAdapter().apply {
                 onItemClickListener = { shelter ->
                     dismiss()
-                    mViewModel.filterShelter(shelter)
+                    mViewModel.changeFilterAnimalShelter(shelter)
                 }
                 submitList(shelters)
             }
