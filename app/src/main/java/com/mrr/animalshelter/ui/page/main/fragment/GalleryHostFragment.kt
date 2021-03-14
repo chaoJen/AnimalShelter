@@ -56,6 +56,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             R.id.layFilterAnimalColour -> showBottomSheetColour()
             R.id.layFilterAnimalBacterin -> mViewModel.changeFilterAnimalBacterin()
             R.id.layFilterAnimalSterilization -> mViewModel.changeFilterAnimalSterilization()
+            R.id.layFilterReset -> mViewModel.resetFilter()
         }
     }
 
@@ -74,6 +75,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         layFilterAnimalColour.setOnClickListener(this)
         layFilterAnimalBacterin.setOnClickListener(this)
         layFilterAnimalSterilization.setOnClickListener(this)
+        layFilterReset.setOnClickListener(this)
         layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 

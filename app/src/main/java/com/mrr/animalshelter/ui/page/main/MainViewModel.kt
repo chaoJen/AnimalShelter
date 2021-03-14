@@ -213,6 +213,13 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         resetAnimals()
     }
 
+    fun resetFilter() {
+        if (animalFilter.value != AnimalFilter()) {
+            animalFilter.value = AnimalFilter()
+            resetAnimals()
+        }
+    }
+
     fun showFilterBottomSheetShelter() {
         val filterArea = animalFilter.value?.area ?: AnimalArea.All
         onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))

@@ -74,11 +74,6 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.item_filter -> {
-                // TODO launch filter setting
-            }
-        }
         return true
     }
 

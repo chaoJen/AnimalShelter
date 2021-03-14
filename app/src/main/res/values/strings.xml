@@ -214,5 +214,6 @@
     <string name="gallery_filter_title_description_animal_kind">動物圖示</string>
     <string name="gallery_filter_title_description_location_mark">座標圖示</string>
     <string name="gallery_filter_title_description_health">健康狀態圖示</string>
+    <string name="gallery_filter_title_reset">重設</string>
     <!---->
 </resources>

@@ -308,6 +308,27 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     tools:text="絕育"/>
             </LinearLayout>
+
+            <!-- 重設 -->
+            <LinearLayout
+                android:id="@+id/layFilterReset"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_item_filter"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/layFilterAnimalSterilization">
+
+                <TextView
+                    android:text="@string/gallery_filter_title_reset"
+                    android:textSize="@dimen/filter_text_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
 
