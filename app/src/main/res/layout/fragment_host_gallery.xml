@@ -311,12 +311,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
 
-    <FrameLayout
-        android:id="@+id/layContainer"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/layRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@android:color/white"
         app:layout_constraintTop_toBottomOf="@+id/layFilter"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <FrameLayout
+            android:id="@+id/layContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,6 +12,7 @@ import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import com.mrr.animalshelter.ui.page.main.fragment.collection.CollectionAnimalDetailFragment
 import com.mrr.animalshelter.ui.page.main.fragment.collection.CollectionFragment
+import kotlinx.android.synthetic.main.fragment_host_collection.*
 
 class CollectionHostFragment : BaseFragment() {
 
@@ -40,9 +41,18 @@ class CollectionHostFragment : BaseFragment() {
             CollectionFragment.TAG,
             onNewInstance = { CollectionFragment.newInstance() }
         )
+        layRefresh.setOnRefreshListener { mViewModel.updateCollectionAnimalsData() }
     }
 
     private fun observe() {
+        mViewModel.collectionAnimals.observe(viewLifecycleOwner, Observer { collectedAnimals ->
+            layRefresh.isEnabled = collectedAnimals.isNotEmpty()
+        })
+        mViewModel.isCollectionDataPulling.observe(viewLifecycleOwner, Observer { isPulling ->
+            if (!isPulling) {
+                layRefresh.isRefreshing = false
+            }
+        })
         mViewModel.onLaunchCollectionAnimalDetailToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             switchFragment(
                 R.id.layContainer,

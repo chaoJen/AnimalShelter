@@ -116,11 +116,6 @@ class MainActivity : BaseActivity() {
         mViewModel?.error?.observe(this, Observer { error ->
             // TODO show error message snackbar
         })
-        mViewModel?.isNoMoreData?.observe(this, Observer { isNoMore ->
-            if (isNoMore) {
-                Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_nomoredata, Snackbar.LENGTH_INDEFINITE).show()
-            }
-        })
         mViewModel?.animalFilter?.observe(this, Observer { filter ->
             putPreference(PreferencesConst.NAME_ANIMAL, PreferencesConst.KEY_FILTER, filter)
         })

@@ -8,6 +8,7 @@ import com.mrr.animalshelter.core.AnimalRepository
 import com.mrr.animalshelter.core.const.ShelterServiceConst
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
+import com.mrr.animalshelter.data.element.AnimalArea
 import com.mrr.animalshelter.data.element.ErrorType
 import com.mrr.animalshelter.ui.base.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -67,7 +68,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     fun resetAnimals() {
         mSkip = 0
-        isNoMoreData.postValue(false)
+        isNoMoreData.value = false
         pullAnimals()
     }
 
@@ -120,5 +121,12 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     fun backCollectionAnimalDetail() {
         onBackCollectionAnimalDetailEvent.postValue(Unit)
+    }
+
+    fun filterArea(area: AnimalArea) {
+        if (animalFilter.value?.area != area) {
+            animalFilter.postValue(animalFilter.value?.also { it.area = area })
+            resetAnimals()
+        }
     }
 }

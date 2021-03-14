@@ -6,17 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mrr.animalshelter.R
+import com.mrr.animalshelter.data.element.AnimalArea
 import com.mrr.animalshelter.data.element.AnimalKind
 import com.mrr.animalshelter.data.element.AnimalSex
 import com.mrr.animalshelter.ktx.switchFragment
+import com.mrr.animalshelter.ui.adapter.AreaAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import com.mrr.animalshelter.ui.page.main.fragment.gallery.AnimalDetailFragment
 import com.mrr.animalshelter.ui.page.main.fragment.gallery.GalleryFragment
 import kotlinx.android.synthetic.main.fragment_host_gallery.*
+import kotlinx.android.synthetic.main.include_bottomsheet_area.view.*
 
-class GalleryHostFragment : BaseFragment() {
+class GalleryHostFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         const val TAG = "TAG_FRAGMENT_GALLERY_HOST"
@@ -38,12 +43,20 @@ class GalleryHostFragment : BaseFragment() {
         mViewModel.updateCollectionAnimalsData()
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.layFilterArea -> showAreaBottomSheet()
+        }
+    }
+
     private fun initView() {
         switchFragment(
             R.id.layContainer,
             GalleryFragment.TAG,
             onNewInstance = { GalleryFragment.newInstance() }
         )
+        layFilterArea.setOnClickListener(this)
+        layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 
     private fun observe() {
@@ -74,5 +87,27 @@ class GalleryHostFragment : BaseFragment() {
             tvFilterAnimalBacterin.setText(filter.bacterin.nameResourceId)
             tvFilterAnimalSterilization.setText(filter.sterilization.nameResourceId)
         })
+        mViewModel.isGalleryDataPulling.observe(viewLifecycleOwner, Observer { isPulling ->
+            if (!isPulling) {
+                layRefresh.isRefreshing = false
+            }
+        })
+    }
+
+    private fun showAreaBottomSheet() = context?.run {
+        val areaSheet = BottomSheetDialog(this).apply{
+            val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_area, null)
+            dialogView.rvFilterArea.layoutManager = GridLayoutManager(this@run, 3)
+            dialogView.rvFilterArea.adapter = AreaAdapter().apply {
+                onItemClickListener = { area ->
+                    dismiss()
+                    mViewModel.filterArea(area)
+                }
+                submitList(AnimalArea.values().toList())
+            }
+            setContentView(dialogView)
+            dismissWithAnimation = true
+        }
+        areaSheet.show()
     }
 }

@@ -39,7 +39,6 @@ class CollectionFragment : BaseFragment() {
     private fun initView() {
         val gridLayoutManager = GridLayoutManager(context, 3)
         rvAnimals.layoutManager = gridLayoutManager
-        layRefresh.setOnRefreshListener { mViewModel.updateCollectionAnimalsData() }
     }
 
     private fun initAnimalAdapter() {
@@ -51,7 +50,6 @@ class CollectionFragment : BaseFragment() {
 
     private fun observe() {
         mViewModel.collectionAnimals.observe(viewLifecycleOwner, Observer { collectedAnimals ->
-            layRefresh.isEnabled = collectedAnimals.isNotEmpty()
             mAdapter.submitList(collectedAnimals)
         })
         mViewModel.collectionAnimalIds.observe(viewLifecycleOwner, Observer { collectedAnimalIds ->
@@ -59,11 +57,6 @@ class CollectionFragment : BaseFragment() {
         })
         mViewModel.onScrollCollectionGalleryToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             position?.let { rvAnimals.scrollToPosition(if (it > 3 && it % 3 == 0) it - 1 else it) }
-        })
-        mViewModel.isCollectionDataPulling.observe(viewLifecycleOwner, Observer { isPulling ->
-            if (!isPulling) {
-                layRefresh.isRefreshing = false
-            }
         })
     }
 }
