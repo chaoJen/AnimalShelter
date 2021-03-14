@@ -195,6 +195,15 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         }
     }
 
+    fun changeFilterAnimalBacterin() {
+        val currentOrdinal = animalFilter.value?.bacterin?.ordinal ?: 0
+        val nextOrdinal = if (currentOrdinal + 1 >= AnimalBacterin.values().size) 0 else currentOrdinal + 1
+        animalFilter.postValue(animalFilter.value?.also {
+            it.bacterin = AnimalBacterin.values()[nextOrdinal]
+        })
+        resetAnimals()
+    }
+
     fun showFilterBottomSheetShelter() {
         val filterArea = animalFilter.value?.area ?: AnimalArea.All
         onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))
