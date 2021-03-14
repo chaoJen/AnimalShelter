@@ -9,8 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.data.element.AnimalKind
-import com.mrr.animalshelter.data.element.AnimalSex
 import com.mrr.animalshelter.ui.adapter.AnimalGalleryAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
@@ -78,26 +76,6 @@ class GalleryFragment : BaseFragment() {
         })
         mViewModel.onScrollGalleryToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             position?.let { rvAnimals.scrollToPosition(if (it > 3 && it % 3 == 0) it - 1 else it) }
-        })
-        mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
-            tvFilterArea.setText(filter.area.nameResourceId)
-            tvFilterShelter.setText(filter.shelter.nameResourceId)
-            ivFilterAnimalKind.setImageResource(
-                when (filter.kind) {
-                    AnimalKind.All -> R.drawable.ic_animal_all
-                    AnimalKind.Cat -> R.drawable.ic_animal_cat
-                    AnimalKind.Dog -> R.drawable.ic_animal_dog
-                    AnimalKind.Other -> R.drawable.ic_animal_giraffe
-                }
-            )
-            tvFilterAnimalKind.setText(filter.kind.nameResourceId)
-            ivFilterAnimalSexMale.visibility = if (filter.sex != AnimalSex.Female) View.VISIBLE else View.GONE
-            ivFilterAnimalSexFemale.visibility = if (filter.sex != AnimalSex.Male) View.VISIBLE else View.GONE
-            tvFilterAnimalAge.setText(filter.age.nameResourceId)
-            tvFilterAnimalBodyType.setText(filter.bodyType.nameResourceId)
-            tvFilterAnimalColour.setText(filter.colour.nameResourceId)
-            tvFilterAnimalBacterin.setText(filter.bacterin.nameResourceId)
-            tvFilterAnimalSterilization.setText(filter.sterilization.nameResourceId)
         })
     }
 }

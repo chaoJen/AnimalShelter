@@ -25,7 +25,7 @@ class CollectionHostFragment : BaseFragment() {
     private val mViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_host, container, false)
+        return inflater.inflate(R.layout.fragment_host_collection, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
