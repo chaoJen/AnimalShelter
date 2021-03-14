@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mrr.animalshelter.R
+import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.AnimalArea
 import com.mrr.animalshelter.data.element.AnimalKind
 import com.mrr.animalshelter.data.element.AnimalSex
+import com.mrr.animalshelter.data.element.AnimalShelter
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.adapter.AreaAdapter
+import com.mrr.animalshelter.ui.adapter.ShelterAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import com.mrr.animalshelter.ui.page.main.fragment.gallery.AnimalDetailFragment
@@ -46,6 +50,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.layFilterArea -> showAreaBottomSheet()
+            R.id.layFilterShelter -> mViewModel.showFilterBottomSheetShelter()
         }
     }
 
@@ -56,6 +61,7 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             onNewInstance = { GalleryFragment.newInstance() }
         )
         layFilterArea.setOnClickListener(this)
+        layFilterShelter.setOnClickListener(this)
         layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 
@@ -68,34 +74,43 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             )
         })
         mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
-            tvFilterArea.setText(filter.area.nameResourceId)
-            tvFilterShelter.setText(filter.shelter.nameResourceId)
-            ivFilterAnimalKind.setImageResource(
-                when (filter.kind) {
-                    AnimalKind.All -> R.drawable.ic_animal_all
-                    AnimalKind.Cat -> R.drawable.ic_animal_cat
-                    AnimalKind.Dog -> R.drawable.ic_animal_dog
-                    AnimalKind.Other -> R.drawable.ic_animal_giraffe
-                }
-            )
-            tvFilterAnimalKind.setText(filter.kind.nameResourceId)
-            ivFilterAnimalSexMale.visibility = if (filter.sex != AnimalSex.Female) View.VISIBLE else View.GONE
-            ivFilterAnimalSexFemale.visibility = if (filter.sex != AnimalSex.Male) View.VISIBLE else View.GONE
-            tvFilterAnimalAge.setText(filter.age.nameResourceId)
-            tvFilterAnimalBodyType.setText(filter.bodyType.nameResourceId)
-            tvFilterAnimalColour.setText(filter.colour.nameResourceId)
-            tvFilterAnimalBacterin.setText(filter.bacterin.nameResourceId)
-            tvFilterAnimalSterilization.setText(filter.sterilization.nameResourceId)
+            updateFilterBar(filter)
         })
         mViewModel.isGalleryDataPulling.observe(viewLifecycleOwner, Observer { isPulling ->
             if (!isPulling) {
                 layRefresh.isRefreshing = false
             }
         })
+        mViewModel.onShowFilterBottomSheetShelterEvent.observe(viewLifecycleOwner, Observer { shelters ->
+            shelters?.let { showShelterBottomSheet(it) }
+        })
+    }
+
+    private fun updateFilterBar(filter: AnimalFilter) {
+        tvFilterArea.setText(filter.area.nameResourceId)
+        tvFilterShelter.setText(filter.shelter.nameResourceId)
+        ivFilterAnimalKind.setImageResource(
+            when (filter.kind) {
+                AnimalKind.All -> R.drawable.ic_animal_all
+                AnimalKind.Cat -> R.drawable.ic_animal_cat
+                AnimalKind.Dog -> R.drawable.ic_animal_dog
+                AnimalKind.Other -> R.drawable.ic_animal_giraffe
+            }
+        )
+        tvFilterAnimalKind.setText(filter.kind.nameResourceId)
+        ivFilterAnimalSexMale.visibility = if (filter.sex != AnimalSex.Female) View.VISIBLE else View.GONE
+        ivFilterAnimalSexFemale.visibility = if (filter.sex != AnimalSex.Male) View.VISIBLE else View.GONE
+        tvFilterAnimalAge.setText(filter.age.nameResourceId)
+        tvFilterAnimalBodyType.setText(filter.bodyType.nameResourceId)
+        tvFilterAnimalColour.setText(filter.colour.nameResourceId)
+        tvFilterAnimalBacterin.setText(filter.bacterin.nameResourceId)
+        tvFilterAnimalSterilization.setText(filter.sterilization.nameResourceId)
+
+        layFilterShelter.isClickable = AnimalShelter.find(filter.area).size > 1
     }
 
     private fun showAreaBottomSheet() = context?.run {
-        val areaSheet = BottomSheetDialog(this).apply{
+        BottomSheetDialog(this).apply{
             val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_area, null)
             dialogView.rvFilterArea.layoutManager = GridLayoutManager(this@run, 3)
             dialogView.rvFilterArea.adapter = AreaAdapter().apply {
@@ -107,7 +122,22 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
             }
             setContentView(dialogView)
             dismissWithAnimation = true
-        }
-        areaSheet.show()
+        }.show()
+    }
+
+    private fun showShelterBottomSheet(shelters: List<AnimalShelter>) = context?.run {
+        BottomSheetDialog(this).apply{
+            val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_shelter, null)
+            dialogView.rvFilterArea.layoutManager = LinearLayoutManager(this@run)
+            dialogView.rvFilterArea.adapter = ShelterAdapter().apply {
+                onItemClickListener = { shelter ->
+                    dismiss()
+                    mViewModel.filterShelter(shelter)
+                }
+                submitList(shelters)
+            }
+            setContentView(dialogView)
+            dismissWithAnimation = true
+        }.show()
     }
 }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.element.AnimalArea
-import kotlinx.android.synthetic.main.item_area.view.*
+import kotlinx.android.synthetic.main.item_bottomsheet.view.*
 
 class AreaAdapter : ListAdapter<AnimalArea, AreaAdapter.AreaViewHolder>(
     object : DiffUtil.ItemCallback<AnimalArea>() {
@@ -33,7 +33,7 @@ class AreaAdapter : ListAdapter<AnimalArea, AreaAdapter.AreaViewHolder>(
     }
 
     inner class AreaViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_area, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_bottomsheet, parent, false)
     ) {
         private lateinit var animalArea: AnimalArea
         private val onItemClickListener = View.OnClickListener {
@@ -42,7 +42,7 @@ class AreaAdapter : ListAdapter<AnimalArea, AreaAdapter.AreaViewHolder>(
 
         fun bind(area: AnimalArea) {
             this.animalArea = area
-            itemView.tvArea.setText(area.nameResourceId)
+            itemView.tvContent.setText(area.nameResourceId)
             itemView.setOnClickListener(onItemClickListener)
         }
     }

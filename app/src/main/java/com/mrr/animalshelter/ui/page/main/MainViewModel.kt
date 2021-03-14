@@ -9,6 +9,7 @@ import com.mrr.animalshelter.core.const.ShelterServiceConst
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.AnimalArea
+import com.mrr.animalshelter.data.element.AnimalShelter
 import com.mrr.animalshelter.data.element.ErrorType
 import com.mrr.animalshelter.ui.base.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -34,6 +35,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     val onLaunchGalleryAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
     val onLaunchCollectionAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
     val onBackCollectionAnimalDetailEvent = SingleLiveEvent<Unit>()
+    val onShowFilterBottomSheetShelterEvent = SingleLiveEvent<List<AnimalShelter>>()
 
     private var mSkip = 0
     private val mTop = ShelterServiceConst.TOP
@@ -125,8 +127,33 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     fun filterArea(area: AnimalArea) {
         if (animalFilter.value?.area != area) {
-            animalFilter.postValue(animalFilter.value?.also { it.area = area })
+            animalFilter.postValue(animalFilter.value?.also {
+                it.area = area
+                val areaShelters = AnimalShelter.find(area)
+                if (areaShelters.size == 1 && animalFilter.value?.shelter != areaShelters[0]) {
+                    it.shelter = areaShelters[0]
+                } else if (animalFilter.value?.shelter?.area != area) {
+                    it.shelter = AnimalShelter.All
+                }
+            })
             resetAnimals()
         }
+    }
+
+    fun filterShelter(shelter: AnimalShelter) {
+        if (animalFilter.value?.shelter != shelter) {
+            animalFilter.postValue(animalFilter.value?.also {
+                it.shelter = shelter
+                if (shelter.area != AnimalArea.All) {
+                    it.area = shelter.area
+                }
+            })
+            resetAnimals()
+        }
+    }
+
+    fun showFilterBottomSheetShelter() {
+        val filterArea = animalFilter.value?.area ?: AnimalArea.All
+        onShowFilterBottomSheetShelterEvent.postValue(AnimalShelter.find(filterArea))
     }
 }
