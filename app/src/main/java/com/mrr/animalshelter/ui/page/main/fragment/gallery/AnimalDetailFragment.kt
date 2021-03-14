@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.ui.adapter.AnimalDetailAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
@@ -47,7 +46,7 @@ class AnimalDetailFragment : BaseFragment() {
             onUnCollectListener = { animalId -> mViewModel.unCollectAnimal(animalId) }
             onBindViewHolderListener =  { position ->
                 if (position >= itemCount - 5) {
-                    mViewModel.pullAnimals(AnimalFilter())
+                    mViewModel.pullAnimals()
                 }
                 mViewModel.scrollGallery(position)
             }

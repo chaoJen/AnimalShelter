@@ -13,7 +13,7 @@
     <!---->
 
     <!-- 動物特徵：所在地 -->
-    <string name="area_all">任何</string>
+    <string name="area_all">任何地區</string>
     <string name="area_pk_id_02">臺北市</string>
     <string name="area_pk_id_03">新北市</string>
     <string name="area_pk_id_04">基隆市</string>
@@ -92,10 +92,10 @@
     <!---->
 
     <!-- 動物特徵：物種 -->
-    <string name="kind_all">任何</string>
+    <string name="kind_all">任何物種</string>
     <string name="kind_cat">喵喵</string>
     <string name="kind_dog">汪汪</string>
-    <string name="kind_other">其他</string>
+    <string name="kind_other">其他物種</string>
     <!---->
 
     <!-- 動物特徵：性別 -->
@@ -106,7 +106,7 @@
     <!---->
 
     <!-- 動物特徵：所在收容所 -->
-    <string name="shelter_all">任何</string>
+    <string name="shelter_all">任何收容所</string>
     <string name="shelter_pk_id_48">基隆市寵物銀行</string>
     <string name="shelter_pk_id_49">臺北市動物之家</string>
     <string name="shelter_pk_id_50">新北市板橋區公立動物之家</string>
@@ -209,7 +209,7 @@
     <string name="gallery_filter_title_animal_colour">毛色：</string>
     <string name="gallery_filter_title_animal_area">所在縣市</string>
     <string name="gallery_filter_title_animal_shelter">所在收容所</string>
-    <string name="gallery_filter_title_animal_bacterin">狂犬病疫苗</string>
+    <string name="gallery_filter_title_animal_bacterin">狂犬病疫苗：</string>
     <string name="gallery_filter_title_animal_sterilization">絕育：</string>
     <string name="gallery_filter_title_description_animal_kind">動物圖示</string>
     <string name="gallery_filter_title_description_location_mark">座標圖示</string>

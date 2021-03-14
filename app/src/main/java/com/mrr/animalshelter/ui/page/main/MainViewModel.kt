@@ -13,13 +13,14 @@ import com.mrr.animalshelter.ui.base.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
+class MainViewModel(private val repository: AnimalRepository, animalFilter: AnimalFilter) : ViewModel() {
 
     companion object {
         private val TAG = MainViewModel::class.java.simpleName
     }
 
     val animals = MutableLiveData<List<Animal>>()
+    val animalFilter = MutableLiveData<AnimalFilter>(animalFilter)
     val collectionAnimals = repository.getAllCollectionAnimalsAsLiveData()
     val collectionAnimalIds = repository.getAllCollectionAnimalIds()
     val isGalleryDataPulling = MutableLiveData<Boolean>()
@@ -36,7 +37,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
     private var mSkip = 0
     private val mTop = ShelterServiceConst.TOP
 
-    fun pullAnimals(filter: AnimalFilter) = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+    fun pullAnimals() = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
         Log.d(TAG, throwable.toString())
         isGalleryDataPulling.postValue(false)
         error.postValue(ErrorType.ApiException(throwable))
@@ -45,7 +46,7 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
             return@launch
         }
         isGalleryDataPulling.postValue(true)
-        val response = repository.pullAnimals(mTop, mSkip, filter)
+        val response = repository.pullAnimals(mTop, mSkip, animalFilter.value ?: AnimalFilter())
         if (response.isSuccessful) {
             val newAnimals = response.body()
             when {
@@ -64,10 +65,10 @@ class MainViewModel(private val repository: AnimalRepository) : ViewModel() {
         isGalleryDataPulling.postValue(false)
     }
 
-    fun resetAnimals(filter: AnimalFilter) {
+    fun resetAnimals() {
         mSkip = 0
         isNoMoreData.postValue(false)
-        pullAnimals(filter)
+        pullAnimals()
     }
 
     fun collectAnimal(animal: Animal) = viewModelScope.launch {

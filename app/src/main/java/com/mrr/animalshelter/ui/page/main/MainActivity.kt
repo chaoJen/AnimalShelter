@@ -10,7 +10,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.core.AnimalRepository
 import com.mrr.animalshelter.core.api.ApiManager
+import com.mrr.animalshelter.core.const.PreferencesConst
 import com.mrr.animalshelter.core.db.AppDatabase
+import com.mrr.animalshelter.data.AnimalFilter
+import com.mrr.animalshelter.ktx.getPreference
+import com.mrr.animalshelter.ktx.putPreference
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.AnyViewModelFactory
 import com.mrr.animalshelter.ui.base.BaseActivity
@@ -38,7 +42,8 @@ class MainActivity : BaseActivity() {
             val service = ApiManager.getShelterService()
             val dao = AppDatabase.getInstance(this).getAnimalDao()
             val repository = AnimalRepository(service, dao)
-            MainViewModel(repository)
+            val filter = getPreference(PreferencesConst.NAME_ANIMAL, PreferencesConst.KEY_FILTER, AnimalFilter::class.java)
+            MainViewModel(repository, filter ?: AnimalFilter())
         }
         mViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
     }
@@ -115,6 +120,9 @@ class MainActivity : BaseActivity() {
             if (isNoMore) {
                 Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_nomoredata, Snackbar.LENGTH_INDEFINITE).show()
             }
+        })
+        mViewModel?.animalFilter?.observe(this, Observer { filter ->
+            putPreference(PreferencesConst.NAME_ANIMAL, PreferencesConst.KEY_FILTER, filter)
         })
     }
 
