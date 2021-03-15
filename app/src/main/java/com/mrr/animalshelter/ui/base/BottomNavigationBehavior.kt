@@ -34,7 +34,6 @@ class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) 
             params.anchorId = child.id
             params.anchorGravity = Gravity.TOP
             params.gravity = Gravity.TOP
-            params.setMargins(0, 0, 0, 0)
             snackbarLayout.layoutParams = params
         }
     }

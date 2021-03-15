@@ -9,6 +9,8 @@ import com.mrr.animalshelter.core.const.ShelterServiceConst
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.*
+import com.mrr.animalshelter.data.exception.HttpException
+import com.mrr.animalshelter.data.exception.ResponseException
 import com.mrr.animalshelter.ui.base.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -25,7 +27,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     val collectionAnimalIds = repository.getAllCollectionAnimalIds()
     val isGalleryDataPulling = MutableLiveData<Boolean>()
     val isCollectionDataPulling = MutableLiveData<Boolean>()
-    val error = MutableLiveData<ErrorType>()
+    val exception = MutableLiveData<Throwable>()
     val isNoMoreData = MutableLiveData<Boolean>()
 
     val onScrollGalleryToPositionEvent = SingleLiveEvent<Int>()
@@ -41,17 +43,21 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     fun pullAnimals() = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
         Log.d(TAG, throwable.toString())
         isGalleryDataPulling.postValue(false)
-        error.postValue(ErrorType.ApiException(throwable))
+        exception.postValue(throwable)
     }) {
         if (isGalleryDataPulling.value == true || isNoMoreData.value == true) {
             return@launch
         }
         isGalleryDataPulling.postValue(true)
-        val response = repository.pullAnimals(mTop, mSkip, animalFilter.value ?: AnimalFilter())
+        val response = try {
+            repository.pullAnimals(mTop, mSkip, animalFilter.value ?: AnimalFilter())
+        } catch (t: Throwable) {
+            throw HttpException(t)
+        }
         if (response.isSuccessful) {
             val newAnimals = response.body()
             when {
-                newAnimals == null -> error.postValue(ErrorType.ApiFail)
+                newAnimals == null -> exception.postValue(ResponseException())
                 newAnimals.isEmpty() && mSkip != 0 -> isNoMoreData.postValue(true)
                 else -> {
                     val newFilteredAnimals = newAnimals.filter { animal -> animal.albumFile.isNotBlank() }
@@ -61,7 +67,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
                 }
             }
         } else {
-            error.postValue(ErrorType.ApiFail)
+            exception.postValue(ResponseException())
         }
         isGalleryDataPulling.postValue(false)
     }
@@ -88,11 +94,19 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         }
     }
 
-    fun updateCollectionAnimalsData() = viewModelScope.launch {
+    fun updateCollectionAnimalsData() = viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.d(TAG, throwable.toString())
+        isCollectionDataPulling.postValue(false)
+        exception.postValue(throwable)
+    }) {
         isCollectionDataPulling.postValue(true)
         val collectionAnimals = repository.getAllCollectionAnimals()
         collectionAnimals.forEach { animal ->
-            val response = repository.pullAnimal(animal.animalId)
+            val response = try {
+                repository.pullAnimal(animal.animalId)
+            } catch (t: Throwable) {
+                throw HttpException(t)
+            }
             if (response.isSuccessful) {
                 val animals = response.body()
                 if (animals?.size == 1) {

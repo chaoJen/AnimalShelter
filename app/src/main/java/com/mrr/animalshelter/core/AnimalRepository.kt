@@ -13,8 +13,10 @@ class AnimalRepository(
     private val collectionAnimalsDao: AnimalDao
 ) {
 
+    @Throws(Throwable::class)
     suspend fun pullAnimal(animalId: Int) = service.getAnimal(animalId)
 
+    @Throws(Throwable::class)
     suspend fun pullAnimals(top: Int, skip: Int, filter: AnimalFilter): Response<List<Animal>> {
         return service.getAnimals(
             top = top,

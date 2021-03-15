@@ -108,8 +108,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun observe() {
-        mViewModel?.error?.observe(this, Observer { error ->
-            // TODO show error message snackbar
+        mViewModel?.exception?.observe(this, Observer { exception ->
+            // TODO exception handling
         })
         mViewModel?.animalFilter?.observe(this, Observer { filter ->
             putPreference(PreferencesConst.NAME_ANIMAL, PreferencesConst.KEY_FILTER, filter)
