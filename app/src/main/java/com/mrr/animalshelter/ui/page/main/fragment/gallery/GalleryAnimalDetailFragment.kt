@@ -15,14 +15,14 @@ import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_animal_detail.*
 import kotlinx.android.synthetic.main.toolbar_shelter.*
 
-class AnimalDetailFragment : BaseFragment() {
+class GalleryAnimalDetailFragment : BaseFragment() {
 
     companion object {
         const val TAG = "TAG_FRAGMENT_GALLERY_ANIMAL_DETAIL"
         private const val EXTRA_KEY_START_POSITION = "EXTRA_KEY_START_POSITION"
 
-        fun newInstance(startPosition: Int): AnimalDetailFragment {
-            return AnimalDetailFragment().apply {
+        fun newInstance(startPosition: Int): GalleryAnimalDetailFragment {
+            return GalleryAnimalDetailFragment().apply {
                 arguments = Bundle().apply { putInt(EXTRA_KEY_START_POSITION, startPosition) }
             }
         }

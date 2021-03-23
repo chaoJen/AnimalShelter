@@ -3,12 +3,12 @@
     <item
         android:id="@+id/itemAnimalsGallery"
         android:enabled="true"
-        android:icon="@drawable/ic_gallery"
+        android:icon="@drawable/ic_navigation_gallery"
         android:title="@string/bottom_navigation_animals_gallery"/>
 
     <item
         android:id="@+id/itemAnimalsCollection"
         android:enabled="true"
-        android:icon="@drawable/ic_action_collection_fill"
+        android:icon="@drawable/ic_navigation_collection"
         android:title="@string/bottom_navigation_animals_collection"/>
 </menu>
