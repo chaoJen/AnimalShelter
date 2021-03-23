@@ -6,24 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.data.AnimalFilter
-import com.mrr.animalshelter.data.element.*
 import com.mrr.animalshelter.ktx.switchFragment
-import com.mrr.animalshelter.ui.adapter.AreaAdapter
-import com.mrr.animalshelter.ui.adapter.ColourAdapter
-import com.mrr.animalshelter.ui.adapter.ShelterAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import com.mrr.animalshelter.ui.page.main.fragment.gallery.AnimalDetailFragment
 import com.mrr.animalshelter.ui.page.main.fragment.gallery.GalleryFragment
-import kotlinx.android.synthetic.main.fragment_host_gallery.*
-import kotlinx.android.synthetic.main.include_bottomsheet_area.view.*
 
-class GalleryHostFragment : BaseFragment(), View.OnClickListener {
+class GalleryHostFragment : BaseFragment() {
 
     companion object {
         const val TAG = "TAG_FRAGMENT_GALLERY_HOST"
@@ -45,38 +35,12 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
         mViewModel.updateCollectionAnimalsData()
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.layFilterArea -> showBottomSheetArea()
-            R.id.layFilterShelter -> mViewModel.showFilterBottomSheetShelter()
-            R.id.layFilterAnimalKind -> mViewModel.changeFilterAnimalKind()
-            R.id.layFilterAnimalSex -> mViewModel.changeFilterAnimalSex()
-            R.id.layFilterAnimalAge -> mViewModel.changeFilterAnimalAge()
-            R.id.layFilterAnimalBodyType -> mViewModel.changeFilterAnimalBodyType()
-            R.id.layFilterAnimalColour -> showBottomSheetColour()
-            R.id.layFilterAnimalBacterin -> mViewModel.changeFilterAnimalBacterin()
-            R.id.layFilterAnimalSterilization -> mViewModel.changeFilterAnimalSterilization()
-            R.id.layFilterReset -> mViewModel.resetFilter()
-        }
-    }
-
     private fun initView() {
         switchFragment(
             R.id.layContainer,
             GalleryFragment.TAG,
             onNewInstance = { GalleryFragment.newInstance() }
         )
-        layFilterArea.setOnClickListener(this)
-        layFilterShelter.setOnClickListener(this)
-        layFilterAnimalKind.setOnClickListener(this)
-        layFilterAnimalSex.setOnClickListener(this)
-        layFilterAnimalAge.setOnClickListener(this)
-        layFilterAnimalBodyType.setOnClickListener(this)
-        layFilterAnimalColour.setOnClickListener(this)
-        layFilterAnimalBacterin.setOnClickListener(this)
-        layFilterAnimalSterilization.setOnClickListener(this)
-        layFilterReset.setOnClickListener(this)
-        layRefresh.setOnRefreshListener { mViewModel.resetAnimals() }
     }
 
     private fun observe() {
@@ -87,87 +51,5 @@ class GalleryHostFragment : BaseFragment(), View.OnClickListener {
                 onNewInstance = { AnimalDetailFragment.newInstance(position ?: 0) }
             )
         })
-        mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
-            updateFilterBar(filter)
-        })
-        mViewModel.isGalleryDataPulling.observe(viewLifecycleOwner, Observer { isPulling ->
-            if (!isPulling) {
-                layRefresh.isRefreshing = false
-            }
-        })
-        mViewModel.onShowFilterBottomSheetShelterEvent.observe(viewLifecycleOwner, Observer { shelters ->
-            shelters?.let { showBottomSheetShelter(it) }
-        })
-    }
-
-    private fun updateFilterBar(filter: AnimalFilter) {
-        tvFilterArea.setText(filter.area.nameResourceId)
-        tvFilterShelter.setText(filter.shelter.nameResourceId)
-        ivFilterAnimalKind.setImageResource(
-            when (filter.kind) {
-                AnimalKind.All -> R.drawable.ic_animal_all
-                AnimalKind.Cat -> R.drawable.ic_animal_cat
-                AnimalKind.Dog -> R.drawable.ic_animal_dog
-                AnimalKind.Other -> R.drawable.ic_animal_giraffe
-            }
-        )
-        tvFilterAnimalKind.setText(filter.kind.nameResourceId)
-        ivFilterAnimalSexMale.visibility = if (filter.sex != AnimalSex.Female) View.VISIBLE else View.GONE
-        ivFilterAnimalSexFemale.visibility = if (filter.sex != AnimalSex.Male) View.VISIBLE else View.GONE
-        tvFilterAnimalAge.setText(filter.age.nameResourceId)
-        tvFilterAnimalBodyType.setText(filter.bodyType.nameResourceId)
-        tvFilterAnimalColour.setText(filter.colour.nameResourceId)
-        tvFilterAnimalBacterin.setText(filter.bacterin.nameResourceId)
-        tvFilterAnimalSterilization.setText(filter.sterilization.nameResourceId)
-
-        layFilterShelter.isClickable = AnimalShelter.find(filter.area).size > 1
-    }
-
-    private fun showBottomSheetArea() = context?.run {
-        BottomSheetDialog(this).apply{
-            val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_area, null)
-            dialogView.rvFilterArea.layoutManager = GridLayoutManager(this@run, 3)
-            dialogView.rvFilterArea.adapter = AreaAdapter().apply {
-                onItemClickListener = { area ->
-                    dismiss()
-                    mViewModel.changeFilterAnimalArea(area)
-                }
-                submitList(AnimalArea.values().toList())
-            }
-            setContentView(dialogView)
-            dismissWithAnimation = true
-        }.show()
-    }
-
-    private fun showBottomSheetShelter(shelters: List<AnimalShelter>) = context?.run {
-        BottomSheetDialog(this).apply{
-            val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_shelter, null)
-            dialogView.rvFilterArea.layoutManager = LinearLayoutManager(this@run)
-            dialogView.rvFilterArea.adapter = ShelterAdapter().apply {
-                onItemClickListener = { shelter ->
-                    dismiss()
-                    mViewModel.changeFilterAnimalShelter(shelter)
-                }
-                submitList(shelters)
-            }
-            setContentView(dialogView)
-            dismissWithAnimation = true
-        }.show()
-    }
-
-    private fun showBottomSheetColour() = context?.run {
-        BottomSheetDialog(this).apply{
-            val dialogView = layoutInflater.inflate(R.layout.include_bottomsheet_shelter, null)
-            dialogView.rvFilterArea.layoutManager = GridLayoutManager(this@run, 3)
-            dialogView.rvFilterArea.adapter = ColourAdapter().apply {
-                onItemClickListener = { colour ->
-                    dismiss()
-                    mViewModel.changeFilterAnimalColour(colour)
-                }
-                submitList(AnimalColour.values().toList())
-            }
-            setContentView(dialogView)
-            dismissWithAnimation = true
-        }.show()
     }
 }

@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">R\'sAnimalShelter</string>
+    <string name="app_name">尋找毛小孩</string>
 
     <!-- bottom navigation item -->
     <string name="bottom_navigation_animals_gallery">尋找</string>
     <string name="bottom_navigation_animals_collection">收藏</string>
+
+    <!-- toolbar -->
+    <string name="toolbar_title_gallery">全國動物收容中心</string>
+    <string name="toolbar_title_collection">已收藏</string>
 
     <!-- 動物特徵：年齡 -->
     <string name="age_all">任何</string>

@@ -12,6 +12,7 @@ import com.mrr.animalshelter.ui.adapter.AnimalGalleryAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_animal_gallery.*
+import kotlinx.android.synthetic.main.toolbar_shelter.*
 
 class CollectionFragment : BaseFragment() {
 
@@ -37,6 +38,8 @@ class CollectionFragment : BaseFragment() {
     }
 
     private fun initView() {
+        toolbar.title = getString(R.string.toolbar_title_collection)
+
         val gridLayoutManager = GridLayoutManager(context, 3)
         rvAnimals.layoutManager = gridLayoutManager
     }

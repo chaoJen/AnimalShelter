@@ -13,6 +13,7 @@ import com.mrr.animalshelter.ui.adapter.AnimalDetailAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_animal_detail.*
+import kotlinx.android.synthetic.main.toolbar_shelter.*
 
 class AnimalDetailFragment : BaseFragment() {
 
@@ -41,6 +42,16 @@ class AnimalDetailFragment : BaseFragment() {
     }
 
     private fun initView() {
+        toolbar.title = getString(R.string.toolbar_title_gallery)
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.item_filter -> {
+                    // TODO launch filter
+                }
+            }
+            true
+        }
+
         mAnimalDetailAdapter = AnimalDetailAdapter().apply {
             onCollectListener = { animal -> mViewModel.collectAnimal(animal) }
             onUnCollectListener = { animalId -> mViewModel.unCollectAnimal(animalId) }

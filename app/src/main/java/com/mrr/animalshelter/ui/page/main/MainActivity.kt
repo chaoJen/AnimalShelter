@@ -49,8 +49,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView() {
-        setSupportActionBar(toolbar)
-
         layBottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.itemAnimalsGallery -> {
@@ -69,7 +67,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_gallery, menu)
         return true
     }
 
