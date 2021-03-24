@@ -42,10 +42,10 @@ enum class AnimalShelter(val id: Int, val area: AnimalArea, @StringRes val nameR
     companion object {
         fun find(area: AnimalArea): MutableList<AnimalShelter> {
             val shelters = values()
-                .filter { area == AnimalArea.All || it.area == area }
+                .filter { area != AnimalArea.All && it.area == area }
                 .toMutableList()
 
-            if (area != AnimalArea.All && shelters.size > 1) {
+            if (shelters.size > 1) {
                 shelters.add(0, All)
             }
             return shelters

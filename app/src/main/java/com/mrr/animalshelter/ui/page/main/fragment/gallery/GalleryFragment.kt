@@ -9,11 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
+import com.mrr.animalshelter.data.element.AnimalArea
+import com.mrr.animalshelter.data.element.AnimalShelter
 import com.mrr.animalshelter.ui.adapter.AnimalGalleryAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_animal_gallery.*
-import kotlinx.android.synthetic.main.toolbar_shelter.*
+import kotlinx.android.synthetic.main.toolbar_shelter.toolbar
 
 class GalleryFragment : BaseFragment() {
 
@@ -77,6 +79,13 @@ class GalleryFragment : BaseFragment() {
         })
         mViewModel.onScrollGalleryToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             position?.let { rvAnimals.scrollToPosition(if (it > 3 && it % 3 == 0) it - 1 else it) }
+        })
+        mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
+            toolbar.title = when {
+                filter.shelter != AnimalShelter.All -> getString(filter.shelter.nameResourceId)
+                filter.area != AnimalArea.All -> getString(R.string.toolbar_title_gallery_area_format, getString(filter.area.nameResourceId))
+                else -> getString(R.string.toolbar_title_gallery)
+            }
         })
     }
 }

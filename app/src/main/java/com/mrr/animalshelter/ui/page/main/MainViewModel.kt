@@ -161,9 +161,6 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         if (animalFilter.value?.shelter != shelter) {
             animalFilter.postValue(animalFilter.value?.also {
                 it.shelter = shelter
-                if (shelter.area != AnimalArea.All) {
-                    it.area = shelter.area
-                }
             })
             resetAnimals()
         }

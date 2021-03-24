@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.element.AnimalArea
+import com.mrr.animalshelter.data.element.AnimalShelter
 import com.mrr.animalshelter.ui.adapter.AreaAdapter
+import com.mrr.animalshelter.ui.adapter.ShelterAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_gallery_filter.*
@@ -24,6 +27,7 @@ class GalleryFilterFragment : BaseFragment() {
 
     private val mViewModel: MainViewModel by activityViewModels()
     private val mAreaAdapter = AreaAdapter().apply { submitList(AnimalArea.values().toList()) }
+    private val mShelterAdapter = ShelterAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_gallery_filter, container, false)
@@ -42,12 +46,25 @@ class GalleryFilterFragment : BaseFragment() {
             adapter = mAreaAdapter
             mAreaAdapter.onItemClickListener = { mViewModel.changeFilterAnimalArea(it) }
         }
+        rvFilterShelter.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = mShelterAdapter
+            mShelterAdapter.onItemClickListener = { mViewModel.changeFilterAnimalShelter(it) }
+        }
     }
 
     private fun observe() {
         mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
-            mAreaAdapter.selectedArea = filter.area
-            mAreaAdapter.notifyDataSetChanged()
+            if (mAreaAdapter.selectedArea != filter.area) {
+                mAreaAdapter.selectedArea = filter.area
+                mAreaAdapter.notifyDataSetChanged()
+
+                val shelters = AnimalShelter.find(filter.area)
+                mShelterAdapter.submitList(shelters)
+                rvFilterShelter.visibility = if (shelters.isNotEmpty()) View.VISIBLE else View.GONE
+            }
+            mShelterAdapter.selectedShelter = filter.shelter
+            mShelterAdapter.notifyDataSetChanged()
         })
     }
 }

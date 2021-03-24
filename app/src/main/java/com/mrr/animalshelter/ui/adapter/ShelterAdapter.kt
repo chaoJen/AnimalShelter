@@ -7,23 +7,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.data.element.AnimalArea
+import com.mrr.animalshelter.data.element.AnimalShelter
 import kotlinx.android.synthetic.main.item_filter.view.*
 
-class AreaAdapter : ListAdapter<AnimalArea, AreaAdapter.FilterItemViewHolder>(
-    object : DiffUtil.ItemCallback<AnimalArea>() {
-        override fun areItemsTheSame(oldItem: AnimalArea, newItem: AnimalArea): Boolean {
+class ShelterAdapter : ListAdapter<AnimalShelter, ShelterAdapter.FilterItemViewHolder>(
+    object : DiffUtil.ItemCallback<AnimalShelter>() {
+        override fun areItemsTheSame(oldItem: AnimalShelter, newItem: AnimalShelter): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: AnimalArea, newItem: AnimalArea): Boolean {
+        override fun areContentsTheSame(oldItem: AnimalShelter, newItem: AnimalShelter): Boolean {
             return oldItem == newItem
         }
     }
 ) {
 
-    var selectedArea: AnimalArea? = null
-    var onItemClickListener: ((area: AnimalArea) -> Unit)? = null
+    var selectedShelter: AnimalShelter? = null
+    var onItemClickListener: ((shelter: AnimalShelter) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterItemViewHolder {
         return FilterItemViewHolder(parent)
@@ -36,16 +36,16 @@ class AreaAdapter : ListAdapter<AnimalArea, AreaAdapter.FilterItemViewHolder>(
     inner class FilterItemViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_filter, parent, false)
     ) {
-        private lateinit var area: AnimalArea
+        private lateinit var shelter: AnimalShelter
         private val onItemViewClickListener = View.OnClickListener {
-            onItemClickListener?.invoke(area)
+            onItemClickListener?.invoke(shelter)
         }
 
-        fun bind(area: AnimalArea) {
-            this.area = area
-            itemView.tvContent.text = itemView.context.getString(area.nameResourceId)
-            itemView.tvContent.setTextColor(itemView.context.getColor(if (area == selectedArea) android.R.color.white else android.R.color.black))
-            itemView.setBackgroundResource(if (area == selectedArea) R.drawable.bg_item_filter_selected else R.drawable.bg_item_filter_unselected)
+        fun bind(shelter: AnimalShelter) {
+            this.shelter = shelter
+            itemView.tvContent.text = itemView.context.getString(shelter.nameResourceId)
+            itemView.tvContent.setTextColor(itemView.context.getColor(if (shelter == selectedShelter) android.R.color.white else android.R.color.black))
+            itemView.setBackgroundResource(if (shelter == selectedShelter) R.drawable.bg_item_filter_selected else R.drawable.bg_item_filter_unselected)
             itemView.setOnClickListener(onItemViewClickListener)
         }
     }

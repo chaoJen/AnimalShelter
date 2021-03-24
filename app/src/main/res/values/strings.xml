@@ -7,6 +7,7 @@
 
     <!-- toolbar -->
     <string name="toolbar_title_gallery">全國動物收容中心</string>
+    <string name="toolbar_title_gallery_area_format">%s動物收容中心</string>
     <string name="toolbar_title_galleryfilter">篩選</string>
     <string name="toolbar_title_collection">已收藏</string>
 
@@ -111,7 +112,7 @@
     <!---->
 
     <!-- 動物特徵：所在收容所 -->
-    <string name="shelter_all">任何收容所</string>
+    <string name="shelter_all">任何收容中心</string>
     <string name="shelter_pk_id_48">基隆市寵物銀行</string>
     <string name="shelter_pk_id_49">臺北市動物之家</string>
     <string name="shelter_pk_id_50">新北市板橋區公立動物之家</string>
@@ -180,7 +181,7 @@
     <string name="animal_detail_label_animal_sub_id">區域編號</string>
     <string name="animal_detail_label_animal_status">動物領認養狀態</string>
     <string name="animal_detail_label_animal_open_date">開放期間</string>
-    <string name="animal_detail_label_animal_area">所在收容所</string>
+    <string name="animal_detail_label_animal_area">所在收容中心</string>
     <string name="animal_detail_label_animal_shelter_tel">聯絡電話</string>
     <string name="animal_detail_label_animal_sex">性別</string>
     <string name="animal_detail_label_animal_age">年紀</string>
@@ -209,7 +210,7 @@
     <!-- 篩選項目標題 -->
     <string name="gallery_filter_title_status">領認養狀態</string>
     <string name="gallery_filter_title_kind">動物類型</string>
-    <string name="gallery_filter_title_area">所在縣市 / 收容所</string>
+    <string name="gallery_filter_title_area">所在縣市 / 收容中心</string>
     <string name="gallery_filter_title_health">健康狀態</string>
     <!---->
 </resources>

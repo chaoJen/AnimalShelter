@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
+import com.mrr.animalshelter.data.element.AnimalArea
+import com.mrr.animalshelter.data.element.AnimalShelter
 import com.mrr.animalshelter.ui.adapter.AnimalDetailAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
@@ -76,6 +78,13 @@ class GalleryAnimalDetailFragment : BaseFragment() {
         })
         mViewModel.collectionAnimalIds.observe(viewLifecycleOwner, Observer { collectionAnimalIds ->
             mAnimalDetailAdapter?.onCollectedAnimalsChanged(collectionAnimalIds)
+        })
+        mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
+            toolbar.title = when {
+                filter.shelter != AnimalShelter.All -> getString(filter.shelter.nameResourceId)
+                filter.area != AnimalArea.All -> getString(R.string.toolbar_title_gallery_area_format, getString(filter.area.nameResourceId))
+                else -> getString(R.string.toolbar_title_gallery)
+            }
         })
     }
 }
