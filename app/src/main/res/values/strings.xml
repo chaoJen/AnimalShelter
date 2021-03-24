@@ -98,14 +98,14 @@
     <!---->
 
     <!-- 動物特徵：物種 -->
-    <string name="kind_all">任何</string>
+    <string name="kind_all">任何\n物種</string>
     <string name="kind_cat">喵喵</string>
     <string name="kind_dog">汪汪</string>
     <string name="kind_other">其他</string>
     <!---->
 
     <!-- 動物特徵：性別 -->
-    <string name="sex_all">任何</string>
+    <string name="sex_all">任何性別</string>
     <string name="sex_male">公</string>
     <string name="sex_female">母</string>
     <string name="sex_unknown">未知</string>

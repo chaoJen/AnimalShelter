@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.element.AnimalArea
 import com.mrr.animalshelter.data.element.AnimalKind
+import com.mrr.animalshelter.data.element.AnimalSex
 import com.mrr.animalshelter.data.element.AnimalShelter
-import com.mrr.animalshelter.ui.adapter.AnimalKindAdapter
+import com.mrr.animalshelter.ui.adapter.KindAdapter
 import com.mrr.animalshelter.ui.adapter.AreaAdapter
+import com.mrr.animalshelter.ui.adapter.SexAdapter
 import com.mrr.animalshelter.ui.adapter.ShelterAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
@@ -30,7 +32,8 @@ class GalleryFilterFragment : BaseFragment() {
     private val mViewModel: MainViewModel by activityViewModels()
     private val mAreaAdapter = AreaAdapter().apply { submitList(AnimalArea.values().toList()) }
     private val mShelterAdapter = ShelterAdapter()
-    private val mKindAdapter = AnimalKindAdapter().apply { submitList(AnimalKind.values().toList()) }
+    private val mKindAdapter = KindAdapter().apply { submitList(AnimalKind.values().toList()) }
+    private val mSexAdapter = SexAdapter().apply { submitList(AnimalSex.values().toList()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_gallery_filter, container, false)
@@ -59,23 +62,39 @@ class GalleryFilterFragment : BaseFragment() {
             adapter = mKindAdapter
             mKindAdapter.onItemClickListener = { mViewModel.changeFilterAnimalKind(it) }
         }
+        rvFilterSex.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = mSexAdapter
+            mSexAdapter.onItemClickListener = { mViewModel.changeFilterAnimalSex(it) }
+        }
     }
 
     private fun observe() {
         mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
             if (mAreaAdapter.selectedArea != filter.area) {
-                mAreaAdapter.selectedArea = filter.area
-                mAreaAdapter.notifyDataSetChanged()
+                mAreaAdapter.apply {
+                    selectedArea = filter.area
+                    notifyDataSetChanged()
+                }
 
                 val shelters = AnimalShelter.find(filter.area)
                 mShelterAdapter.submitList(shelters)
                 rvFilterShelter.visibility = if (shelters.isNotEmpty()) View.VISIBLE else View.GONE
             }
-            mShelterAdapter.selectedShelter = filter.shelter
-            mShelterAdapter.notifyDataSetChanged()
+            mShelterAdapter.apply {
+                selectedShelter = filter.shelter
+                notifyDataSetChanged()
+            }
 
-            mKindAdapter.selectedKind = filter.kind
-            mKindAdapter.notifyDataSetChanged()
+            mKindAdapter.apply {
+                selectedKind = filter.kind
+                notifyDataSetChanged()
+            }
+
+            mSexAdapter.apply {
+                selectedSex = filter.sex
+                notifyDataSetChanged()
+            }
         })
     }
 }

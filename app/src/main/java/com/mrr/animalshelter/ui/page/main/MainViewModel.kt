@@ -169,12 +169,8 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         resetAnimals()
     }
 
-    fun changeFilterAnimalSex() {
-        val currentOrdinal = animalFilter.value?.sex?.ordinal ?: 0
-        val nextOrdinal = if (currentOrdinal + 1 >= AnimalSex.values().size) 0 else currentOrdinal + 1
-        animalFilter.postValue(animalFilter.value?.also {
-            it.sex = AnimalSex.values()[nextOrdinal]
-        })
+    fun changeFilterAnimalSex(sex: AnimalSex) {
+        animalFilter.postValue(animalFilter.value?.also { it.sex = sex })
         resetAnimals()
     }
 

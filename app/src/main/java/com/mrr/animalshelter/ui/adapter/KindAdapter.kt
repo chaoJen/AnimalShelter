@@ -10,7 +10,7 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.element.AnimalKind
 import kotlinx.android.synthetic.main.item_filter.view.*
 
-class AnimalKindAdapter : ListAdapter<AnimalKind, AnimalKindAdapter.FilterItemViewHolder>(
+class KindAdapter : ListAdapter<AnimalKind, KindAdapter.FilterItemViewHolder>(
     object : DiffUtil.ItemCallback<AnimalKind>() {
         override fun areItemsTheSame(oldItem: AnimalKind, newItem: AnimalKind): Boolean {
             return oldItem.id == newItem.id
