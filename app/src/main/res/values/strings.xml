@@ -7,6 +7,7 @@
 
     <!-- toolbar -->
     <string name="toolbar_title_gallery">全國動物收容中心</string>
+    <string name="toolbar_title_galleryfilter">篩選</string>
     <string name="toolbar_title_collection">已收藏</string>
 
     <!-- 動物特徵：年齡 -->
@@ -206,18 +207,9 @@
     <!---->
 
     <!-- 篩選項目標題 -->
-    <string name="gallery_filter_title_animal_kind">類型</string>
-    <string name="gallery_filter_title_animal_sex">性別</string>
-    <string name="gallery_filter_title_animal_age">年紀：</string>
-    <string name="gallery_filter_title_animal_body_type">體型：</string>
-    <string name="gallery_filter_title_animal_colour">毛色：</string>
-    <string name="gallery_filter_title_animal_area">所在縣市</string>
-    <string name="gallery_filter_title_animal_shelter">所在收容所</string>
-    <string name="gallery_filter_title_animal_bacterin">狂犬病疫苗：</string>
-    <string name="gallery_filter_title_animal_sterilization">絕育：</string>
-    <string name="gallery_filter_title_description_animal_kind">動物圖示</string>
-    <string name="gallery_filter_title_description_location_mark">座標圖示</string>
-    <string name="gallery_filter_title_description_health">健康狀態圖示</string>
-    <string name="gallery_filter_title_reset">重設</string>
+    <string name="gallery_filter_title_status">領認養狀態</string>
+    <string name="gallery_filter_title_kind">動物類型</string>
+    <string name="gallery_filter_title_area">所在縣市 / 收容所</string>
+    <string name="gallery_filter_title_health">健康狀態</string>
     <!---->
 </resources>

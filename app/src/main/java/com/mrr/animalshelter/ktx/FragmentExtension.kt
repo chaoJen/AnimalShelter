@@ -15,7 +15,7 @@ fun Fragment.switchFragment(
         return
     }
     childFragmentManager.commit {
-        addToBackStack(null)
+        if (existedFragment == null) addToBackStack(null)
         replace(containerViewId, existedFragment ?: onNewInstance(), tag)
     }
 }

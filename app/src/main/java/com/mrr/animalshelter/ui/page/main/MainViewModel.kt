@@ -34,6 +34,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     val onScrollCollectionGalleryToPositionEvent = SingleLiveEvent<Int>()
     val onLaunchGalleryAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
     val onLaunchCollectionAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
+    val onLaunchGalleryFilterEvent = SingleLiveEvent<Unit>()
     val onBackCollectionAnimalDetailEvent = SingleLiveEvent<Unit>()
     val onShowFilterBottomSheetShelterEvent = SingleLiveEvent<List<AnimalShelter>>()
 
@@ -131,6 +132,10 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     fun launchCollectionAnimalDetail(animal: Animal) {
         onLaunchCollectionAnimalDetailToPositionEvent.postValue(collectionAnimals.value?.indexOf(animal) ?: 0)
+    }
+
+    fun launchGalleryFilter() {
+        onLaunchGalleryFilterEvent.value = Unit
     }
 
     fun backCollectionAnimalDetail() {

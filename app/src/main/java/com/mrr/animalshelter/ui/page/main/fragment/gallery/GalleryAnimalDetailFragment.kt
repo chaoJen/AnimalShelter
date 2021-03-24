@@ -45,9 +45,7 @@ class GalleryAnimalDetailFragment : BaseFragment() {
         toolbar.title = getString(R.string.toolbar_title_gallery)
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.item_filter -> {
-                    // TODO launch filter
-                }
+                R.id.item_filter -> mViewModel.launchGalleryFilter()
             }
             true
         }
