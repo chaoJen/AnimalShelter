@@ -159,19 +159,13 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     fun changeFilterAnimalShelter(shelter: AnimalShelter) {
         if (animalFilter.value?.shelter != shelter) {
-            animalFilter.postValue(animalFilter.value?.also {
-                it.shelter = shelter
-            })
+            animalFilter.postValue(animalFilter.value?.also { it.shelter = shelter })
             resetAnimals()
         }
     }
 
-    fun changeFilterAnimalKind() {
-        val currentOrdinal = animalFilter.value?.kind?.ordinal ?: 0
-        val nextOrdinal = if (currentOrdinal + 1 >= AnimalKind.values().size) 0 else currentOrdinal + 1
-        animalFilter.postValue(animalFilter.value?.also {
-            it.kind = AnimalKind.values()[nextOrdinal]
-        })
+    fun changeFilterAnimalKind(kind: AnimalKind) {
+        animalFilter.postValue(animalFilter.value?.also { it.kind = kind })
         resetAnimals()
     }
 

@@ -98,10 +98,10 @@
     <!---->
 
     <!-- 動物特徵：物種 -->
-    <string name="kind_all">任何物種</string>
+    <string name="kind_all">任何</string>
     <string name="kind_cat">喵喵</string>
     <string name="kind_dog">汪汪</string>
-    <string name="kind_other">其他物種</string>
+    <string name="kind_other">其他</string>
     <!---->
 
     <!-- 動物特徵：性別 -->
@@ -209,7 +209,7 @@
 
     <!-- 篩選項目標題 -->
     <string name="gallery_filter_title_status">領認養狀態</string>
-    <string name="gallery_filter_title_kind">動物類型</string>
+    <string name="gallery_filter_title_animalfeature">動物特徵</string>
     <string name="gallery_filter_title_area">所在縣市 / 收容中心</string>
     <string name="gallery_filter_title_health">健康狀態</string>
     <!---->

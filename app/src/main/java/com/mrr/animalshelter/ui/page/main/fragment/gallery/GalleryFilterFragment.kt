@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.element.AnimalArea
+import com.mrr.animalshelter.data.element.AnimalKind
 import com.mrr.animalshelter.data.element.AnimalShelter
+import com.mrr.animalshelter.ui.adapter.AnimalKindAdapter
 import com.mrr.animalshelter.ui.adapter.AreaAdapter
 import com.mrr.animalshelter.ui.adapter.ShelterAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
@@ -28,6 +30,7 @@ class GalleryFilterFragment : BaseFragment() {
     private val mViewModel: MainViewModel by activityViewModels()
     private val mAreaAdapter = AreaAdapter().apply { submitList(AnimalArea.values().toList()) }
     private val mShelterAdapter = ShelterAdapter()
+    private val mKindAdapter = AnimalKindAdapter().apply { submitList(AnimalKind.values().toList()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_gallery_filter, container, false)
@@ -51,6 +54,11 @@ class GalleryFilterFragment : BaseFragment() {
             adapter = mShelterAdapter
             mShelterAdapter.onItemClickListener = { mViewModel.changeFilterAnimalShelter(it) }
         }
+        rvFilterKind.apply {
+            layoutManager = GridLayoutManager(requireContext(), 4)
+            adapter = mKindAdapter
+            mKindAdapter.onItemClickListener = { mViewModel.changeFilterAnimalKind(it) }
+        }
     }
 
     private fun observe() {
@@ -65,6 +73,9 @@ class GalleryFilterFragment : BaseFragment() {
             }
             mShelterAdapter.selectedShelter = filter.shelter
             mShelterAdapter.notifyDataSetChanged()
+
+            mKindAdapter.selectedKind = filter.kind
+            mKindAdapter.notifyDataSetChanged()
         })
     }
 }
