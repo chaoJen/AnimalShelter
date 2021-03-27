@@ -12,16 +12,16 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.ui.adapter.AnimalDetailAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_animal_detail.*
+import kotlinx.android.synthetic.main.fragment_collectiondetail.*
 
-class CollectionAnimalDetailFragment : BaseFragment() {
+class CollectionDetailFragment : BaseFragment() {
 
     companion object {
         const val TAG = "TAG_FRAGMENT_COLLECTION_ANIMAL_DETAIL"
         private const val EXTRA_KEY_START_POSITION = "EXTRA_KEY_START_POSITION"
 
-        fun newInstance(startPosition: Int): CollectionAnimalDetailFragment {
-            return CollectionAnimalDetailFragment().apply {
+        fun newInstance(startPosition: Int): CollectionDetailFragment {
+            return CollectionDetailFragment().apply {
                 arguments = Bundle().apply { putInt(EXTRA_KEY_START_POSITION, startPosition) }
             }
         }
@@ -31,7 +31,7 @@ class CollectionAnimalDetailFragment : BaseFragment() {
     private var mAnimalDetailAdapter: AnimalDetailAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_animal_detail, container, false)
+        return inflater.inflate(R.layout.fragment_collectiondetail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +41,8 @@ class CollectionAnimalDetailFragment : BaseFragment() {
     }
 
     private fun initView() {
+        initToolbar()
+
         mAnimalDetailAdapter = AnimalDetailAdapter().apply {
             onCollectListener = { animal -> mViewModel.collectAnimal(animal) }
             onUnCollectListener = { animalId -> mViewModel.unCollectAnimal(animalId) }
@@ -55,11 +57,17 @@ class CollectionAnimalDetailFragment : BaseFragment() {
             adapter = mAnimalDetailAdapter
         }
     }
+    
+    private fun initToolbar() {
+        toolbar.title = getString(R.string.toolbar_title_collectiondetail)
+        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener { parentFragmentManager.popBackStack() }
+    }
 
     private fun observe() {
         mViewModel.collectionAnimals.observe(viewLifecycleOwner, Observer { collectionAnimals ->
             if (collectionAnimals.isEmpty()) {
-                mViewModel.backCollectionAnimalDetail()
+                parentFragmentManager.popBackStack()
             } else {
                 mAnimalDetailAdapter?.submitList(collectionAnimals)
             }

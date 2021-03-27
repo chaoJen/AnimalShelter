@@ -9,18 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.data.element.AnimalArea
-import com.mrr.animalshelter.data.element.AnimalKind
-import com.mrr.animalshelter.data.element.AnimalSex
-import com.mrr.animalshelter.data.element.AnimalShelter
-import com.mrr.animalshelter.ui.adapter.KindAdapter
-import com.mrr.animalshelter.ui.adapter.AreaAdapter
-import com.mrr.animalshelter.ui.adapter.SexAdapter
-import com.mrr.animalshelter.ui.adapter.ShelterAdapter
+import com.mrr.animalshelter.data.element.*
+import com.mrr.animalshelter.ui.adapter.*
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_filter.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.fragment_galleryfilter.*
 
 class GalleryFilterFragment : BaseFragment() {
 
@@ -34,9 +27,14 @@ class GalleryFilterFragment : BaseFragment() {
     private val mShelterAdapter = ShelterAdapter()
     private val mKindAdapter = KindAdapter().apply { submitList(AnimalKind.values().toList()) }
     private val mSexAdapter = SexAdapter().apply { submitList(AnimalSex.values().toList()) }
+    private val mAgeAdapter = AgeAdapter().apply { submitList(AnimalAge.values().toList()) }
+    private val mBodyTypeAdapter = BodyTypeAdapter().apply { submitList(AnimalBodyType.values().toList()) }
+    private val mColourAdapter = ColourAdapter().apply { submitList(AnimalColour.values().toList()) }
+    private val mBacterinAdapter = BacterinAdapter().apply { submitList(AnimalBacterin.values().toList()) }
+    private val mSterilizationAdapter = SterilizationAdapter().apply { submitList(AnimalSterilization.values().toList()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_gallery_filter, container, false)
+        return inflater.inflate(R.layout.fragment_galleryfilter, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,27 +44,66 @@ class GalleryFilterFragment : BaseFragment() {
     }
 
     private fun initView() {
-        toolbar.title = getString(R.string.toolbar_title_galleryfilter)
+        initToolbar()
+
         rvFilterArea.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = mAreaAdapter
-            mAreaAdapter.onItemClickListener = { mViewModel.changeFilterAnimalArea(it) }
+            mAreaAdapter.onItemClickListener = { mViewModel.filterArea(it) }
         }
         rvFilterShelter.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = mShelterAdapter
-            mShelterAdapter.onItemClickListener = { mViewModel.changeFilterAnimalShelter(it) }
+            mShelterAdapter.onItemClickListener = { mViewModel.filterShelter(it) }
         }
         rvFilterKind.apply {
             layoutManager = GridLayoutManager(requireContext(), 4)
             adapter = mKindAdapter
-            mKindAdapter.onItemClickListener = { mViewModel.changeFilterAnimalKind(it) }
+            mKindAdapter.onItemClickListener = { mViewModel.filterKind(it) }
         }
         rvFilterSex.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = mSexAdapter
-            mSexAdapter.onItemClickListener = { mViewModel.changeFilterAnimalSex(it) }
+            mSexAdapter.onItemClickListener = { mViewModel.filterSex(it) }
         }
+        rvFilterAge.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = mAgeAdapter
+            mAgeAdapter.onItemClickListener = { mViewModel.filterAge(it) }
+        }
+        rvFilterBodyType.apply {
+            layoutManager = GridLayoutManager(requireContext(), 4)
+            adapter = mBodyTypeAdapter
+            mBodyTypeAdapter.onItemClickListener = { mViewModel.filterBodyType(it) }
+        }
+        rvFilterColour.apply {
+            layoutManager = GridLayoutManager(requireContext(), 4)
+            adapter = mColourAdapter
+            mColourAdapter.onItemClickListener = { mViewModel.filterColour(it) }
+        }
+        rvFilterBacterin.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = mBacterinAdapter
+            mBacterinAdapter.onItemClickListener = { mViewModel.filterBacterin(it) }
+        }
+        rvFilterSterilization.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = mSterilizationAdapter
+            mSterilizationAdapter.onItemClickListener = { mViewModel.filterSterilization(it) }
+        }
+    }
+
+    private fun initToolbar() {
+        toolbar.title = getString(R.string.toolbar_title_galleryfilter)
+        toolbar.inflateMenu(R.menu.menu_filter)
+        toolbar.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.item_reset) {
+                mViewModel.resetFilter()
+            }
+            true
+        }
+        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener { parentFragmentManager.popBackStack() }
     }
 
     private fun observe() {
@@ -85,14 +122,32 @@ class GalleryFilterFragment : BaseFragment() {
                 selectedShelter = filter.shelter
                 notifyDataSetChanged()
             }
-
             mKindAdapter.apply {
                 selectedKind = filter.kind
                 notifyDataSetChanged()
             }
-
             mSexAdapter.apply {
                 selectedSex = filter.sex
+                notifyDataSetChanged()
+            }
+            mAgeAdapter.apply {
+                selectedAge = filter.age
+                notifyDataSetChanged()
+            }
+            mBodyTypeAdapter.apply {
+                selectedBodyType = filter.bodyType
+                notifyDataSetChanged()
+            }
+            mColourAdapter.apply {
+                selectedColour = filter.colour
+                notifyDataSetChanged()
+            }
+            mBacterinAdapter.apply {
+                selectedBacterin = filter.bacterin
+                notifyDataSetChanged()
+            }
+            mSterilizationAdapter.apply {
+                selectedSterilization = filter.sterilization
                 notifyDataSetChanged()
             }
         })

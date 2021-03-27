@@ -11,8 +11,7 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.ui.adapter.AnimalGalleryAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_animal_gallery.*
-import kotlinx.android.synthetic.main.toolbar_shelter.*
+import kotlinx.android.synthetic.main.fragment_collection.*
 
 class CollectionFragment : BaseFragment() {
 
@@ -27,7 +26,7 @@ class CollectionFragment : BaseFragment() {
     private var mAdapter = AnimalGalleryAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_animal_collection, container, false)
+        return inflater.inflate(R.layout.fragment_collection, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,10 +37,14 @@ class CollectionFragment : BaseFragment() {
     }
 
     private fun initView() {
-        toolbar.title = getString(R.string.toolbar_title_collection)
+        initToolbar()
 
         val gridLayoutManager = GridLayoutManager(context, 3)
         rvAnimals.layoutManager = gridLayoutManager
+    }
+
+    private fun initToolbar() {
+        toolbar.title = getString(R.string.toolbar_title_collection)
     }
 
     private fun initAnimalAdapter() {

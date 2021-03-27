@@ -3,16 +3,24 @@
 
     <!-- bottom navigation item -->
     <string name="bottom_navigation_animals_gallery">尋找</string>
-    <string name="bottom_navigation_animals_collection">收藏</string>
+    <string name="bottom_navigation_animals_collection">喜歡</string>
 
     <!-- toolbar -->
     <string name="toolbar_title_gallery">全國動物收容中心</string>
     <string name="toolbar_title_gallery_area_format">%s動物收容中心</string>
+    <string name="toolbar_title_gallerydetail">詳細資訊</string>
     <string name="toolbar_title_galleryfilter">篩選</string>
-    <string name="toolbar_title_collection">已收藏</string>
+    <string name="toolbar_title_collection">喜歡的動物</string>
+    <string name="toolbar_title_collectiondetail">喜歡的動物 / 詳細資訊</string>
+    <!---->
+
+    <!-- menu -->
+    <string name="menu_title_gallery_filter">進階搜尋</string>
+    <string name="menu_title_filter_reset">重設</string>
+    <!---->
 
     <!-- 動物特徵：年齡 -->
-    <string name="age_all">任何</string>
+    <string name="age_all">任何年紀</string>
     <string name="age_adult">成年</string>
     <string name="age_child">幼年</string>
     <string name="age_unknown">未知</string>
@@ -76,7 +84,7 @@
     <!---->
 
     <!-- 動物特徵：體型 -->
-    <string name="body_type_all">任何</string>
+    <string name="body_type_all">任何\n體型</string>
     <string name="body_type_small">小型</string>
     <string name="body_type_medium">中型</string>
     <string name="body_type_big">大型</string>
@@ -84,6 +92,7 @@
     <!---->
 
     <!-- 動物特徵：毛色 -->
+    <string name="colour_all">任何\n毛色</string>
     <string name="colour_white">白色</string>
     <string name="colour_black">黑色</string>
     <string name="colour_gray">灰色</string>
@@ -94,7 +103,6 @@
     <string name="colour_coffee">咖啡色</string>
     <string name="colour_three">三花色</string>
     <string name="colour_tabby">虎斑色</string>
-    <string name="colour_all">任何</string>
     <!---->
 
     <!-- 動物特徵：物種 -->
@@ -164,10 +172,6 @@
     <string name="sterilization_unknown">未知</string>
     <!---->
 
-    <!-- 選單 -->
-    <string name="menu_title_filter">進階搜尋</string>
-    <!---->
-
     <!-- 首頁 -->
     <string name="main_snackbar_message_loading">loading</string>
     <string name="main_snackbar_message_nomoredata">no more data</string>
@@ -197,7 +201,7 @@
     <string name="animal_detail_description_animal_shelter_web">前往登記認養</string>
     <string name="animal_detail_description_animal_shelter_location">前往地圖</string>
     <string name="animal_detail_description_tel">前往電話</string>
-    <string name="animal_detail_description_animal_collection">收藏動物</string>
+    <string name="animal_detail_description_animal_collection">喜歡</string>
     <string name="animal_detail_goto_web_page">前往全國動物收容管理系統申請</string>
     <string name="animal_detail_more">&#8230; 更多</string>
     <string name="animal_detail_today">今天</string>
@@ -212,5 +216,7 @@
     <string name="gallery_filter_title_animalfeature">動物特徵</string>
     <string name="gallery_filter_title_area">所在縣市 / 收容中心</string>
     <string name="gallery_filter_title_health">健康狀態</string>
+    <string name="gallery_filter_title_bacterin">動物施打狂犬病疫苗狀態</string>
+    <string name="gallery_filter_title_sterilization">動物絕育狀態</string>
     <!---->
 </resources>

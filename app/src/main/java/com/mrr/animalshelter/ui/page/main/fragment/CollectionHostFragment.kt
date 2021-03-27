@@ -10,7 +10,7 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
-import com.mrr.animalshelter.ui.page.main.fragment.collection.CollectionAnimalDetailFragment
+import com.mrr.animalshelter.ui.page.main.fragment.collection.CollectionDetailFragment
 import com.mrr.animalshelter.ui.page.main.fragment.collection.CollectionFragment
 
 class CollectionHostFragment : BaseFragment() {
@@ -46,15 +46,9 @@ class CollectionHostFragment : BaseFragment() {
         mViewModel.onLaunchCollectionAnimalDetailToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             switchFragment(
                 R.id.layContainer,
-                CollectionAnimalDetailFragment.TAG,
-                onNewInstance = { CollectionAnimalDetailFragment.newInstance(position ?: 0) }
+                CollectionDetailFragment.TAG,
+                onNewInstance = { CollectionDetailFragment.newInstance(position ?: 0) }
             )
-        })
-        mViewModel.onBackCollectionAnimalDetailEvent.observe(viewLifecycleOwner, Observer {
-            val existedFragment = childFragmentManager.findFragmentByTag(CollectionAnimalDetailFragment.TAG)
-            if (existedFragment?.isVisible == true) {
-                childFragmentManager.popBackStack()
-            }
         })
     }
 }

@@ -9,13 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
+import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.AnimalArea
 import com.mrr.animalshelter.data.element.AnimalShelter
 import com.mrr.animalshelter.ui.adapter.AnimalGalleryAdapter
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_animal_gallery.*
-import kotlinx.android.synthetic.main.toolbar_shelter.toolbar
+import kotlinx.android.synthetic.main.fragment_gallery.*
 
 class GalleryFragment : BaseFragment() {
 
@@ -30,7 +30,7 @@ class GalleryFragment : BaseFragment() {
     private var mAdapter = AnimalGalleryAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_animal_gallery, container, false)
+        return inflater.inflate(R.layout.fragment_gallery, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,13 +42,7 @@ class GalleryFragment : BaseFragment() {
     }
 
     private fun initView() {
-        toolbar.title = getString(R.string.toolbar_title_gallery)
-        toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.item_filter -> mViewModel.launchGalleryFilter()
-            }
-            true
-        }
+        initToolbar()
 
         val gridLayoutManager = GridLayoutManager(context, 3)
         rvAnimals.layoutManager = gridLayoutManager
@@ -61,6 +55,16 @@ class GalleryFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun initToolbar() {
+        toolbar.title = getString(R.string.toolbar_title_gallery)
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.item_filter -> mViewModel.launchGalleryFilter()
+            }
+            true
+        }
     }
 
     private fun initAnimalAdapter() {
@@ -81,10 +85,17 @@ class GalleryFragment : BaseFragment() {
             position?.let { rvAnimals.scrollToPosition(if (it > 3 && it % 3 == 0) it - 1 else it) }
         })
         mViewModel.animalFilter.observe(viewLifecycleOwner, Observer { filter ->
-            toolbar.title = when {
-                filter.shelter != AnimalShelter.All -> getString(filter.shelter.nameResourceId)
-                filter.area != AnimalArea.All -> getString(R.string.toolbar_title_gallery_area_format, getString(filter.area.nameResourceId))
-                else -> getString(R.string.toolbar_title_gallery)
+            toolbar.apply {
+                title = when {
+                    filter.shelter != AnimalShelter.All -> getString(filter.shelter.nameResourceId)
+                    filter.area != AnimalArea.All -> getString(R.string.toolbar_title_gallery_area_format, getString(filter.area.nameResourceId))
+                    else -> getString(R.string.toolbar_title_gallery)
+                }
+                menu.findItem(R.id.item_filter).apply {
+                    context?.run {
+                        setIcon(icon.apply { setTint(getColor(if (filter != AnimalFilter()) R.color.colorAccent else android.R.color.black)) })
+                    }
+                }
             }
         })
     }

@@ -10,7 +10,7 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
-import com.mrr.animalshelter.ui.page.main.fragment.gallery.GalleryAnimalDetailFragment
+import com.mrr.animalshelter.ui.page.main.fragment.gallery.GalleryDetailFragment
 import com.mrr.animalshelter.ui.page.main.fragment.gallery.GalleryFilterFragment
 import com.mrr.animalshelter.ui.page.main.fragment.gallery.GalleryFragment
 
@@ -48,8 +48,8 @@ class GalleryHostFragment : BaseFragment() {
         mViewModel.onLaunchGalleryAnimalDetailToPositionEvent.observe(viewLifecycleOwner, Observer { position ->
             switchFragment(
                 R.id.layContainer,
-                GalleryAnimalDetailFragment.TAG,
-                onNewInstance = { GalleryAnimalDetailFragment.newInstance(position ?: 0) }
+                GalleryDetailFragment.TAG,
+                onNewInstance = { GalleryDetailFragment.newInstance(position ?: 0) }
             )
         })
         mViewModel.onLaunchGalleryFilterEvent.observe(viewLifecycleOwner, Observer {

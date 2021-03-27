@@ -35,7 +35,6 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     val onLaunchGalleryAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
     val onLaunchCollectionAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
     val onLaunchGalleryFilterEvent = SingleLiveEvent<Unit>()
-    val onBackCollectionAnimalDetailEvent = SingleLiveEvent<Unit>()
     val onShowFilterBottomSheetShelterEvent = SingleLiveEvent<List<AnimalShelter>>()
 
     private var mSkip = 0
@@ -138,11 +137,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         onLaunchGalleryFilterEvent.value = Unit
     }
 
-    fun backCollectionAnimalDetail() {
-        onBackCollectionAnimalDetailEvent.postValue(Unit)
-    }
-
-    fun changeFilterAnimalArea(area: AnimalArea) {
+    fun filterArea(area: AnimalArea) {
         if (animalFilter.value?.area != area) {
             animalFilter.postValue(animalFilter.value?.also {
                 it.area = area
@@ -157,66 +152,60 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         }
     }
 
-    fun changeFilterAnimalShelter(shelter: AnimalShelter) {
+    fun filterShelter(shelter: AnimalShelter) {
         if (animalFilter.value?.shelter != shelter) {
             animalFilter.postValue(animalFilter.value?.also { it.shelter = shelter })
             resetAnimals()
         }
     }
 
-    fun changeFilterAnimalKind(kind: AnimalKind) {
-        animalFilter.postValue(animalFilter.value?.also { it.kind = kind })
-        resetAnimals()
-    }
-
-    fun changeFilterAnimalSex(sex: AnimalSex) {
-        animalFilter.postValue(animalFilter.value?.also { it.sex = sex })
-        resetAnimals()
-    }
-
-    fun changeFilterAnimalAge() {
-        val currentOrdinal = animalFilter.value?.age?.ordinal ?: 0
-        val nextOrdinal = if (currentOrdinal + 1 >= AnimalAge.values().size) 0 else currentOrdinal + 1
-        animalFilter.postValue(animalFilter.value?.also {
-            it.age = AnimalAge.values()[nextOrdinal]
-        })
-        resetAnimals()
-    }
-
-    fun changeFilterAnimalBodyType() {
-        val currentOrdinal = animalFilter.value?.bodyType?.ordinal ?: 0
-        val nextOrdinal = if (currentOrdinal + 1 >= AnimalBodyType.values().size) 0 else currentOrdinal + 1
-        animalFilter.postValue(animalFilter.value?.also {
-            it.bodyType = AnimalBodyType.values()[nextOrdinal]
-        })
-        resetAnimals()
-    }
-
-    fun changeFilterAnimalColour(colour: AnimalColour) {
-        if (animalFilter.value?.colour != colour) {
-            animalFilter.postValue(animalFilter.value?.also {
-                it.colour = colour
-            })
+    fun filterKind(kind: AnimalKind) {
+        if (animalFilter.value?.kind != kind) {
+            animalFilter.postValue(animalFilter.value?.also { it.kind = kind })
             resetAnimals()
         }
     }
 
-    fun changeFilterAnimalBacterin() {
-        val currentOrdinal = animalFilter.value?.bacterin?.ordinal ?: 0
-        val nextOrdinal = if (currentOrdinal + 1 >= AnimalBacterin.values().size) 0 else currentOrdinal + 1
-        animalFilter.postValue(animalFilter.value?.also {
-            it.bacterin = AnimalBacterin.values()[nextOrdinal]
-        })
-        resetAnimals()
+    fun filterSex(sex: AnimalSex) {
+        if (animalFilter.value?.sex != sex) {
+            animalFilter.postValue(animalFilter.value?.also { it.sex = sex })
+            resetAnimals()
+        }
     }
 
-    fun changeFilterAnimalSterilization() {
-        val currentOrdinal = animalFilter.value?.sterilization?.ordinal ?: 0
-        val nextOrdinal = if (currentOrdinal + 1 >= AnimalSterilization.values().size) 0 else currentOrdinal + 1
-        animalFilter.postValue(animalFilter.value?.also {
-            it.sterilization = AnimalSterilization.values()[nextOrdinal]
-        })
-        resetAnimals()
+    fun filterAge(age: AnimalAge) {
+        if (animalFilter.value?.age != age) {
+            animalFilter.postValue(animalFilter.value?.also { it.age = age })
+            resetAnimals()
+        }
+    }
+
+    fun filterBodyType(bodyType: AnimalBodyType) {
+        if (animalFilter.value?.bodyType != bodyType) {
+            animalFilter.postValue(animalFilter.value?.also { it.bodyType = bodyType })
+            resetAnimals()
+        }
+    }
+
+    fun filterColour(colour: AnimalColour) {
+        if (animalFilter.value?.colour != colour) {
+            animalFilter.postValue(animalFilter.value?.also { it.colour = colour })
+            resetAnimals()
+        }
+    }
+
+    fun filterBacterin(bacterin: AnimalBacterin) {
+        if (animalFilter.value?.bacterin != bacterin) {
+            animalFilter.postValue(animalFilter.value?.also { it.bacterin = bacterin })
+            resetAnimals()
+        }
+    }
+
+    fun filterSterilization(sterilization: AnimalSterilization) {
+        if (animalFilter.value?.sterilization != sterilization) {
+            animalFilter.postValue(animalFilter.value?.also { it.sterilization = sterilization })
+            resetAnimals()
+        }
     }
 
     fun resetFilter() {

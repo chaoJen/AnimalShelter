@@ -2,8 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/item_filter"
-        android:icon="@drawable/ic_menu_filter"
-        android:title="@string/menu_title_gallery_filter"
+        android:id="@+id/item_reset"
+        android:title="@string/menu_title_filter_reset"
         app:showAsAction="ifRoom"/>
 </menu>
