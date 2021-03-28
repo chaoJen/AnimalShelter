@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.ktx.loadImage
-import kotlinx.android.synthetic.main.item_animal.view.*
+import kotlinx.android.synthetic.main.item_animal_gallery.view.*
 
-class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalViewHolder>(
+class AnimalShelterSearchAdapter : ListAdapter<Animal, AnimalShelterSearchAdapter.AnimalViewHolder>(
     object : DiffUtil.ItemCallback<Animal>() {
         override fun areItemsTheSame(oldItem: Animal, newItem: Animal): Boolean {
             return oldItem.animalId == newItem.animalId
@@ -41,14 +41,14 @@ class AnimalGalleryAdapter : ListAdapter<Animal, AnimalGalleryAdapter.AnimalView
     }
 
     inner class AnimalViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_animal, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_animal_gallery, parent, false)
     ) {
         private lateinit var animal: Animal
         private val onClickListener = View.OnClickListener {
-            this@AnimalGalleryAdapter.onItemClickListener?.invoke(animal)
+            this@AnimalShelterSearchAdapter.onItemClickListener?.invoke(animal)
         }
         private val onLongClickListener = View.OnLongClickListener {
-            this@AnimalGalleryAdapter.onItemLongClickListener?.invoke(animal)
+            this@AnimalShelterSearchAdapter.onItemLongClickListener?.invoke(animal)
             true
         }
 

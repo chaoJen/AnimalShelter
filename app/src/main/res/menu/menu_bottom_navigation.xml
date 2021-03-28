@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/itemAnimalsGallery"
+        android:id="@+id/itemAnimalShelterSearch"
         android:enabled="true"
-        android:icon="@drawable/ic_navigation_gallery"
-        android:title="@string/bottom_navigation_animals_gallery"/>
+        android:icon="@drawable/ic_navigation_search"
+        android:title="@string/bottom_navigation_animal_search"/>
 
     <item
-        android:id="@+id/itemAnimalsCollection"
+        android:id="@+id/itemAnimalShelterCollected"
         android:enabled="true"
-        android:icon="@drawable/ic_navigation_collection"
-        android:title="@string/bottom_navigation_animals_collection"/>
+        android:icon="@drawable/ic_navigation_collected"
+        android:title="@string/bottom_navigation_animal_collected"/>
 </menu>

@@ -18,8 +18,8 @@ import com.mrr.animalshelter.ktx.putPreference
 import com.mrr.animalshelter.ktx.switchFragment
 import com.mrr.animalshelter.ui.base.AnyViewModelFactory
 import com.mrr.animalshelter.ui.base.BaseActivity
-import com.mrr.animalshelter.ui.page.main.fragment.CollectionHostFragment
-import com.mrr.animalshelter.ui.page.main.fragment.GalleryHostFragment
+import com.mrr.animalshelter.ui.page.main.fragment.AnimalShelterCollectedHostFragment
+import com.mrr.animalshelter.ui.page.main.fragment.AnimalShelterSearchHostFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -51,23 +51,23 @@ class MainActivity : BaseActivity() {
     private fun initView() {
         layBottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.itemAnimalsGallery -> {
-                    onSwitchGalleryFragment()
+                R.id.itemAnimalShelterSearch -> {
+                    onSwitchAnimalShelterSearchFragment()
                     true
                 }
-                R.id.itemAnimalsCollection -> {
-                    onSwitchCollectionFragment()
+                R.id.itemAnimalShelterCollected -> {
+                    onSwitchAnimalShelterCollectedFragment()
                     true
                 }
                 else -> false
             }
         }
 
-        layBottomNavigation.selectedItemId = R.id.itemAnimalsGallery
+        layBottomNavigation.selectedItemId = R.id.itemAnimalShelterSearch
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_gallery, menu)
+        menuInflater.inflate(R.menu.menu_search, menu)
         return true
     }
 
@@ -75,14 +75,14 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    private fun onSwitchGalleryFragment() {
+    private fun onSwitchAnimalShelterSearchFragment() {
         mCurrentFragment = switchFragment(
             R.id.layContainer,
-            GalleryHostFragment.TAG,
-            onNewInstance = { GalleryHostFragment.newInstance() },
+            AnimalShelterSearchHostFragment.TAG,
+            onNewInstance = { AnimalShelterSearchHostFragment.newInstance() },
             onFragmentAlreadyVisible = { fragment ->
                 if (fragment.childFragmentManager.backStackEntryCount == 1) {
-                    mViewModel?.scrollGallery(0)
+                    mViewModel?.scrollAnimalShelterSearchMainTo(0)
                 } else {
                     fragment.childFragmentManager.popBackStack(null, 0)
                 }
@@ -90,14 +90,14 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    private fun onSwitchCollectionFragment() {
+    private fun onSwitchAnimalShelterCollectedFragment() {
         mCurrentFragment = switchFragment(
             R.id.layContainer,
-            CollectionHostFragment.TAG,
-            onNewInstance = { CollectionHostFragment.newInstance() },
+            AnimalShelterCollectedHostFragment.TAG,
+            onNewInstance = { AnimalShelterCollectedHostFragment.newInstance() },
             onFragmentAlreadyVisible = { fragment ->
                 if (fragment.childFragmentManager.backStackEntryCount == 1) {
-                    mViewModel?.scrollCollection(0)
+                    mViewModel?.scrollAnimalShelterCollectedMainTo(0)
                 } else {
                     fragment.childFragmentManager.popBackStack(null, 0)
                 }
@@ -112,8 +112,8 @@ class MainActivity : BaseActivity() {
         mViewModel?.animalFilter?.observe(this, Observer { filter ->
             putPreference(PreferencesConst.NAME_ANIMAL, PreferencesConst.KEY_FILTER, filter)
         })
-        mViewModel?.collectionAnimals?.observe(this, Observer { collectionAnimals ->
-            layBottomNavigation.getOrCreateBadge(R.id.itemAnimalsCollection).apply {
+        mViewModel?.collectedAnimals?.observe(this, Observer { collectionAnimals ->
+            layBottomNavigation.getOrCreateBadge(R.id.itemAnimalShelterCollected).apply {
                 isVisible = collectionAnimals.isNotEmpty()
                 number = collectionAnimals.size
             }

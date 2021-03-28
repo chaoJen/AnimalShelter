@@ -17,7 +17,7 @@ import com.mrr.animalshelter.ui.page.web.WebViewActivity
 import kotlinx.android.synthetic.main.item_animal_description.view.*
 import java.util.*
 
-class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetailViewHolder>(
+class AnimalShelterDetailAdapter : ListAdapter<Animal, AnimalShelterDetailAdapter.AnimalDetailViewHolder>(
     object : DiffUtil.ItemCallback<Animal>() {
         override fun areItemsTheSame(oldItem: Animal, newItem: Animal): Boolean {
             return oldItem.animalId == newItem.animalId
@@ -120,7 +120,7 @@ class AnimalDetailAdapter : ListAdapter<Animal, AnimalDetailAdapter.AnimalDetail
             itemView.tvContentAnimalId.text = "${animalDetailDescriptor.getAnimalId()}"
             itemView.tvContentAnimalSubId.text = animalDetailDescriptor.getAnimalSubId()
             itemView.tvDate.text = animalDetailDescriptor.getDayDiff(itemView.context, "yyyy/MM/dd")
-            itemView.imgActionCollection.setImageResource(if (mAllCollectedAnimalIds.contains(animal.animalId)) R.drawable.ic_action_collection_fill else R.drawable.ic_action_collection_outline)
+            itemView.imgActionCollection.setImageResource(if (mAllCollectedAnimalIds.contains(animal.animalId)) R.drawable.ic_action_collect_fill else R.drawable.ic_action_collect_outline)
 
             itemView.imgAnimal.setOnClickListener(onClickListener)
             itemView.imgActionAnimalShelterWeb.setOnClickListener(onClickListener)

@@ -2,20 +2,20 @@
     <string name="app_name">尋找毛小孩</string>
 
     <!-- bottom navigation item -->
-    <string name="bottom_navigation_animals_gallery">尋找</string>
-    <string name="bottom_navigation_animals_collection">喜歡</string>
+    <string name="bottom_navigation_animal_search">尋找</string>
+    <string name="bottom_navigation_animal_collected">喜歡</string>
 
     <!-- toolbar -->
-    <string name="toolbar_title_gallery">全國動物收容中心</string>
-    <string name="toolbar_title_gallery_area_format">%s動物收容中心</string>
-    <string name="toolbar_title_gallerydetail">詳細資訊</string>
-    <string name="toolbar_title_galleryfilter">篩選</string>
-    <string name="toolbar_title_collection">喜歡的動物</string>
-    <string name="toolbar_title_collectiondetail">喜歡的動物 / 詳細資訊</string>
+    <string name="toolbar_title_search">全國動物收容中心</string>
+    <string name="toolbar_title_search_area_format">%s動物收容中心</string>
+    <string name="toolbar_title_searchdetail">詳細資訊</string>
+    <string name="toolbar_title_searchfilter">篩選</string>
+    <string name="toolbar_title_collected">喜歡的動物</string>
+    <string name="toolbar_title_collecteddetail">喜歡的動物 / 詳細資訊</string>
     <!---->
 
     <!-- menu -->
-    <string name="menu_title_gallery_filter">進階搜尋</string>
+    <string name="menu_title_search_filter">篩選</string>
     <string name="menu_title_filter_reset">重設</string>
     <!---->
 
@@ -212,11 +212,11 @@
     <!---->
 
     <!-- 篩選項目標題 -->
-    <string name="gallery_filter_title_status">領認養狀態</string>
-    <string name="gallery_filter_title_animalfeature">動物特徵</string>
-    <string name="gallery_filter_title_area">所在縣市 / 收容中心</string>
-    <string name="gallery_filter_title_health">健康狀態</string>
-    <string name="gallery_filter_title_bacterin">動物施打狂犬病疫苗狀態</string>
-    <string name="gallery_filter_title_sterilization">動物絕育狀態</string>
+    <string name="search_filter_title_status">領認養狀態</string>
+    <string name="search_filter_title_animalfeature">動物特徵</string>
+    <string name="search_filter_title_area">所在縣市 / 收容中心</string>
+    <string name="search_filter_title_health">健康狀態</string>
+    <string name="search_filter_title_bacterin">動物施打狂犬病疫苗狀態</string>
+    <string name="search_filter_title_sterilization">動物絕育狀態</string>
     <!---->
 </resources>

@@ -1,4 +1,4 @@
-package com.mrr.animalshelter.ui.page.main.fragment.gallery
+package com.mrr.animalshelter.ui.page.main.fragment.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,13 +13,13 @@ import com.mrr.animalshelter.data.element.*
 import com.mrr.animalshelter.ui.adapter.*
 import com.mrr.animalshelter.ui.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_galleryfilter.*
+import kotlinx.android.synthetic.main.fragment_search_filter.*
 
-class GalleryFilterFragment : BaseFragment() {
+class AnimalShelterSearchFilterFragment : BaseFragment() {
 
     companion object {
-        const val TAG = "TAG_FRAGMENT_GALLERY_FILTER"
-        fun newInstance() = GalleryFilterFragment()
+        const val TAG = "TAG_FRAGMENT_ANIMAL_SHELTER_SEARCH_FILTER"
+        fun newInstance() = AnimalShelterSearchFilterFragment()
     }
 
     private val mViewModel: MainViewModel by activityViewModels()
@@ -34,7 +34,7 @@ class GalleryFilterFragment : BaseFragment() {
     private val mSterilizationAdapter = SterilizationAdapter().apply { submitList(AnimalSterilization.values().toList()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_galleryfilter, container, false)
+        return inflater.inflate(R.layout.fragment_search_filter, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,7 +94,7 @@ class GalleryFilterFragment : BaseFragment() {
     }
 
     private fun initToolbar() {
-        toolbar.title = getString(R.string.toolbar_title_galleryfilter)
+        toolbar.title = getString(R.string.toolbar_title_searchfilter)
         toolbar.inflateMenu(R.menu.menu_filter)
         toolbar.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.item_reset) {

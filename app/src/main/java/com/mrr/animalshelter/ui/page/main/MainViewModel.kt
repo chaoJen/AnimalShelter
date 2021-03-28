@@ -23,18 +23,18 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     val animals = MutableLiveData<List<Animal>>()
     val animalFilter = MutableLiveData<AnimalFilter>(animalFilter)
-    val collectionAnimals = repository.getAllCollectionAnimalsAsLiveData()
-    val collectionAnimalIds = repository.getAllCollectionAnimalIds()
-    val isGalleryDataPulling = MutableLiveData<Boolean>()
-    val isCollectionDataPulling = MutableLiveData<Boolean>()
+    val collectedAnimals = repository.getAllCollectionAnimalsAsLiveData()
+    val collectedAnimalIds = repository.getAllCollectionAnimalIds()
+    val isSearchDataPulling = MutableLiveData<Boolean>()
+    val isCollectedDataPulling = MutableLiveData<Boolean>()
     val exception = MutableLiveData<Throwable>()
     val isNoMoreData = MutableLiveData<Boolean>()
 
-    val onScrollGalleryToPositionEvent = SingleLiveEvent<Int>()
-    val onScrollCollectionGalleryToPositionEvent = SingleLiveEvent<Int>()
-    val onLaunchGalleryAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
+    val onScrollAnimalShelterSearchToPositionEvent = SingleLiveEvent<Int>()
+    val onScrollAnimalShelterCollectedToPositionEvent = SingleLiveEvent<Int>()
+    val onLaunchAnimalShelterSearchDetailToPositionEvent = SingleLiveEvent<Int>()
     val onLaunchCollectionAnimalDetailToPositionEvent = SingleLiveEvent<Int>()
-    val onLaunchGalleryFilterEvent = SingleLiveEvent<Unit>()
+    val onLaunchSearchFilterEvent = SingleLiveEvent<Unit>()
     val onShowFilterBottomSheetShelterEvent = SingleLiveEvent<List<AnimalShelter>>()
 
     private var mSkip = 0
@@ -42,13 +42,13 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     fun pullAnimals() = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
         Log.d(TAG, throwable.toString())
-        isGalleryDataPulling.postValue(false)
+        isSearchDataPulling.postValue(false)
         exception.postValue(throwable)
     }) {
-        if (isGalleryDataPulling.value == true || isNoMoreData.value == true) {
+        if (isSearchDataPulling.value == true || isNoMoreData.value == true) {
             return@launch
         }
-        isGalleryDataPulling.postValue(true)
+        isSearchDataPulling.postValue(true)
         val response = try {
             repository.pullAnimals(mTop, mSkip, animalFilter.value ?: AnimalFilter())
         } catch (t: Throwable) {
@@ -69,7 +69,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         } else {
             exception.postValue(ResponseException())
         }
-        isGalleryDataPulling.postValue(false)
+        isSearchDataPulling.postValue(false)
     }
 
     fun resetAnimals() {
@@ -87,7 +87,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     }
 
     fun changeAnimalCollection(animal: Animal) {
-        if (collectionAnimals.value?.contains(animal) == true) {
+        if (collectedAnimals.value?.contains(animal) == true) {
             unCollectAnimal(animal.animalId)
         } else {
             collectAnimal(animal)
@@ -96,10 +96,10 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     fun updateCollectionAnimalsData() = viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.d(TAG, throwable.toString())
-        isCollectionDataPulling.postValue(false)
+        isCollectedDataPulling.postValue(false)
         exception.postValue(throwable)
     }) {
-        isCollectionDataPulling.postValue(true)
+        isCollectedDataPulling.postValue(true)
         val collectionAnimals = repository.getAllCollectionAnimals()
         collectionAnimals.forEach { animal ->
             val response = try {
@@ -114,27 +114,27 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
                 }
             }
         }
-        isCollectionDataPulling.postValue(false)
+        isCollectedDataPulling.postValue(false)
     }
 
-    fun scrollGallery(position: Int) {
-        onScrollGalleryToPositionEvent.postValue(position)
+    fun scrollAnimalShelterSearchMainTo(position: Int) {
+        onScrollAnimalShelterSearchToPositionEvent.postValue(position)
     }
 
-    fun scrollCollection(position: Int) {
-        onScrollCollectionGalleryToPositionEvent.postValue(position)
+    fun scrollAnimalShelterCollectedMainTo(position: Int) {
+        onScrollAnimalShelterCollectedToPositionEvent.postValue(position)
     }
 
-    fun launchGalleryAnimalDetail(animal: Animal) {
-        onLaunchGalleryAnimalDetailToPositionEvent.postValue(animals.value?.indexOf(animal) ?: 0)
+    fun launchAnimalShelterSearchDetail(animal: Animal) {
+        onLaunchAnimalShelterSearchDetailToPositionEvent.postValue(animals.value?.indexOf(animal) ?: 0)
     }
 
-    fun launchCollectionAnimalDetail(animal: Animal) {
-        onLaunchCollectionAnimalDetailToPositionEvent.postValue(collectionAnimals.value?.indexOf(animal) ?: 0)
+    fun launchAnimalShelterCollectedDetail(animal: Animal) {
+        onLaunchCollectionAnimalDetailToPositionEvent.postValue(collectedAnimals.value?.indexOf(animal) ?: 0)
     }
 
-    fun launchGalleryFilter() {
-        onLaunchGalleryFilterEvent.value = Unit
+    fun launchSearchFilter() {
+        onLaunchSearchFilterEvent.value = Unit
     }
 
     fun filterArea(area: AnimalArea) {
