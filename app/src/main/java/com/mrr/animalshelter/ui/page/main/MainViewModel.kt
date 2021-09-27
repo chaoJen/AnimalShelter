@@ -23,8 +23,8 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
 
     val animals = MutableLiveData<List<Animal>>()
     val animalFilter = MutableLiveData<AnimalFilter>(animalFilter)
-    val collectedAnimals = repository.getAllCollectionAnimalsAsLiveData()
-    val collectedAnimalIds = repository.getAllCollectionAnimalIds()
+    val collectedAnimals = repository.getAllStoredAnimalsAsLiveData()
+    val collectedAnimalIds = repository.getAllStoredAnimalIds()
     val isSearchDataPulling = MutableLiveData<Boolean>()
     val isCollectedDataPulling = MutableLiveData<Boolean>()
     val exception = MutableLiveData<Throwable>()
@@ -50,7 +50,7 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         }
         isSearchDataPulling.postValue(true)
         val response = try {
-            repository.pullAnimals(mTop, mSkip, animalFilter.value ?: AnimalFilter())
+            repository.fetchAnimals(mTop, mSkip, animalFilter.value ?: AnimalFilter())
         } catch (t: Throwable) {
             throw HttpException(t)
         }
@@ -79,11 +79,11 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
     }
 
     fun collectAnimal(animal: Animal) = viewModelScope.launch {
-        repository.collectAnimal(animal)
+        repository.storeAnimal(animal)
     }
 
     fun unCollectAnimal(animalId: Int) = viewModelScope.launch {
-        repository.unCollectAnimal(animalId)
+        repository.unStoreAnimal(animalId)
     }
 
     fun changeAnimalCollection(animal: Animal) {
@@ -100,10 +100,10 @@ class MainViewModel(private val repository: AnimalRepository, animalFilter: Anim
         exception.postValue(throwable)
     }) {
         isCollectedDataPulling.postValue(true)
-        val collectionAnimals = repository.getAllCollectionAnimals()
+        val collectionAnimals = repository.getAllStoredAnimals()
         collectionAnimals.forEach { animal ->
             val response = try {
-                repository.pullAnimal(animal.animalId)
+                repository.fetchAnimal(animal.animalId)
             } catch (t: Throwable) {
                 throw HttpException(t)
             }

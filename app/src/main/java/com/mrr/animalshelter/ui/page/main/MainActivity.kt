@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.core.AnimalRepository
 import com.mrr.animalshelter.core.api.ApiManager
@@ -21,13 +20,11 @@ import com.mrr.animalshelter.ui.base.BaseActivity
 import com.mrr.animalshelter.ui.page.main.fragment.AnimalShelterCollectedHostFragment
 import com.mrr.animalshelter.ui.page.main.fragment.AnimalShelterSearchHostFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : BaseActivity() {
 
     private var mViewModel: MainViewModel? = null
     private var mCurrentFragment: Fragment? = null
-    private var mBackPressedTimeMillisecond: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,12 +121,7 @@ class MainActivity : BaseActivity() {
         if (mCurrentFragment?.childFragmentManager?.backStackEntryCount ?: 1 > 1) {
             mCurrentFragment?.childFragmentManager?.popBackStack()
         } else {
-            if (Date().time - mBackPressedTimeMillisecond > 3000) {
-                Snackbar.make(layBottomNavigation, R.string.main_snackbar_message_backpressedagain, Snackbar.LENGTH_SHORT).show()
-                mBackPressedTimeMillisecond = Date().time
-            } else {
-                super.onBackPressed()
-            }
+            super.onBackPressed()
         }
     }
 }

@@ -3,15 +3,15 @@
 
     <!-- bottom navigation item -->
     <string name="bottom_navigation_animal_search">尋找</string>
-    <string name="bottom_navigation_animal_collected">喜歡</string>
+    <string name="bottom_navigation_animal_collected">關注</string>
 
     <!-- toolbar -->
     <string name="toolbar_title_search">全國動物收容中心</string>
     <string name="toolbar_title_search_area_format">%s動物收容中心</string>
     <string name="toolbar_title_searchdetail">詳細資訊</string>
     <string name="toolbar_title_searchfilter">篩選</string>
-    <string name="toolbar_title_collected">喜歡的動物</string>
-    <string name="toolbar_title_collecteddetail">喜歡的動物 / 詳細資訊</string>
+    <string name="toolbar_title_collected">關注中</string>
+    <string name="toolbar_title_collecteddetail">關注中 / 詳細資訊</string>
     <!---->
 
     <!-- menu -->
@@ -201,7 +201,7 @@
     <string name="animal_detail_description_animal_shelter_web">前往登記認養</string>
     <string name="animal_detail_description_animal_shelter_location">前往地圖</string>
     <string name="animal_detail_description_tel">前往電話</string>
-    <string name="animal_detail_description_animal_collection">喜歡</string>
+    <string name="animal_detail_description_animal_collection">關注</string>
     <string name="animal_detail_goto_web_page">前往全國動物收容管理系統申請</string>
     <string name="animal_detail_more">&#8230; 更多</string>
     <string name="animal_detail_today">今天</string>

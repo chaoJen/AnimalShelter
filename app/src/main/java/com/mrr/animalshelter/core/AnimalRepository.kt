@@ -10,14 +10,14 @@ import retrofit2.Response
 
 class AnimalRepository(
     private val service: ShelterService,
-    private val collectionAnimalsDao: AnimalDao
+    private val storedAnimalsDao: AnimalDao
 ) {
 
     @Throws(Throwable::class)
-    suspend fun pullAnimal(animalId: Int) = service.getAnimal(animalId)
+    suspend fun fetchAnimal(animalId: Int) = service.getAnimal(animalId)
 
     @Throws(Throwable::class)
-    suspend fun pullAnimals(top: Int, skip: Int, filter: AnimalFilter): Response<List<Animal>> {
+    suspend fun fetchAnimals(top: Int, skip: Int, filter: AnimalFilter): Response<List<Animal>> {
         return service.getAnimals(
             top = top,
             skip = skip,
@@ -34,15 +34,15 @@ class AnimalRepository(
         )
     }
 
-    suspend fun collectAnimal(animal: Animal) {
-        collectionAnimalsDao.insert(animal)
+    suspend fun storeAnimal(animal: Animal) {
+        storedAnimalsDao.insert(animal)
     }
 
-    suspend fun getAllCollectionAnimals() = collectionAnimalsDao.getAll()
+    suspend fun getAllStoredAnimals() = storedAnimalsDao.getAll()
 
-    fun getAllCollectionAnimalsAsLiveData() = collectionAnimalsDao.getAllAsLiveData()
+    fun getAllStoredAnimalsAsLiveData() = storedAnimalsDao.getAllAsLiveData()
 
-    fun getAllCollectionAnimalIds() = collectionAnimalsDao.getAllAnimalIds()
+    fun getAllStoredAnimalIds() = storedAnimalsDao.getAllAnimalIds()
 
-    suspend fun unCollectAnimal(animalId: Int) = collectionAnimalsDao.delete(animalId)
+    suspend fun unStoreAnimal(animalId: Int) = storedAnimalsDao.delete(animalId)
 }
