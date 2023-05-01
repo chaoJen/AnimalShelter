@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">尋找毛小孩</string>
+    <string name="app_name">中途之家</string>
 
     <!-- bottom navigation item -->
     <string name="bottom_navigation_animal_search">尋找</string>

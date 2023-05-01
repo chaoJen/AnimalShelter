@@ -11,7 +11,7 @@ import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.*
 import com.mrr.animalshelter.data.exception.HttpException
 import com.mrr.animalshelter.data.exception.ResponseException
-import com.mrr.animalshelter.ui.base.SingleLiveEvent
+import com.mrr.animalshelter.core.base.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 

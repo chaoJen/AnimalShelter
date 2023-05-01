@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.ui.base.BaseActivity
+import com.mrr.animalshelter.core.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_webview.*
 
 class WebViewActivity : BaseActivity() {

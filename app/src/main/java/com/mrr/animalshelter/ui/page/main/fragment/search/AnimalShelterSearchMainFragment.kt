@@ -12,9 +12,9 @@ import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.data.element.AnimalArea
 import com.mrr.animalshelter.data.element.AnimalShelter
-import com.mrr.animalshelter.ui.adapter.AnimalShelterSearchAdapter
-import com.mrr.animalshelter.ui.base.BaseFragment
+import com.mrr.animalshelter.core.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
+import com.mrr.animalshelter.ui.page.main.fragment.search.adapter.AnimalShelterSearchAdapter
 import kotlinx.android.synthetic.main.fragment_search_main.*
 
 class AnimalShelterSearchMainFragment : BaseFragment() {

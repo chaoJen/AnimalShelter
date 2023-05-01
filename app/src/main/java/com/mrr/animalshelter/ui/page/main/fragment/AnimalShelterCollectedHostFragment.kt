@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.ktx.switchFragment
-import com.mrr.animalshelter.ui.base.BaseFragment
+import com.mrr.animalshelter.core.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import com.mrr.animalshelter.ui.page.main.fragment.collected.AnimalShelterCollectedDetailFragment
 import com.mrr.animalshelter.ui.page.main.fragment.collected.AnimalShelterCollectedMainFragment

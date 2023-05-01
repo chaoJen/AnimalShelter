@@ -15,8 +15,8 @@ import com.mrr.animalshelter.data.AnimalFilter
 import com.mrr.animalshelter.ktx.getPreference
 import com.mrr.animalshelter.ktx.putPreference
 import com.mrr.animalshelter.ktx.switchFragment
-import com.mrr.animalshelter.ui.base.AnyViewModelFactory
-import com.mrr.animalshelter.ui.base.BaseActivity
+import com.mrr.animalshelter.core.base.AnyViewModelFactory
+import com.mrr.animalshelter.core.base.BaseActivity
 import com.mrr.animalshelter.ui.page.main.fragment.AnimalShelterCollectedHostFragment
 import com.mrr.animalshelter.ui.page.main.fragment.AnimalShelterSearchHostFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -68,7 +68,7 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return true
     }
 

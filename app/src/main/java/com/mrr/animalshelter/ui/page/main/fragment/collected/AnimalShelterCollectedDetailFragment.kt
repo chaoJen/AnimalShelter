@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.ui.adapter.AnimalShelterDetailAdapter
-import com.mrr.animalshelter.ui.base.BaseFragment
+import com.mrr.animalshelter.ui.page.main.fragment.adapter.AnimalShelterDetailAdapter
+import com.mrr.animalshelter.core.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_collected_detail.*
 

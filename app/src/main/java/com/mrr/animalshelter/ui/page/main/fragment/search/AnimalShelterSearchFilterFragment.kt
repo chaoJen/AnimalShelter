@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mrr.animalshelter.R
 import com.mrr.animalshelter.data.element.*
-import com.mrr.animalshelter.ui.adapter.*
-import com.mrr.animalshelter.ui.base.BaseFragment
+import com.mrr.animalshelter.core.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
+import com.mrr.animalshelter.ui.page.main.fragment.search.adapter.*
 import kotlinx.android.synthetic.main.fragment_search_filter.*
 
 class AnimalShelterSearchFilterFragment : BaseFragment() {

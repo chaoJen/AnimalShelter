@@ -1,4 +1,4 @@
-package com.mrr.animalshelter.ui.adapter
+package com.mrr.animalshelter.ui.page.main.fragment.search.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import com.mrr.animalshelter.data.Animal
 import com.mrr.animalshelter.ktx.loadImage
 import kotlinx.android.synthetic.main.item_animal_gallery.view.*
 
-class AnimalShelterCollectedAdapter : ListAdapter<Animal, AnimalShelterCollectedAdapter.AnimalViewHolder>(
+class AnimalShelterSearchAdapter : ListAdapter<Animal, AnimalShelterSearchAdapter.AnimalViewHolder>(
     object : DiffUtil.ItemCallback<Animal>() {
         override fun areItemsTheSame(oldItem: Animal, newItem: Animal): Boolean {
             return oldItem.animalId == newItem.animalId
@@ -45,10 +45,10 @@ class AnimalShelterCollectedAdapter : ListAdapter<Animal, AnimalShelterCollected
     ) {
         private lateinit var animal: Animal
         private val onClickListener = View.OnClickListener {
-            this@AnimalShelterCollectedAdapter.onItemClickListener?.invoke(animal)
+            this@AnimalShelterSearchAdapter.onItemClickListener?.invoke(animal)
         }
         private val onLongClickListener = View.OnLongClickListener {
-            this@AnimalShelterCollectedAdapter.onItemLongClickListener?.invoke(animal)
+            this@AnimalShelterSearchAdapter.onItemLongClickListener?.invoke(animal)
             true
         }
 
@@ -56,6 +56,7 @@ class AnimalShelterCollectedAdapter : ListAdapter<Animal, AnimalShelterCollected
             animal = getItem(position)
             itemView.setOnClickListener(onClickListener)
             itemView.setOnLongClickListener(onLongClickListener)
+            itemView.ivCollection.visibility = if (mAllCollectedAnimalIds.contains(animal.animalId)) View.VISIBLE else View.GONE
             itemView.context.loadImage(
                 animal.albumFile,
                 itemView.ivAnimal

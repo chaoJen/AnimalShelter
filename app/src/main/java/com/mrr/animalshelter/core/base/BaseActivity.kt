@@ -1,14 +1,14 @@
-package com.mrr.animalshelter.ui.base
+package com.mrr.animalshelter.core.base
 
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import kotlin.random.Random
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseActivity : AppCompatActivity() {
 
     private val mOnActivityResultMap = mutableMapOf<Int, (resultCode: Int, data: Intent?) -> Unit>()
     private var mPermissionsRequiredOperation: PermissionsRequiredOperation? = null
@@ -16,7 +16,6 @@ abstract class BaseFragment : Fragment() {
     companion object {
         private val TAG = BaseActivity::class.java.simpleName
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -30,7 +29,6 @@ abstract class BaseFragment : Fragment() {
         grantResults: IntArray
     ) {
         val hasPermissions = checkPermissions(permissions)
-
         if (hasPermissions) {
             mPermissionsRequiredOperation?.onExecute(requestCode, permissions)
         } else {
@@ -52,7 +50,7 @@ abstract class BaseFragment : Fragment() {
         startActivityForResult(intent, requestCode)
     }
 
-    protected fun executePermissionsRequiredOperation(
+    protected fun withPermissions(
         requirePermissions: Array<String>,
         onPreExecute: ((onUserConfirm: () -> Unit) -> Unit) = { onUserConfirm -> onUserConfirm() },
         onExecute: () -> Unit,
@@ -61,14 +59,12 @@ abstract class BaseFragment : Fragment() {
     ) {
         onPreExecute {
             val requestCode = Random.nextInt(0, Int.MAX_VALUE)
-
             mPermissionsRequiredOperation = createOperation(
                 requirePermissions,
                 onExecute,
                 onPermissionsDenied,
                 onNotShowPermissionRationaleUi
             )
-
             mPermissionsRequiredOperation?.onExecute(requestCode, mPermissionsRequiredOperation?.onRequirePermissions())
         }
     }
@@ -84,11 +80,9 @@ abstract class BaseFragment : Fragment() {
     private fun checkPermissions(permissions: Array<String>): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (permission in permissions) {
-                context?.let {
-                    if (ActivityCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
-                        return false
-                    }
-                } ?: return false
+                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false
+                }
             }
             return true
         }

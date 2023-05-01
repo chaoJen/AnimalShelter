@@ -8,9 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mrr.animalshelter.R
-import com.mrr.animalshelter.ui.adapter.AnimalShelterCollectedAdapter
-import com.mrr.animalshelter.ui.base.BaseFragment
+import com.mrr.animalshelter.core.base.BaseFragment
 import com.mrr.animalshelter.ui.page.main.MainViewModel
+import com.mrr.animalshelter.ui.page.main.fragment.collected.adapter.AnimalShelterCollectedAdapter
 import kotlinx.android.synthetic.main.fragment_collected_main.*
 
 class AnimalShelterCollectedMainFragment : BaseFragment() {

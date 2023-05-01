@@ -1,4 +1,4 @@
-package com.mrr.animalshelter.ui.base
+package com.mrr.animalshelter.core.base
 
 import android.content.Context
 import android.util.AttributeSet

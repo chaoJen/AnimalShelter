@@ -1,4 +1,4 @@
-package com.mrr.animalshelter.ui.base
+package com.mrr.animalshelter.core.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

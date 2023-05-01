@@ -1,4 +1,4 @@
-package com.mrr.animalshelter.ui.adapter
+package com.mrr.animalshelter.ui.page.main.fragment.adapter
 
 import android.content.Intent
 import android.net.Uri

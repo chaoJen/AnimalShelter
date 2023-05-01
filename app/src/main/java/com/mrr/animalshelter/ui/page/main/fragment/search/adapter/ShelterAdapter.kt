@@ -1,4 +1,4 @@
-package com.mrr.animalshelter.ui.adapter
+package com.mrr.animalshelter.ui.page.main.fragment.search.adapter
 
 import android.view.LayoutInflater
 import android.view.View

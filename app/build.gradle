@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 32
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.mrr.findingrover"
-        minSdkVersion 23
-        targetSdkVersion 29
+        applicationId "com.mrr.animalshelter"
+        minSdkVersion 26
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
@@ -25,12 +25,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
