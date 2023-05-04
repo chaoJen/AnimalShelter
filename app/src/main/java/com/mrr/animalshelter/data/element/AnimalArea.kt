@@ -1,8 +1,10 @@
 package com.mrr.animalshelter.data.element
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import com.mrr.animalshelter.R
 
+@Keep
 enum class AnimalArea(
     val id: Int,
     @StringRes val nameResourceId: Int,

@@ -1,8 +1,10 @@
 package com.mrr.animalshelter.data.element
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import com.mrr.animalshelter.R
 
+@Keep
 enum class AnimalColour(val id: String, @StringRes val nameResourceId: Int) {
     All("", R.string.colour_all),
     White("白", R.string.colour_white),
